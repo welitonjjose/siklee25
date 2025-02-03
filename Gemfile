@@ -90,7 +90,7 @@ gem 'rubyzip'
 # gem 'axlsx_rails'
 
 # SOAP client
-gem 'savon', '~> 2.12.0'
+gem 'savon', '~> 2.15.1'
 
 # Advanced enumerations support
 gem 'enumerate_it'
