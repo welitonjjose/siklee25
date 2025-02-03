@@ -484,7 +484,7 @@ GEM
       hashie
       version_gem (~> 1.1, >= 1.1.1)
     socksify (1.7.1)
-    solid_cable (3.0.5)
+    solid_cable (3.0.7)
       actioncable (>= 7.2)
       activejob (>= 7.2)
       activerecord (>= 7.2)
