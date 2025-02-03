@@ -1,0 +1,20 @@
+/* Globals */
+@import 'redesign/config/fonts.scss';
+
+/* Components */
+@import 'redesign/components/alerts.scss';
+@import 'redesign/components/forms.scss';
+@import 'redesign/components/tables.scss';
+@import 'redesign/components/tags.scss';
+@import 'redesign/components/search.scss';
+@import 'redesign/components/cards.scss';
+@import 'redesign/components/modal.scss';
+
+/* Sections */
+@import 'redesign/navigation.scss';
+@import 'redesign/content.scss';
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

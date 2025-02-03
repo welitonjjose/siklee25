@@ -1,0 +1,67 @@
+/*
+* Tags components
+*/
+.tag {
+  @use "tailwindcss" as *;
+  @apply text-sm py-2 px-3 text-center rounded-lg;
+}
+
+.tag.info {
+  @use "tailwindcss" as *;
+  @apply bg-blue-100 text-blue-900;
+}
+
+.tag.active {
+  @use "tailwindcss" as *;
+  @apply bg-green-200 text-green-900;
+}
+
+.tag.reverted {
+  @use "tailwindcss" as *;
+  @apply bg-orange-200 text-orange-900;
+}
+
+.tag.deactivated {
+  @use "tailwindcss" as *;
+  @apply bg-red-200 text-red-900;
+}
+
+.tag.pending {
+  @use "tailwindcss" as *;
+  @apply bg-amber-200 text-amber-900;
+}
+
+.tag.admin {
+  @use "tailwindcss" as *;
+  @apply bg-indigo-600 text-indigo-50;
+}
+
+.tag.company {
+  @use "tailwindcss" as *;
+  @apply bg-red-600 text-red-50;
+}
+
+.tag.employee {
+  @use "tailwindcss" as *;
+  @apply bg-orange-600 text-orange-50;
+}
+
+.tag.employer {
+  @use "tailwindcss" as *;
+  @apply bg-yellow-600 text-yellow-50;
+}
+
+.tag.manager {
+  @use "tailwindcss" as *;
+  @apply bg-amber-600 text-amber-50;
+}
+
+.tag.consultant {
+  @use "tailwindcss" as *;
+  @apply bg-violet-600 text-violet-50;
+}
+
+.tag.collaborator {
+  @use "tailwindcss" as *;
+  @apply bg-purple-600 text-purple-50;
+}

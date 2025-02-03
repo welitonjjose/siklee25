@@ -1,0 +1,47 @@
+<h2>
+  <%= t('.title') %>
+</h2>
+
+<p class="description">
+  Aqui você encontra todos os consultores associados à sua empresa.
+</p>
+
+<div class="table-with-scroll">
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">
+          Razão Social
+        </th>
+        <th scope="col" class="text-center">
+          Responsável
+        </th>
+        <th scope="col" class="text-center">
+          Celular
+        </th>
+        <th scope="col" class="text-center">
+          Email
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @consultants.each do |consultant| %>
+        <tr>
+          <td class="text-center">
+            <%= consultant.razao_social %>
+          </td>
+          <td class="text-center">
+            <%= consultant.nome %>
+          </td>
+          <td class="text-center">
+            <%= consultant.celular %>
+          </td>
+          <td class="text-center">
+            <%= consultant.email %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

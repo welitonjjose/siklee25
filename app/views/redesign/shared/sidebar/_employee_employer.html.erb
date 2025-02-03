@@ -1,0 +1,84 @@
+<ul class="sidebar">
+  <li class="<%= 'active' if current_page?(dashboard_path) %>">
+    <%= link_to dashboard_path do %>
+      <%= inline_svg 'icons/home.svg', alt: 'Dashboard' %>
+
+      Home
+    <% end %>
+  </li>
+
+  <% unless current_funcionario&.funcionario_lgpd? %>
+    <li class="<%= 'active' if current_page?(aceitar_lgpd_path) %>">
+      <%= link_to aceitar_lgpd_path do %>
+        <%= inline_svg 'icons/terms.svg', alt: 'Termos de uso e LGPD', class: 'icon w-12 -mr-2' %>
+
+        Ler termos de uso e LGPD
+      <% end %>
+    </li>
+  <% else %>
+    <li class="<%= 'active' if current_page?(new_employee_path) %>">
+      <%= link_to new_employee_path do %>
+        <%= inline_svg 'icons/new_user.svg', alt: 'Novo Funcionário', class: 'icon w-9' %>
+
+        Novo Funcionário(a)
+      <% end %>
+    </li>
+
+    <li class="<%= 'active' if current_page?(tutorials_path) %>">
+      <%= link_to tutorials_path do %>
+        <%= inline_svg 'icons/tutorials.svg', alt: 'Tutoriais' %>
+
+        Tutoriais
+      <% end %>
+    </li>
+
+    <li class="<%= 'active' if current_page?(funcionarios_pages_path) %>">
+      <%= link_to funcionarios_pages_path do %>
+        <%= inline_svg 'icons/employees.svg', alt: 'Listar Funcionários' %>
+
+        Funcionários
+      <% end %>
+    </li>
+
+    <li class="<%= 'active' if current_page?(new_atestado_path) %>">
+      <%= link_to new_atestado_path do %>
+        <%= inline_svg 'icons/medical_certificate.svg', alt: 'Novo atestado' %>
+
+        Novo Atestado
+      <% end %>
+    </li>
+
+    <li class="<%= 'active' if current_page?(atestados_path) %>">
+      <%= link_to atestados_path do %>
+        <%= inline_svg 'icons/directory.svg', alt: 'Listar atestados' %>
+
+        Monitoramento de Atestados
+      <% end %>
+    </li>
+
+    <li class="<%= 'active' if current_page?(okays_path) %>">
+      <%= link_to okays_path do %>
+        <%= inline_svg 'icons/check.svg', alt: 'Aprovações' %>
+
+        Aprovações
+      <% end %>
+    </li>
+
+    <% unless current_funcionario.vinculos.last.empresa.bi_url.nil? %>
+      <li class="<%= 'active' if current_page?(current_funcionario.vinculos.last.empresa.bi_url) %>">
+        <%= link_to current_funcionario.vinculos.last.empresa.bi_url, target: '_blank' do %>
+          <%= inline_svg 'icons/pulse.svg', alt: 'Acesso ao BI', class: 'icon w-8 h-8' %>
+
+          BI
+        <% end %>
+      </li>
+    <% end %>
+    <li class="<%= 'active' if current_page?(squads_path) %>">
+      <%= link_to squads_path do %>
+        <%= inline_svg 'icons/company.svg', alt: 'Departamentos', class: 'icon w-8 h-8' %>
+
+        Departamentos
+      <% end %>
+    </li>
+  <% end %>
+</ul>

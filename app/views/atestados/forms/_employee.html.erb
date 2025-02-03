@@ -1,0 +1,102 @@
+
+<%= f.hidden_field :origem, value: 'funcionario' %>
+<%= f.hidden_field :uuid, value: current_funcionario.id, id: "uuid" %>
+
+<%= f.input :tipo_de_atestado, label: 'Tipo de Atestado',
+  collection: medical_certificate_types_values,
+  hint: t(:medical_certificate_type, scope: 'atestados.form.hints'),
+  input_html: { class: 'js-select mb-3' },
+  include_blank: false %>
+
+<%= f.input :tipo_de_registro, label: 'Tipo de Registro',
+  collection: ['CRM-medico','CRO-dentista','Outros'],
+  input_html: { class: 'js-select mb-3' },
+  include_blank: false %>
+
+<%= f.input :numero_de_registro, label: 'Número do Registro',
+  placeholder: '0000000-UF',
+  hint: '*Número, hífen e sigla do estado em UF',  input_html: { pattern: "\d+\-[A-Za-z]{2}", class: "register-doctor" }%>
+
+<%= f.hidden_field :uf_medico, value: 'SP' %>
+<%= f.hidden_field :especialidade_medica, value: 'CLINICA GERAL'%>
+
+<div id="examinador-row" class="hidden outline-dashed outline-2 outline-gray-200 p-3 my-2">
+  <%= f.input :examinador_registro, label: 'Examinador',
+    collection: ['CRM-medico'],
+    input_html: { class: 'js-select mb-3' },
+    include_blank: true %>
+
+  <%= f.input :examinador_numero_registro, label: 'Registro',
+    placeholder: '0000000-UF',
+    input_html: { autocomplete: 'off', pattern: "\d+\-[A-Za-z]{2}", class: "register-doctor" },
+    hint: '*Número, hífen e sigla do estado em UF' %>
+
+  <%= f.hidden_field :uf_examinador %>
+</div>
+
+<%= f.input :cnpj, label: 'CNPJ', placeholder: 'XXXXXXXX0001XX', hint: '*Informe somente NÚMEROS, se estiver no atestado', input_html: { class: 'cnpj' } %>
+
+<input type="checkbox" id="nao-sei-cnpj" />
+
+<label for="nao-sei-cnpj">
+  Não sei o CNPJ
+</label>
+
+<div id="instituicao-row" class="hidden outline-dashed outline-2 outline-gray-200 p-3 my-2">
+  <%= f.input :instituicao_de_saude, label: 'Instituição de Saúde',
+    placeholder: 'Hospital Santa Casa',
+    hint: '*Informe o nome do Hospital, Clínica, Consultório, etc igual ao atestado' %>
+</div>
+
+<%= f.input :data_de_emissao, label: 'Data de Emissão',
+  input_html: { autocomplete: 'off' },
+  hint: '*Data do Atestado'%>
+
+<%= f.hidden_field :data_de_apresentacao, value: Time.current %>
+
+<%= f.input :tempo_de_dispensa, label: 'Ausência',
+  input_html: { autocomplete: 'off' },
+  hint: '*Informe os dias, horas e minutos' %>
+
+<%= f.input :cid, label: 'CID e ou Descrição', placeholder: "CID ou Funcionário(a)-Apto(ASO's)", hint: '*Caso não esteja informado, digite não informado', include_blank: true %>
+
+<div id="complamentos-row" class="hidden outline-dashed outline-2 outline-gray-200 p-3 my-2">
+  <%= f.input :descricao_do_afastamento, label: 'Complementos',
+    collection: ['Doença', 'Acidente de Trabalho', 'Acidente de Trânsito', 'Licença Maternidade'],
+    input_html: { class: 'js-select mb-3' },
+    include_blank: true %>
+</div>
+
+<div id="exames-row" class="hidden outline-dashed outline-2 outline-gray-200 p-3 my-2">
+  <%= f.input :exames, label: 'Exames',
+    collection: ['Admissional', 'Demissional', 'Periódico', 'Retorno ao Trabalho', 'Mudança de Função'],
+    input_html: { class: 'js-select mb-3' },
+    include_blank: true %>
+
+  <%= f.input :exames_complementares, label: 'Tipo de Exame',
+    collection: ['Clínico', 'Laboratorial', 'Clínico e Laboratorial'],
+    input_html: { class: 'js-select mb-3' },
+    include_blank: true %>
+</div>
+
+
+<div class="wrapper-file">
+  <%= f.input :photos, as: :file2,  label: 'Foto - Somente uma por atestado',  input_html: { multiple: true, accept: 'image/*,.pdf' }  %>
+  <div class="flex items-center justify-center">
+    <label for="file-input">
+      <div class="flex">
+        <%= inline_svg 'icons/attachment', id: 'attachment', class: 'icon cursor-pointer' %>
+        <span id="showme"></span>
+      </div>
+    </label>
+    <%= inline_svg 'icons/close', id: 'close', class: 'icon cursor-pointer remove' %>
+  </div>
+</div>
+
+<%= f.input :nome_funcionario, input_html: { value: current_funcionario.nome }, as: :hidden %>
+
+<%= f.input :funcionario_okay, as: :boolean, boolean_style: :inline,
+  label: 'Certifico que os dados são do atestado?',
+  wrapper_html: { class: 'flex flex-row' } do %>
+  <%= f.input_field :funcionario_okay, class: 'flex-none', checked: true %>
+<% end %>

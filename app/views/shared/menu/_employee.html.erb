@@ -1,0 +1,19 @@
+<li class="nav-item dropdown">
+ <%= profile_photo_for(current_funcionario,
+                        class: "avatar dropdown-toggle", id: "navbarDropdown",
+                        data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
+<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+  <% unless current_funcionario&.funcionario_lgpd? %>
+    <%= link_to "Aceitar LGPD", aceitar_lgpd_path, class: "dropdown-item" %>
+    <%= link_to "Sair", destroy_funcionario_session_path, method: :delete, class: "dropdown-item" %>
+  <% else %>
+    <%= link_to "Tutoriais", tutorials_path, class: "dropdown-item" %>
+    <%= link_to "Tutoriais", tutorials_path, class: "dropdown-item" %>
+    <%= link_to "Novo Atestado", new_atestado_path, class: "dropdown-item" %>
+    <%= link_to "Atestados",  atestados_path, class: "dropdown-item" %>
+    <%= link_to "Aprovações",  okays_path, class: "dropdown-item" %>
+    <%= link_to "Atualizar Cadastro?", edit_funcionario_registration_path, class: "dropdown-item" %>
+    <%= link_to "Sair", destroy_funcionario_session_path, method: :delete, class: "dropdown-item" %>
+  </div>
+<% end %>
+</li>

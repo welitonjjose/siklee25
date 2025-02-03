@@ -1,0 +1,94 @@
+<h2>Controle de Funções</h2>
+
+<p class="description">
+  <% if admin? %>
+    Aqui você pode consultar as funções dos funcionários das empresas.
+  <% else %>
+    Aqui você pode consultar as funções dos funcionários da sua empresa.
+  <% end %>
+</p>
+
+<% if admin? %>
+  <%= simple_form_for funcionarios_function_path, method: :get,
+    defaults: {
+      wrapper_html: { class: 'default-wrapper-form' },
+      input_html: { class: 'custom-input' }
+    },
+    html: {
+      id: 'employee_function_form',
+      class: 'default-search',
+      autocomplete: 'off'
+    } do |f| %>
+    <%= f.input :company_id,
+      label: false,
+      prompt: 'Selecione a empresa',
+      selected: @company_id,
+      input_html: { class: 'js-select w-full' },
+      collection: Empresa.all.map {
+        |company| [company.razao_social, company.id]
+      }, include_blank: true %>
+
+    <%= button_tag class: 'icon' do %>
+      <%= inline_svg 'icons/magnifier', alt: 'Buscar' %>
+    <% end%>
+  <% end %>
+<% end %>
+
+<div class="table-with-scroll">
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">
+          Nome
+        </th>
+
+        <th scope="col" class="text-center">
+          Celular
+        </th>
+
+        <th scope="col" class="text-center hidden md:table-cell">
+          Departamento
+        </th>
+
+        <th scope="col" class="text-center">
+          Cargo
+        </th>
+
+        <th scope="col" class="text-center">
+          Empregador
+        </th>
+
+        <th scope="col" class="text-center">
+          Gestor
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @vinculos.each do |vinculo| %>
+        <tr>
+          <td class="text-left"><%= vinculo.funcionario.nome %></td>
+          <td class="text-center"><%= vinculo.funcionario.celular %></td>
+          <td class="text-center hidden md:table-cell"><%= vinculo.squad %></td>
+          <td class="text-center"><%= vinculo.cargo %></td>
+
+          <td class="text-center">
+            <%- if vinculo.empregador %>
+              <%= inline_svg 'icons/check', class: 'mx-auto w-6' %>
+            <% else %>
+              <%= inline_svg 'icons/x', class: 'mx-auto w-7' %>
+            <% end %>
+          </td>
+
+          <td class="text-center">
+            <%- if vinculo.gestor %>
+              <%= inline_svg 'icons/check', class: 'mx-auto w-6' %>
+            <% else %>
+              <%= inline_svg 'icons/x', class: 'mx-auto w-7' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

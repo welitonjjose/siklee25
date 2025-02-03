@@ -1,0 +1,39 @@
+<div class="nav-elements">
+  <li class="nav-item active">
+    <%= link_to "Nova Empresa", new_empresa_registration_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item active">
+    <%= link_to "Novo Funcionário", new_funcionario_registration_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item active">
+    <%= link_to "Tutoriais", tutorials_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item active">
+    <%= link_to "Funcionários(as)", funcionarios_pages_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item active">
+    <%= link_to "Novo Atestado", new_atestado_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item active">
+    <%= link_to "Atestados",  atestados_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item active">
+    <%= link_to "Aprovações", okays_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item active">
+    <%= link_to 'BI', current_admin.bi_urls.first.try(:bi_url), class: 'nav-link', target: '_blank' %>
+  </li>
+</div>
+
+<li class="nav-item dropdown">
+  <%= image_tag "https://media.idownloadblog.com/wp-content/uploads/2017/03/Twitter-new-2017-avatar-001.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+    <%= link_to "Novo Consultor(a)", new_consultant_registration_path, class: "dropdown-item" %>
+    <%= link_to "Novo Colaborador(a)", new_consultant_team_registration_path, class: "dropdown-item" %>
+    <%= link_to "Controle de Consultores", consultants_outsourcing_path, class: "dropdown-item" %>
+    <%= link_to "Controle de Funções", funcionarios_function_path, class: "dropdown-item" %>
+    <%= link_to "BI URL (novo)", new_bi_url_path, class: "dropdown-item" %>
+    <%= link_to "Log out", destroy_admin_session_path, method: :delete, class: "dropdown-item" %>
+  </div>
+</li>

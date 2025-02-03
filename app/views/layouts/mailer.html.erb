@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+      /* Email styles need to be inline */
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 15px 10px;
+        border: 1px solid #DDD;
+      }
+
+      .header {
+        background-color: #fafafa;
+        text-align: center;
+        padding-top: 10px;
+      }
+
+      h2 {
+        border-bottom: 1px solid #EEE;
+        padding-bottom: 10px;
+      }
+
+      .content {
+        padding: 0 0 20px;
+      }
+
+      .footer {
+        background-color: #2C3E50;
+        color: #EFEFEF;
+        padding: 10px;
+        text-align: center;
+      }
+
+      a {
+        color: #2C3E50;
+      }
+
+      a.details {
+        text-align: right;
+        display: block;
+      }
+
+      li {
+        margin: 10px 0;
+        list-style: none;
+      }
+
+      .warning-box {
+        color: #668DB9;
+        background-color: rgb(102 141 185 / 10%);
+        border-top: 2px solid #3F78B9;
+        padding: 10px 25px;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .code {
+        padding: 5px 8px;
+        background: rgb(230 230 230 / 75%);
+        border-radius: 5px;
+        color: #696969;
+      }
+
+      .copy-box {
+        padding: 5px 8px;
+        background: rgb(230 230 230 / 25%);
+        border-radius: 5px;
+        border: 1px dashed #696969;
+        color: #696969;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="header">
+        <%= link_to root_url do %>
+          <%= image_tag absolute_public_image_url('images/logos/siklee_small.png'),
+            alt: 'Siklee - Plataforma de Gestão dos Atestados Médicos',
+            title: 'Siklee - Plataforma de Gestão dos Atestados Médicos' %>
+        <% end %>
+      </h1>
+
+      <div class="content">
+        <%= yield %>
+      </div>
+
+      <div class="footer">
+        Plataforma de Gestão dos Atestados Médicos para empresas e colaboradores(as)!
+      </div>
+    </div>
+  </body>
+</html>

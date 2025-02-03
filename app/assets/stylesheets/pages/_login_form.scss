@@ -1,0 +1,59 @@
+.sign-page {
+  max-height: fit-content;
+  background: linear-gradient(284.96deg, #4a6987 -15.33%, #2c3e50 107.73%),
+    #2c3e50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 480px) {
+  .sign-up-page {
+  max-height: fit-content;
+  background: linear-gradient(284.96deg, #4a6987 -15.33%, #2c3e50 107.73%),
+    #2c3e50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+}
+
+.form-login {
+  background: white;
+  padding: 15px 20px;
+  margin-top: 95px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px $secondary-blue;
+  margin-bottom: 20px;
+  justify-content: center;
+  min-height: fit-content;
+  h2 {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    color: $main-blue;
+    padding: 10px;
+  }
+  .btn {
+    width: 100%;
+    font-size: 1.2em;
+    box-shadow: none;
+    margin: 0;
+    &.fb-btn {
+      margin-top: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .form-login {
+  padding: 5px 10px;
+  margin-top: 95px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px $secondary-blue;
+  margin-bottom: 2px;
+  min-width: fit-content;
+  }
+}

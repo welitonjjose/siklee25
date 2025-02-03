@@ -1,0 +1,7 @@
+<%= render 'shared/lgpd_terms' %>
+
+<%= form_with url: update_lgpd_path,
+  class: 'gray-form',
+  method: :post do |form| %>
+  <%= submit_tag 'Aceitar e continuar', class: 'button single-option' %>
+<% end %>

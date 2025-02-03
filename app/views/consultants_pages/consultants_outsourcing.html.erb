@@ -1,0 +1,116 @@
+<h2>
+  <%= t('.title') %>
+</h2>
+
+<p class="description">
+  Aqui você pode definir os acessos às empresas para os consultores cadastrados
+</p>
+
+<%= simple_form_for funcionarios_function_path, method: :get,
+  defaults: {
+    wrapper_html: { class: 'default-wrapper-form' },
+    input_html: { class: 'custom-input' }
+  },
+  html: { 
+    id: 'employee_function_form',
+    class: 'default-search w-1/5',
+    autocomplete: 'off'
+  } do |f| %>
+  <%= f.input :company_id, 
+    label: false,
+    prompt: 'Selecione a empresa',
+    selected: @company_id,
+    collection: Empresa.all.map { |company| [company.razao_social, company.id] },
+    include_blank: true,
+    input_html: { name: 'company_id', class: 'w-full' } %>
+
+  <%= button_tag class: 'icon' do %>
+    <%= inline_svg 'icons/magnifier', alt: 'Buscar' %>
+  <% end%>
+<% end %>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th scope="col">
+        Razão Social
+      </th>
+      <th scope="col">
+        Email
+      </th>
+      <th scope="col">
+        Nome
+      </th>
+      <th scope="col">
+        Empresa
+      </th>
+      <th scope="col">
+        Ações
+      </th>
+    </tr>
+  </thead>
+
+  <tbody id="links-table-body">
+    <% @links.each do |link| %>
+      <tr>
+        <td><%= link.consultant.razao_social %></td>
+        <td><%= link.consultant.email %></td>
+        <td><%= link.consultant.nome %></td>
+        <td class="text-center">
+          <%- if link.empresa_id %>
+            <%= link_to link.empresa.razao_social, rails_admin.show_path(model_name: :empresa, id: link.empresa_id) %>
+          <% end %>
+        </td>
+        <td class="enabled">
+          Habilitado
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <tbody id="consultants-table-body">
+    <% @consultants.each do |consultant| %>
+      <tr>
+        <td><%= consultant.razao_social %></td>
+        <td><%= consultant.email %></td>
+        <td><%= consultant.nome %></td>
+        <td></td>
+        <td class="relative">
+          <button aria-haspopup="true" aria-expanded="false" class="action dropdown-button">
+            <%= inline_svg 'icons/ellipsis', alt: 'Ações', class: 'mx-auto' %>
+          </button>
+
+          <ul class="custom-dropdown-menu hidden" aria-labelledby="dropdown-button" role="menu">
+            <li role="menuitem">
+              <span id="habilitar-<%= consultant.id %>-<%= params[:company_id] %>">
+                <%= link_to 'Habilitar', habilitar_consultor_path(consultant_id: consultant.id, company_id: params[:company_id]), method: :put, remote: true %>
+              </span>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  $(document).ready(function() {
+    $('#_funcionarios_function_company_id').on('change', function(event) {
+      $('#employee_function_form').submit();
+    });
+
+    const $button = $('.dropdown-button');
+    const $menu = $('.custom-dropdown-menu');
+
+    $button.on('click', function (event) {
+      const targetElement = $(event.currentTarget);
+
+      const menu = targetElement.next();
+      const expanded = targetElement.attr('aria-expanded') === 'true';
+
+      targetElement.attr('aria-expanded', !expanded);
+
+      menu.toggleClass('hidden');
+    });
+  });
+</script>

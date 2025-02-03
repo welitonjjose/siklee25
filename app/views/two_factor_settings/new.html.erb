@@ -1,0 +1,150 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Autenticação de 2 fatores - 2FA</h2>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-12">
+      <div class="alert alert-info relative">
+        <p class="text-center">Para acessar o 2FA é necessário baixar um APP compatível, na sua loja de aplicativos:</p>
+        <div class="items-center mt-3 gcontainer">
+          <div class="grow align-items-center">
+            <div class="gcol flex flex-column justify-right relative">
+              <div class="gimage-right">
+                <div class="flex flex-column justify-center items-center">
+                  <strong class="w-80">Google Authenticator</strong>
+                  <div style="width: 64px; height: 64px">
+                    <%= image_tag "icons/google_auth.svg" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="gcol flex flex-column justify-left relative">
+              <div class="gimage-left">
+                <div class="flex flex-column justify-center items-center">
+                  <strong class="w-80">Authy</strong>
+                  <div style="width: 64px; height: 64px">
+                    <%= image_tag "icons/authy.svg" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-deck">
+        <div class="card">
+          <div class="card-header">
+            1. Scan QR Code
+          </div>
+          <div class="card-body">
+            <p>Leia o código QR abaixo usando um dos APP's (Google Authenticator ou Authy)</p>
+            <hr/>
+            <div class="relative" style="height: 260px">
+              <div class="absolute" style="left: calc(50% - 120px); top: 5px">
+                <%= qr_code_as_svg(current_user.two_factor_qr_code_uri) %>
+              </div>
+            </div>
+            <hr/>
+            <p class="text-center">
+              Se preferir, insira o seguinte código manualmente: <code><%= current_user.otp_secret %></code>
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            2. Confirme o 2FA
+          </div>
+          <div class="card-body">
+            <p>Digite o código mostrado no APP</p>
+            <%= simple_form_for(:two_fa, url: two_factor_settings_path, method: :post) do |f| %>
+              <div class="form-inputs">
+                <%= f.input :code, label: "Código" %>
+                <%= f.input :password, label: 'Sua senha Atual' %>
+                <br/>
+                <%= f.submit 'Confirme o 2FA', class: 'rounded-lg border border-green-500 bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-white shadow-sm transition-all hover:border-green-700 hover:bg-green-700 focus:ring focus:ring-green-200 disabled:cursor-not-allowed disabled:border-green-300 disabled:bg-green-300' %>
+              </div>
+            <% end %>
+            <div class="mt-4">
+              <p>Se preferir, solicite o código clicando no link abaixo: </p>
+              <button id="openModal" type="button" class="rounded-lg border border-transparent bg-transparent px-5 py-2.5 text-center text-sm font-medium text-gray-700 shadow-none transition-all hover:bg-gray-100 disabled:bg-transparent disabled:text-gray-400" data-toggle="modal" data-target="#infoModal">
+                Enviar 2FA para o meu E-mail
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoModalLabel">Informações Adicionais</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Enviamos um e-mail com o código de acesso.</p>
+        <p>Por favor, verifique seu e-mail e digite o código recebido para continuar.</p>
+
+        <%= simple_form_for(:two_fa, url: api_v1_verify_code_path, method: :post) do |f| %>
+          <div class="form-inputs">
+            <%= f.input :code, label: "Código" %>
+            <%= f.input :resource, as: :hidden, input_html: { value: current_user.class } %>
+            <%= f.input :email, as: :hidden, input_html: { value: current_user.email } %>
+            <br/>
+
+            <%= f.submit 'Confirme o 2FA', class: 'rounded-lg border border-green-500 bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-white shadow-sm transition-all hover:border-green-700 hover:bg-green-700 focus:ring focus:ring-green-200 disabled:cursor-not-allowed disabled:border-green-300 disabled:bg-green-300' %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-center mt-5">
+  <% if current_user.is_a?(Funcionario) %>
+    <%= link_to "Sair", destroy_funcionario_session_path, method: :delete, class: "rounded-lg border border-green-500 bg-white px-5 py-2.5 text-center text-sm font-medium text-black shadow-sm transition-all hover:border-green-700 hover:bg-green-700 focus:ring focus:ring-green-200 disabled:cursor-not-allowed disabled:border-green-300 disabled:bg-green-300" %>
+  <% elsif current_user.is_a?(Admin) %>
+    <%= link_to "Sair", destroy_admin_session_path, method: :delete, class: "rounded-lg border border-green-500 bg-white px-5 py-2.5 text-center text-sm font-medium text-black shadow-sm transition-all hover:border-green-700 hover:bg-green-700 focus:ring focus:ring-green-200 disabled:cursor-not-allowed disabled:border-green-300 disabled:bg-green-300" %>
+  <% elsif current_user.is_a?(Empresa) %>
+    <%= link_to "Sair", destroy_empresa_session_path, method: :delete, class: "rounded-lg border border-green-500 bg-white px-5 py-2.5 text-center text-sm font-medium text-black shadow-sm transition-all hover:border-green-700 hover:bg-green-700 focus:ring focus:ring-green-200 disabled:cursor-not-allowed disabled:border-green-300 disabled:bg-green-300" %>
+  <% elsif current_user.is_a?(Consultant) %>
+    <%= link_to "Sair", destroy_consultant_session_path, method: :delete, class: "rounded-lg border border-green-500 bg-white px-5 py-2.5 text-center text-sm font-medium text-black shadow-sm transition-all hover:border-green-700 hover:bg-green-700 focus:ring focus:ring-green-200 disabled:cursor-not-allowed disabled:border-green-300 disabled:bg-green-300" %>
+  <% elsif current_user.is_a?(ConsultantTeam) %>
+    <%= link_to "Sair", destroy_consultant_team_session_path, method: :delete, class: "rounded-lg border border-green-500 bg-white px-5 py-2.5 text-center text-sm font-medium text-black shadow-sm transition-all hover:border-green-700 hover:bg-green-700 focus:ring focus:ring-green-200 disabled:cursor-not-allowed disabled:border-green-300 disabled:bg-green-300" %>
+  <% end %>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#openModal").click(() => {
+            fetch('/api/v1/send_code?email=<%=current_user.email %>&resource=<%=current_user.class.to_s %>', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then(response => {
+                if (response === true) $("#msgcode").html("Enviamos o codigo para seu E-mail!!!")
+            })
+        })
+    });
+</script>

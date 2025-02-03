@@ -1,0 +1,96 @@
+<h2>Funcionários</h2>
+
+<% content_for :section_navbar do %>
+  <li class="active">
+    <%= link_to 'Importar Funcionários(as)', importar_funcionarios_funcionarios_pages_path %>
+  </li>
+<% end %>
+
+<p class="description">
+  <% if admin? || consultant? || collaborator? %>
+    Aqui você encontra todos os funcionários das empresas que você está autorizado a visualizar.
+  <% else %>
+    Aqui você encontra todos os funcionários da sua empresa
+  <% end %>
+</p>
+<div class="w-full row justify-between hiddeninmodile">
+  <div class="flex flex-row gap-4 max-w-screen-lg flex-wrap md:w-2/5">
+    <%= form_tag funcionarios_empresa_path, method: :get, id: 'searchForm', class: 'default-search hiddeninmodile' do %>
+      <%- unless employee? && !current_user.employer? %>
+        <%= hidden_field_tag :role, params[:role], id: 'searchFormRole' %>
+        <%= hidden_field_tag :user_status, params[:user_status], id: 'searchFormUserStatus' %>
+        <%= hidden_field_tag :department, params[:department], id: 'searchFormDepartment' %>
+        <%= hidden_field_tag :job_function, params[:job_function], id: 'searchFormJobFunction' %>
+
+        <% unless employee? && current_user.employer? %>
+          <%= hidden_field_tag :empresa_id, params[:empresa_id], id: 'searchFormCompanyId' %>
+        <% end %>
+      <% end %>
+
+      <%= text_field_tag :query, params[:query],
+                         placeholder: 'Pesquisar Funcionário(a)...' %>
+
+      <%= button_tag class: 'icon' do %>
+        <%= inline_svg 'icons/magnifier', alt: 'Buscar' %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="md:w-3/5">
+    <div  class="row justify-end">
+      <%= link_to 'javascript:void(0);', class:
+        "open-modal filter-button
+      #{(params[:role].present? || params[:user_status].present?) ? 'filtered' : ''}" do %>
+        Filtrar
+
+        <%= inline_svg 'icons/filter', alt: 'Filtrar', class: 'icon' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-center" style="width: 100%">
+  <%= link_to 'javascript:void(0);', class:
+    "open-modal filter-button blockinmodile
+      #{(params[:role].present? || params[:user_status].present?) ? 'filtered' : ''}" do %>
+    Filtrar
+
+    <%= inline_svg 'icons/filter', alt: 'Filtrar', class: 'icon' %>
+  <% end %>
+</div>
+
+<%= render 'filters' unless employee? && !current_user.employer? %>
+
+<div id="funcionarios-empresa" class="table-with-scroll">
+</div>
+
+<script>
+  $(function() {
+    $("#searchForm, #filterForm").on("submit", function(event) {
+      event.preventDefault();
+
+      var form = $(this);
+
+      if ($(event.target).is("#searchForm")) {
+        $("#searchFormCompanyId").val($("#filterFormCompanyId").val())
+        $("#searchFormRole").val($("#filterFormRole").val())
+        $("#searchFormUserStatus").val($("#filterFormUserStatus").val())
+        $("#searchFormDepartment").val($("#filterFormDepartment").val())
+        $("#searchFormJobFunction").val($("#filterFormJobFunction").val())
+      }
+
+      $.ajax({
+        url: form.attr('action'),
+        method: form.attr('method'),
+        data: form.serialize(),
+        dataType: 'html',
+        success: function(data) {
+          $('#funcionarios-empresa').html(data);
+        },
+      });
+    });
+
+    <%- if employee? %>
+      $('form').trigger('submit');
+    <% end %>
+  });
+</script>

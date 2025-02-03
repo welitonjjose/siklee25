@@ -1,0 +1,162 @@
+<%= render 'redesign/shared/modal' do %>
+  <h3>Filtros</h3>
+
+  <%= simple_form_for('', url: funcionarios_empresa_path, method: :get,
+    html: { class: 'gray-form', id: 'filterForm' },
+    defaults: {
+      wrapper_html: { class: 'default-wrapper-form' },
+      input_html: { class: 'custom-input' }
+    }) do |f| %>
+
+    <%= f.input :query, as: :hidden, input_html: { value: params[:query] } %>
+
+    <div class="flex flex-col gap-4">
+      <% unless employee? && current_user.employer? %>
+        <%= f.input :empresa_id,
+          collection: @empresas,
+          label: 'Empresa',
+          label_method: :razao_social,
+          value_method: :id,
+          include_blank: true,
+          input_html: {
+            class: 'js-select simple-select',
+            id: 'filterFormCompanyId',
+            onchange: 'triggerForm()'
+          },
+          selected: params[:empresa_id],
+          prompt: 'Selecione uma empresa',
+          required: false %>
+      <% end %>
+
+      <%= f.input :role,
+        collection: [
+          ['Empregador', 'employer'],
+          ['Gestor', 'manager'],
+          ['Funcionário', 'employee']
+        ],
+        selected: params[:role],
+        prompt: 'Selecione um perfil',
+        input_html: {
+          id: 'filterFormRole',
+          class: 'js-select'
+        },
+        include_blank: true,
+        required: false %>
+
+      <%= f.input :user_status,
+        collection: [
+          ['Ativo', 'active'],
+          ['Inativo', 'inactive']
+        ],
+        selected: params[:user_status],
+        prompt: 'Selecione um status',
+        input_html: {
+          id: 'filterFormUserStatus',
+          class: 'js-select'
+        },
+        include_blank: true,
+        required: false %>
+
+      <%= f.input :department,
+        collection: squads_by_user,
+        selected: params[:department],
+        prompt: 'Selecione o Departamento',
+        input_html: {
+          id: 'filterFormDepartment',
+          class: 'js-select'
+        },
+        include_blank: true,
+        required: false %>
+
+      <%= f.input :job_function,
+        collection: @job_functions,
+        selected: params[:job_function],
+        prompt: 'Selecione o Cargo',
+        input_html: {
+          id: 'filterFormJobFunction',
+          class: 'js-select'
+        },
+        include_blank: true,
+        required: false %>
+
+      <%= f.input :funcionario_lider_id,
+          collection: lideres_by_empresa,
+          selected: params[:funcionario_lider_id],
+          prompt: 'Selecione o Lider Direto',
+          input_html: { class: 'js-select' },
+          include_blank: true,
+          required: false %>
+
+      <div class="filters-form">
+        <div class="flex flex-row flex-wrap gap-4 mt-4">
+          <%= link_to 'Limpar Filtros', funcionarios_pages_path, class: 'clear-filters-button' %>
+
+          <%= f.button :submit, 'Filtrar', class: 'filter-button button', data: { disable_with: false } %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <script>
+    $(document).ready(function(event) {
+      const filterForm = $("#filterForm");
+      const filterButton = $(".filter-button");
+
+      const closeModalButton = $(".close-modal");
+
+      filterForm.on('submit', function() {
+        closeModalButton.trigger("click");
+      });
+
+      filterButton.on('click', function() {
+        closeModalButton.trigger("click");
+      });
+    });
+
+    function triggerForm() {
+      $('#filterForm').submit();
+
+      let company_id = $('#filterFormCompanyId').val();
+
+      console.log('Listando squads')
+      $.ajax({
+        url: `/squads/list?company_id=${company_id}`,
+        method: 'get',
+        dataType: 'json',
+        success: function(jsonData) {
+          var selectElement = $('#filterFormDepartment');
+          selectElement.empty();
+
+          selectElement.append($('<option>', {
+            value: '',
+            text: 'Selecione o Departamento'
+          }));
+
+          selectElement.append($('<option>', {
+            value: '',
+            text: ''
+          }));
+
+          $.each(jsonData, function(index, item) {
+            selectElement.append($('<option>', {
+                value: item.id,
+                text: item.name
+            }));
+        });
+
+          selectElement.selectpicker('destroy');
+          selectElement.selectpicker({
+            liveSearch: true,
+            liveSearchNormalize: true,
+            liveSearchPlaceholder: "Buscar",
+            style: null,
+            noneSelectedText: "Nenhuma opção selecionada",
+            noneResultsText: "Nenhum resultado encontrado",
+            selectAllText: "Selecionar todos",
+            container: "body",
+          });
+        },
+      });
+    }
+  </script>
+<% end %>

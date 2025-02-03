@@ -1,0 +1,56 @@
+<h2>Cadastro de Funcionário</h2>
+
+<p class="description">
+  Aqui você pode registrar novos colaboradores para a sua equipe
+</p>
+
+<%= simple_form_for(@employee, as: :funcionario, url: employees_path, html: {
+  class: 'gray-form'
+}, defaults: {
+  wrapper_html: { class: 'default-wrapper-form' },
+  input_html: { class: 'custom-input' }
+}) do |f| %>
+
+  <%= f.error_notification %>
+
+  <div class="flex flex-row gap-x-8 flex-wrap justify-around">
+    <%= render partial: 'form', locals: { f: f, employee: @employee } %>
+  </div>
+
+  <%= f.button :submit, 'Registrar Colaborador', class: 'button' %>
+<% end %>
+
+<% content_for :section_navbar do %>
+
+  <li class="active">
+    <%= link_to 'Cadastro de Funcionário', new_employee_path %>
+  </li>
+  <li>
+    <%= link_to 'Importar Funcionários(as)', importar_funcionarios_funcionarios_pages_path %>
+  </li>
+<% end %>
+
+<% content_for :custom_js do %>
+  <script>
+    $(document).ready(function () {
+      const availableTags = [
+        'Adm', 'Serviço', 'Produção', 'Vendas', 'Liderança', 'Recursos Humamos', 'Profissional da Saúde'
+      ];
+
+      $('#funcionario_vinculos_attributes_cargo').autocomplete({
+        source: availableTags,
+        required: true
+      });
+
+      <% if @employee.errors.messages[:'vinculos.empresa'].present? %>
+          $('.btn[data-id="funcionario_vinculos_attributes_empresa_id"]').attr('style', 'border-color: red;')
+          $('#vinculos_empresa').show()
+      <% end %>
+
+      <% if @employee.errors.messages[:'vinculos.cargo'].present? %>
+          $('#funcionario_vinculos_attributes_cargo').attr('style', 'border-color: red;')
+          $('#vinculos_cargo').show()
+      <% end %>
+    });
+  </script>
+<% end %>

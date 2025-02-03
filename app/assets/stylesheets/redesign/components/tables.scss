@@ -1,0 +1,77 @@
+/*
+* Table components
+*/
+.custom-table {
+  @use "tailwindcss" as *;
+  @apply table-auto md:overflow-x-auto
+    w-full rounded-t-lg my-3 p-4
+    divide-y divide-gray-300;
+}
+
+.custom-table tr:first-child th:first-child {
+  @apply rounded-tl-lg;
+}
+
+.custom-table tr:first-child th:last-child {
+  @apply rounded-tr-lg;
+}
+
+.custom-table thead th,
+.custom-table tfoot td,
+.custom-table tfoot th {
+  @apply bg-gray-100 font-medium text-slate-900 text-sm py-4 px-5;
+}
+
+.custom-table tfoot th {
+  @apply font-bold;
+}
+
+.custom-table tbody {
+  @apply divide-y divide-gray-200;
+}
+
+.custom-table tbody td {
+  @apply text-slate-800 text-sm py-4 px-5;
+}
+
+.custom-table tbody td .icon {
+  @apply fill-gray-500;
+}
+
+.custom-table tbody td .action {
+  @apply w-full cursor-pointer;
+}
+
+.custom-table tbody td.enabled {
+  @apply text-green-500 text-center;
+}
+
+.custom-table tbody td .action:hover .icon {
+  @apply fill-gray-900;
+}
+
+.custom-table a {
+  @apply text-blue-600 underline underline-offset-2
+    hover:text-blue-900;
+}
+
+.custom-table .custom-dropdown-menu {
+  @apply absolute bg-gray-50 mt-2 right-0 w-48
+    z-20 shadow-lg divide-y divide-gray-100;
+}
+
+.custom-table .custom-dropdown-menu li {
+  @apply px-2 py-3 text-center;
+
+  &:hover {
+    @apply bg-gray-100;
+  }
+}
+
+.custom-table .custom-dropdown-menu li a {
+  @apply text-slate-700;
+
+  &:hover {
+    @apply bg-gray-100 text-slate-900;
+  }
+}

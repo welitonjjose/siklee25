@@ -1,0 +1,32 @@
+<div class="divide-y divide-solid divide-gray-300 flex flex-col space-y-2 pt-12">
+  <div class="flex flex-row">
+    <p class="text-lg md:text-base flex-grow">
+      <strong>Certificado Digital - CFM?</strong>
+
+      <%= medical_certificate.cfm ? 'Sim' : 'Não' %>
+    </p>
+
+    <% if @atestado.funcionario.risco_ocupacional.present? %>
+      <p class="text-lg md:text-base flex-grow">
+        <strong>Risco Ocupacional:</strong>
+
+        <%= @atestado.funcionario.risco_ocupacional %>
+      </p>
+    <% end %>
+  </div>
+
+  <div class="flex flex-row flex-wrap gap-5 lg:gap-10 pt-10">
+    <div class="max-w-full md:w-auto lg:w-4/12 flex flex-col flex-grow gap-y-4 divide-y divide-solid divide-gray-200">
+      <%= render 'physician_info', medical_certificate: medical_certificate %>
+      <%= render 'examining_physician_info', medical_certificate: medical_certificate %>
+
+      <%= render 'general_info', medical_certificate: medical_certificate %>
+    </div>
+
+    <div class="flex-grow shrink max-w-full">
+      <% @atestado.photos.each do |photo| %>
+        <%= preview_for(attachment: photo) %>
+      <% end %>
+    </div>
+  </div>
+</div>

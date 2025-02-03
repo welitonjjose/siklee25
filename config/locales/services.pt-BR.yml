@@ -1,0 +1,8 @@
+---
+pt-BR:
+  services:
+    medical_certificate_creation:
+      specialties:
+        dentist: Odontologia
+    medical_certificate_physician_info_updater:
+      not_found: Não encontrado

@@ -1,0 +1,43 @@
+<h2>Atestados</h2>
+
+<p class="description">
+  Aqui você encontra todos os atestados do(a) funcionário(a)
+</p>
+
+<% if @atestados.count > 0 %>
+  <h3 class="text-lg mt-5 mb-3">
+    Total de Atestados: <%= @atestados.count %>
+  </h3>
+<% end %>
+
+<div class="table-with-scroll">
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th class="text-center">Nome</th>
+        <th class="text-center hidden md:table-cell">Tempo para Apresentação</th>
+        <th class="text-center">Data de Emissão</th>
+        <th class="text-center hidden md:table-cell">Tipo de Atestado</th>
+        <th class="text-center">Tempo de Dispensa</th>
+        <th class="text-center">CID/Descrição</th>
+        <th class="text-center hidden md:table-cell">Funcionário</th>
+        <th class="text-center hidden md:table-cell">Empresa</th>
+        <th class="text-center">Status Geral</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @atestados.count > 0 %>
+        <%= render partial: 'item', collection: @atestados %>
+      <% else %>
+        <tr>
+          <td colspan="3" class="table-cell md:hidden text-center">
+            Nenhum atestado encontrado.
+          </td>
+
+          <td colspan="7" class="hidden md:table-cell text-center">
+            Nenhum atestado encontrado.
+          </td>
+      <% end %>
+    </tbody>
+  </table>
+</div>

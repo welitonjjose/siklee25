@@ -1,0 +1,37 @@
+<div class="modal-overlay sidebar-right">
+  <div class="custom-modal">
+    <%= inline_svg 'icons/x', class: 'close-modal icon', alt: 'Fechar', title: 'Fechar' %>
+
+    <div class="custom-modal-content">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    const modal = $(".custom-modal");
+    const overlay = $(".modal-overlay");
+    const closeModalButton = $(".close-modal");
+
+    function openModal() {
+      overlay.fadeIn(300).css("display", "flex");;
+      modal.show("slide", { direction: "right" }, 300);
+    }
+
+    function closeModal() {
+      modal.hide("slide", { direction: "right" }, 300);
+      overlay.fadeOut(300);
+    }
+
+    $(".open-modal").on("click", openModal);
+
+    overlay.on("click", function(event) {
+      if ($(event.target).hasClass("modal-overlay")) {
+        closeModal();
+      }
+    });
+
+    closeModalButton.on("click", closeModal);
+  });
+</script>

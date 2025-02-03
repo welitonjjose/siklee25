@@ -1,0 +1,78 @@
+<h2>Monitoramento de Atestados</h2>
+
+<p class="description">
+  Aqui você encontra todos os atestados da sua empresa
+</p>
+
+<% unless consultant? || collaborator? %>
+  <% content_for :section_navbar do %>
+    <li class="active">
+      <%= link_to 'Monitoramento de Atestados', atestados_path %>
+    </li>
+
+    <li>
+      <%= link_to 'Novo Atestado', new_atestado_path %>
+    </li>
+  <% end %>
+<% end %>
+
+<div class="flex flex-col gap-y-4">
+  <div class="flex col-sm-12 flex-row flex-wrap gap-y-5 justify-between">
+    <%= render 'metrics' %>
+  </div>
+
+  <div class="flex col-sm-12 flex-row flex-wrap justify-between gap-5 relative">
+    <%= render 'search' %>
+    <%= render 'filters' %>
+  </div>
+
+  <div class="flex col-sm-12 flex-row flex-wrap gap-4 justify-between" >
+    <div class="row justify-between w-full" >
+      <div class="w-full col-md-6 col-sm-12">
+        <% if params[:employee_id].present? && @job_risk.present? %>
+          <div class="tag info border-4 border-double border-blue-300 p-2 shrink-0 align-middle">
+            <strong>Risco Ocupacional:</strong>
+            <span><%= @job_risk %></span>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-6 col-sm-12 hiddeninmodile" >
+        <%= render 'export' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table-with-scroll">
+  <table class="custom-table ">
+  <thead>
+    <tr>
+      <th class="text-center">Solicitante</th>
+      <th title"Data relativa de hoje à emissão do atestado" class="cursor-help text-center hidden md:table-cell">
+        Tempo para Apresentação
+      </th>
+      <th class="text-center">Data de Emissão</th>
+      <th class="text-center hidden md:table-cell">Tipo de Atestado</th>
+      <th class="text-center">Tempo de dispensa</th>
+      <th class="text-center">CID/Descrição</th>
+      <th class="text-center hidden md:table-cell">Funcionário</th>
+      <th class="text-center hidden md:table-cell">Empresa</th>
+      <th class="text-center">Status Geral</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @atestados.count > 0 %>
+      <%= render partial: 'item', collection: @atestados %>
+    <% else %>
+      <tr>
+        <td colspan="3" class="table-cell md:hidden text-center">
+          Nenhum atestado encontrado.
+        </td>
+
+        <td colspan="7" class="hidden md:table-cell text-center">
+          Nenhum atestado encontrado.
+        </td>
+    <% end %>
+  </tbody>
+</table>
+</div>

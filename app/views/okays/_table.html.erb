@@ -1,0 +1,27 @@
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th class="text-center">Solicitante</th>
+      <th class="text-center">Data de Emissão</th>
+      <th class="text-center hidden md:table-cell">Tipo de Atestado</th>
+      <th class="text-center">Tempo de dispensa</th>
+      <th class="text-center">CID/Descrição</th>
+      <th class="text-center hidden md:table-cell">Funcionário</th>
+      <th class="text-center hidden md:table-cell">Empresa</th>
+      <th class="text-center">Status Geral</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: 'medical_certificate', collection: medical_certificates %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td colspan="2"></td>
+      <th class="text-center">Total</th>
+      <td class="text-center"><%= presenter.total_absence_duration %></td>
+      <td colspan="4"></td>
+    </tr>
+  </tfoot>
+</table>

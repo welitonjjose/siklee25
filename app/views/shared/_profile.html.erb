@@ -1,0 +1,49 @@
+<% if admin? %>
+  <h4 class="profile-subtitle"><%= current_admin.email %></h3>
+
+  <div class="profile-info"></div>
+<% elsif company? %>
+    <%= profile_photo_for(current_empresa) %>
+
+    <h4 class="profile-name"><%= current_empresa.razao_social %></h4>
+    <h4 class="profile-subtitle"><%= current_empresa.email %></h4>
+    <h4 class="profile-subtitle"><%= current_empresa.celular %></h4>
+
+    <div class="profile-info">
+      <%= link_to "Editar Informações", edit_empresa_registration_path, class: "edit-info" %>
+    </div>
+<% elsif employee? %>
+  <%= profile_photo_for(current_funcionario) %>
+
+  <h4 class="profile-name"><%= current_funcionario.nome %></h4>
+  <h4 class="profile-subtitle"><%= current_funcionario.vinculos.last.empresa.razao_social %></h4>
+  <h4 class="profile-subtitle"><%= current_funcionario.email %></h4>
+  <h4 class="profile-subtitle"><%= current_funcionario.celular %></h4>
+
+  <div class="profile-info">
+    <%= link_to "Editar Informações", edit_funcionario_registration_path, class: "edit-info" %>
+  </div>
+<% elsif consultant? %>
+  <%= profile_photo_for(current_consultant) %>
+
+  <h4 class="profile-name"><%= current_consultant.nome %></h4>
+  <h4 class="profile-subtitle"><%= current_consultant.email %></h4>
+  <h4 class="profile-subtitle"><%= current_consultant.celular %></h4>
+
+  <div class="profile-info">
+    <%= link_to "Editar Informações", edit_consultant_registration_path, class: "edit-info" %>
+  </div>
+
+<% elsif collaborator? %>
+  <%= profile_photo_for(current_consultant_team) %>
+
+  <h4 class="profile-name"><%= current_consultant_team.nome %></h4>
+  <h4 class="profile-subtitle"><%= current_consultant_team.email %></h4>
+  <h4 class="profile-subtitle"><%= current_consultant_team.celular %></h4>
+
+  <div class="profile-info">
+    <%= link_to "Editar Informações", edit_consultant_team_registration_path, class: "edit-info" %>
+  </div>
+<% end %>
+
+<%= content_for(:profile_additional_info) %>

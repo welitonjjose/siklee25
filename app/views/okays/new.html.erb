@@ -1,0 +1,14 @@
+<div class="okay-page">
+  <div class= "text-center pt-3 pb-3">
+    <h3 class="secondary-title fs-3 mt-4">Aprovação</h3>
+  </div>
+  <div class="container form-okay text-center">
+    <%= simple_form_for [@atestado, @okay] do |f| %>
+      <%= f.input :funcionario_okay, as: :boolean, boolean_style: :inline, label: "" %>
+      <%= f.input :empresa_okay, as: :boolean, boolean_style: :inline, label: "" %>
+      <div id="buttons">
+        <%= f.submit "Enviar", class: "btn btn-primary edit-btn"%>
+      </div>
+    <% end %>
+  </div>
+</div>

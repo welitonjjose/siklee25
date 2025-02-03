@@ -1,0 +1,96 @@
+/*
+* Content
+*/
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  flex: 1;
+}
+
+.content main {
+  width: 100%;
+  padding: 5px;
+  @media (min-width: 1536px) {
+    padding: 20px;
+  }
+}
+
+.content h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  padding: 2rem 0;
+}
+
+.content .description {
+  font-weight: medium;
+  margin-bottom: 1rem;
+}
+
+.content .preview-iframe {
+  width: 100%;
+}
+
+.register-doctor{
+  text-transform: uppercase;
+}
+
+.simple-form-search{
+  border: none;
+}
+
+.wrapper-file{
+  padding: 40px;
+  text-align: center;
+  background-color: #fafafa;
+}
+
+.wrapper-file h2{
+  padding-bottom: 20px;
+}
+
+.wrapper-file #file-input{
+  display: none;
+}
+
+.wrapper-file label[for='file-input'] *{
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.wrapper-file label[for='file-input'] span{
+  margin-left: 10px;
+}
+
+.wrapper-file svg.remove{
+  vertical-align: middle;
+  margin-left: 5px;
+  cursor: pointer;
+  display: none;
+}
+
+.box1{
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  margin: 10px;
+  position: relative;
+}
+
+.box2{
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  background-color: blue;
+  border: 1px solid #ddd;
+  margin: 10px;
+  position: relative;
+}

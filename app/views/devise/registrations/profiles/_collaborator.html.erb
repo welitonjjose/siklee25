@@ -1,0 +1,21 @@
+<%= f.input :nome, autofocus: true, label: 'Nome', input_html: { autocomplete: 'off' } %>
+
+<%= f.input :celular, label: 'Celular', input_html: { autocomplete: 'off' } %>
+
+<%= f.input :email,
+  required: true,
+  autofocus: true,
+  input_html: { autocomplete: 'off' }%>
+
+<%= f.input :function, label: 'Função', input_html: { autocomplete: 'off' } %>
+
+<%= f.input :password,
+  label: 'Senha',
+  required: true,
+  hint: ("Mínimo de #{@minimum_password_length} caracteres" if @minimum_password_length),
+  input_html: { autocomplete: 'new-password' } %>
+
+<%= f.input :password_confirmation,
+  label: 'Confirmar Senha',
+  required: true,
+  input_html: { autocomplete: 'new-password' } %>

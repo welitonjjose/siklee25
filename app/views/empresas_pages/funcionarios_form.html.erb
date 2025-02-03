@@ -1,0 +1,49 @@
+<h2>
+  Editar Informações
+</h2>
+
+<%= simple_form_for(@vinculo.funcionario, url: funcionarios_form_update_path(@vinculo.id), html: {
+  class: 'gray-form'
+}, defaults: {
+  wrapper_html: { class: 'default-wrapper-form' },
+  input_html: { class: 'custom-input' }
+}) do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :nome, autofocus: true, label: 'Nome do Funcionário', readonly: !company? &&  !can_do? %>
+
+  <%= f.input :cpf, autofocus: true, label: 'CPF', hint: '*somente leitura', readonly: true %>
+
+  <%= f.input :rg, label: 'RG', hint: '*somente leitura', readonly: true %>
+
+  <%= f.input :sexo, autofocus: true, label: 'Gênero', hint: '*somente leitura', readonly: true %>
+
+  <%= f.input :data_nascimento, label: 'Data de Nascimento', hint: '*somente leitura', readonly: true %>
+
+  <%= f.input :pis, autofocus: true, label: 'PIS', hint: '*Número do PIS' %>
+
+  <%= f.input :celular, autofocus: true, label: 'Celular', hint: '*somente leitura', readonly: true %>
+
+  <%= f.input :email, label: 'Email', hint: '*somente leitura', readonly: true %>
+
+  <%= f.input :registro_empresa, autofocus: true, label: 'Registro na Empresa', hint: '*Número de matrícula' %>
+
+  <%= f.simple_fields_for :vinculos do |v| %>
+    <% if v.object.id == @vinculo.id %>
+      <%= v.input :id, as: :hidden, input_html: { value: v.object.id } %>
+
+      <%= v.input :ativo, collection: [['Sim', true], ['Não', false]], hint: 'Situação do usuário', label: 'Ativo', include_blank: true, readonly: has_role_permission? %>
+
+      <%= v.input :squad_id, collection: squads_by_empresa, hint: 'Informe um novo departamento', label: 'Departamento', include_blank: true,  readonly: !has_role_permission? %>
+
+      <%= v.input :cargo, hint: 'Informe a nova função', include_blank: true, readonly: !has_role_permission? %>
+
+      <%= v.input :funcionario_lider_id, collection: lideres_by_empresa(@vinculo.funcionario.id), hint: 'Informe o líder direto', label: 'Líder direto', include_blank: 'Admin-empresa', readonly: !has_role_permission?  %>
+
+      <%= v.input :cnpj_employee, autofocus: true, label: 'CNPJ do Funcionário', hint: 'CNPJ alocado na Empresa', include_blank: true, readonly: !has_role_permission?%>
+    <% end %>
+  <% end %>
+
+  <%= f.input :risco_ocupacional, autofocus: true, label: 'Risco Ocupacional' %>
+
+  <%= f.button :submit, 'Atualizar', class: 'button' %>
+<% end %>

@@ -1,0 +1,23 @@
+.lgpd-page {
+  background: linear-gradient(284.96deg, #4a6987 -15.33%, #2c3e50 107.73%),
+  #2c3e50;
+  display: flex;
+  padding-bottom: 35px;
+a {
+  color: $main-blue !important;
+}
+}
+
+.lgpd-title {
+  color: #FFFFFF !important;
+  font-family: "Poppins", sans-serif; 
+  text-align: center;
+  margin: 25px 0;
+}
+
+.lgpd-text {
+  color: $main-blue;
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 15px;
+}

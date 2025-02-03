@@ -1,0 +1,189 @@
+<div class="flex flex-row justify-end flex-wrap items-center gap-4 btn-filter hiddeninmodile" >
+  <%= link_to 'javascript:void(0);', class:
+    "open-modal filter-button #{filtering_medical_certificate? ? 'filtered' : ''}" do %>
+    Filtrar
+
+    <%= inline_svg 'icons/filter', alt: 'Filtrar', class: 'icon' %>
+  <% end %>
+</div>
+
+
+<div class="flex flex-row justify-center flex-wrap items-center gap-4 btn-filter blockinmodile mobile-space">
+  <%= link_to 'javascript:void(0);', class:
+    "open-modal filter-button #{filtering_medical_certificate? ? 'filtered' : ''}" do %>
+    Filtrar
+
+    <%= inline_svg 'icons/filter', alt: 'Filtrar', class: 'icon' %>
+  <% end %>
+</div>
+
+
+<%= render 'redesign/shared/modal' do %>
+  <h3>Filtros</h3>
+
+  <%= simple_form_for(
+    '', url: atestados_path, method: :get,
+    html: {
+      class: 'gray-form'
+    },
+    defaults: {
+      wrapper_html: { class: 'default-wrapper-form' },
+      input_html: { class: 'custom-input' }
+    }) do |f| %>
+
+    <%= hidden_field_tag :range_start, params[:range_start] %>
+    <%= hidden_field_tag :range_end, params[:range_end] %>
+
+    <%= f.input :query, as: :hidden, input_html: { value: params[:query] } %>
+
+    <div class="flex flex-col gap-4">
+      <% if admin? || consultant? || collaborator? %>
+        <%= f.input :company_id,
+          collection: @companies,
+          label: 'Empresa',
+          label_method: :razao_social,
+          value_method: :id,
+          include_blank: true,
+          input_html: {
+            class: 'js-select simple-select',
+            onchange: '$("._employee_id").remove();$(this).closest("form").submit();'
+          },
+          selected: params[:company_id],
+          prompt: 'Selecione uma empresa',
+          required: false %>
+      <% end %>
+
+      <% if admin? || company? || consultant? || collaborator? || (employee? && (current_user.employer?)) %>
+        <%= f.input :employee_id,
+          collection: @employees,
+          selected: params[:employee_id],
+          prompt: 'Selecione o funcionário solicitante',
+          input_html: { class: 'js-select' },
+          include_blank: true,
+          required: false %>
+      <% end %>
+
+      <% if employee? && (current_user.manager?) %>
+        <%= f.input :employee_id,
+          collection: funcionarios_by_gestor,
+          label_method: :nome,
+          selected: params[:employee_id],
+          prompt: 'Selecione o funcionário solicitante',
+          input_html: { class: 'js-select' },
+          include_blank: true,
+          required: false %>
+      <% end %>
+
+      <%= f.input :medical_certificate_type,
+        collection: Atestado::MEDICAL_CERTIFICATE_TYPES.values,
+        selected: params[:medical_certificate_type],
+        prompt: 'Selecione o Tipo de Atestado',
+        input_html: { class: 'js-select' },
+        include_blank: true,
+        required: false %>
+
+      <%= f.input :by_absence_reason,
+        collection: Atestado::ABSENCE_REASONS_FOR_DEFAULT.invert,
+        selected: params[:by_absence_reason],
+        prompt: 'Selecione o Motivo',
+        input_html: { class: 'js-select', id: "kind-atestado" },
+        required: false
+      %>
+
+      <%= f.input :physician_name,
+        collection: @physician_names,
+        selected: params[:physician_name],
+        prompt: 'Selecione o médico/atestadista',
+        input_html: { class: 'js-select' },
+        include_blank: true,
+        required: false %>
+
+      <%= f.input :medical_specialty,
+        collection: @medical_specialties,
+        selected: params[:medical_specialty],
+        prompt: 'Selecione a Especialidade Médica',
+        input_html: { class: 'js-select' },
+        include_blank: true,
+        required: false %>
+
+      <%= f.input :icd,
+        collection: @icds,
+        selected: params[:icd],
+        prompt: 'Selecione o CID',
+        input_html: { class: 'js-select' },
+        include_blank: true,
+        required: false %>
+
+      <%= f.input :medical_institution,
+        collection: @medical_institutions,
+        selected: params[:medical_institution],
+        prompt: 'Selecione a Instituição de Saúde',
+        input_html: { class: 'js-select' },
+        include_blank: true,
+        required: false %>
+
+      <% if admin? || company? || consultant? || collaborator? || (employee? && (current_user.employer? || current_user.manager?)) %>
+        <%= f.input :origin,
+          collection: [
+            ['Empresa', 'empresa'],
+            ['Funcionário', 'funcionario'],
+            ['Gestor', 'gestor']
+          ],
+          selected: params[:origin],
+          prompt: 'Selecione perfil Solicitante',
+          input_html: { class: 'js-select' },
+          include_blank: true,
+          required: false %>
+
+        <%= f.input :employee_status,
+          collection: [
+            ['Ativo', 'active'],
+            ['Inativo', 'inactive']
+          ],
+          selected: params[:employee_status],
+          prompt: 'Selecione Status do Funcionário',
+          input_html: { class: 'js-select' },
+          include_blank: true,
+          required: false %>
+      <% end %>
+
+      <%= f.input :department,
+        collection: @departments,
+        selected: params[:department],
+        prompt: 'Selecione o Departamento',
+        input_html: { class: 'js-select' },
+        include_blank: true,
+        required: false %>
+
+
+      <%= f.input :job_function,
+        collection: @job_functions,
+        selected: params[:job_function],
+        prompt: 'Selecione o Cargo',
+        input_html: { class: 'js-select' },
+        include_blank: true,
+        required: false %>
+
+      <%= f.input :funcionario_lider_id,
+        collection: lideres_by_empresa,
+        selected: params[:funcionario_lider_id],
+        prompt: 'Selecione o Lider Direto',
+        input_html: { class: 'js-select' },
+        include_blank: true,
+        required: false %>
+     
+      <div class="filters-form">
+        <div class="flex flex-row flex-wrap gap-4 mt-4">
+          <%= link_to 'Limpar Filtros', atestados_path, class: 'clear-filters-button' %>
+
+          <%= f.button :submit, 'Filtrar', class: 'button' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
+<script>
+  $(document).ready(function() {})
+</script>

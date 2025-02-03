@@ -1,0 +1,155 @@
+<%= f.hidden_field :origem, value: 'admin' %>
+
+<%= f.input :empresa_id, label: 'Selecione a empresa', required: true,
+  input_html: { class: 'js-select mb-3' },
+  collection: Empresa.all.map { |company| [company.razao_social, company.id] },
+  include_blank: true %>
+
+<%= f.input :funcionario_id, label: 'Selecione o funcionário', required: true,
+  input_html: { class: 'js-select mb-3' },
+  collection: [], disabled: true %>
+
+<%= f.input :tipo_de_atestado, label: 'Tipo de Atestado',
+  input_html: { class: 'js-select mb-3' },
+  collection: medical_certificate_types_values,
+  hint: t(:medical_certificate_type, scope: 'atestados.form.hints'), include_blank: false %>
+
+<%= f.input :tipo_de_registro, label: 'Tipo de Registro',
+  collection: ['CRM-medico','CRO-dentista','Outros'],
+  input_html: { class: 'js-select mb-3' },
+  include_blank: false %>
+
+<%= f.input :numero_de_registro, label: 'Número do Registro', placeholder: '0000000-UF', hint: '*Número, hífen e sigla do estado em UF', input_html: { pattern: "\d+\-[A-Za-z]{2}", class: "register-doctor" } %>
+<%= f.hidden_field :uf_medico, value: 'SP' %>
+<%= f.hidden_field :especialidade_medica, value: 'CLINICA GERAL'%>
+
+<div id="examinador-row" class="hidden outline-dashed outline-2 outline-gray-200 p-3 my-2">
+  <%= f.input :examinador_registro, label: 'Examinador',
+    collection: ['CRM-medico'],
+    input_html: { class: 'js-select mb-3' },
+    include_blank: true %>
+
+  <%= f.input :examinador_numero_registro, label: 'Registro', placeholder: '0000000-UF', input_html: { autocomplete: 'off', pattern: "\d+\-[A-Za-z]{2}", class: "register-doctor" }, hint: '*Número, hífen e sigla do estado em UF' %>
+  <%= f.hidden_field :uf_examinador %>
+</div>
+
+<%= f.input :cnpj, label: 'CNPJ', placeholder: 'XXXXXXXX0001XX', hint: '*Informe somente NÚMEROS, se estiver no atestado' %>
+
+<input type="checkbox" id="nao-sei-cnpj" />
+
+<label for="nao-sei-cnpj">
+  Não sei o CNPJ
+</label>
+
+<div id="instituicao-row" class="hidden outline-dashed outline-2 outline-gray-200 p-3 my-2">
+  <%= f.input :instituicao_de_saude, label: 'Instituição de Saúde', placeholder: 'Hospital Santa Casa', hint: '*Informe o nome do Hospital, Clínica, Consultório, etc igual ao atestado' %>
+</div>
+
+<%= f.input :data_de_emissao, label: 'Data de Emissão', input_html: { autocomplete: 'off' }, hint: '*Data do Atestado'%>
+
+<%= f.hidden_field :data_de_apresentacao, value: Time.current %>
+
+<%= f.input :tempo_de_dispensa, label: 'Ausência', input_html: { autocomplete: 'off' }, hint: '*Informe os dias, horas e minutos' %>
+
+<%= f.input :cid, label: 'CID e ou Descrição', placeholder: "CID ou Funcionário(a)-Apto(ASO's)",
+  hint: '*Caso não esteja informado, digite não informado',
+  include_blank: true %>
+
+<div id="complamentos-row" class="hidden outline-dashed outline-2 outline-gray-200 p-3 my-2">
+  <%= f.input :descricao_do_afastamento, label: 'Complementos', 
+    collection: ['Doença', 'Acidente de Trabalho', 'Acidente de Trânsito', 'Licença Maternidade'],
+    input_html: { class: 'js-select mb-3' },
+    include_blank: true %>
+</div>
+
+<div id="exames-row" class="hidden outline-dashed outline-2 outline-gray-200 p-3 my-2">
+  <%= f.input :exames, label: 'Exames',
+    collection: ['Admissional', 'Demissional', 'Periódico', 'Retorno ao Trabalho', 'Mudança de Função'],
+    input_html: { class: 'js-select mb-3' },
+    include_blank: true %>
+
+  <%= f.input :exames_complementares, label: 'Tipo de Exame',
+    collection: ['Clínico', 'Laboratorial', 'Clínico e Laboratorial'],
+    input_html: { class: 'js-select mb-3' },
+    include_blank: true %>
+</div>
+
+<%= f.hidden_field :nome_funcionario %>
+<%= f.hidden_field :rg_funcionario %>
+<%= f.hidden_field :cpf_funcionario %>
+
+<%= f.input :photos, label: 'Foto', as: :file,
+  input_html: { multiple: true } %>
+
+<script>
+  $(document).ready(function() {
+    const companySelect = $("#atestado_empresa_id");
+    const companyId = companySelect.find(":selected").val();
+
+    if (companyId !== "") {
+      fetchEmployees(companyId);
+    }
+
+    $("#atestado_empresa_id").on("change", function(event) {
+      var companyId = $(event.target).val();
+
+      clearEmployeeOptions();
+
+      if (companyId && companyId != "") {
+        fetchEmployees(companyId);
+      }
+    });
+
+    $("#atestado_funcionario_id").on("change", function(event) {
+      const selectedEmployee = $(event.target).find(":selected");
+      fillEmployeeName($(selectedEmployee).text());
+      fillEmployeeIdentifier($(selectedEmployee).data("rg"));
+      fillEmployeeRegistry($(selectedEmployee).data("cpf"));
+    });
+  });
+
+  function fetchEmployees(companyId) {
+    const employeeSelect = $("#atestado_funcionario_id");
+
+    $.get(`/empresas/${companyId}/funcionarios`, function(data) {
+      $.each(data, function(index, employee) {
+        if (index == 0) {
+          fillEmployeeName(employee.nome);
+          fillEmployeeIdentifier(employee.rg);
+          fillEmployeeRegistry(employee.cpf);
+        }
+
+        const option = $("<option></option>").attr({
+          "value": employee.id,
+          "data-rg": employee.rg,
+          "data-cpf": employee.cpf
+        }).text(employee.nome);
+
+        employeeSelect.append(option);
+      });
+
+      employeeSelect.attr("disabled", false);
+      employeeSelect.selectpicker("refresh");
+    });
+  }
+
+  function fillEmployeeName(name) {
+    $("#atestado_nome_funcionario").val(name);
+  }
+
+  function fillEmployeeIdentifier(identifier) {
+    $("#atestado_rg_funcionario").val(identifier);
+  }
+
+  function fillEmployeeRegistry(registry) {
+    $("#atestado_cpf_funcionario").val(registry);
+  }
+
+  function clearEmployeeOptions() {
+    const employeeSelect = $("#atestado_funcionario_id");
+    employeeSelect.empty();
+    employeeSelect.attr("disabled", true)
+
+    employeeSelect.selectpicker("refresh");
+  }
+</script>

@@ -1,0 +1,24 @@
+pt-BR:
+  enumerations:
+    cro_physician_statuses:
+      not_found: "Não encontrado"
+      regular: "Regular"
+    cfm_physician_statuses:
+      not_found: "Não encontrado"
+      regular: "Regular"
+      permanently_partial_suspended: "Suspensão parcial permanente"
+      anulled: "Cassado"
+      inoperative: "Inoperante"
+      dead: "Falecido"
+      not_regulated_for_region: "Sem o exercício da profissão na UF"
+      precautionary_interdiction: "Interdição cautelar - total"
+      partial_suspended_by_court_order: "Suspenso por ordem judicial - parcial"
+      canceled: "Cancelado"
+      temporary_full_suspended: "Suspensão total temporária"
+      partial_precautionary_interdiction: "Interdição cautelar - parcial"
+      suspended_by_court_order: "Suspenso por ordem judicial - total"
+      retired: "Aposentado"
+      temporary_suspended: "Suspensão temporária"
+      fully_suspended: "Suspenso - total"
+      transferred: "Transferido"
+      partial_suspended: "Suspenso - parcial"

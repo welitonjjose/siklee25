@@ -1,0 +1,14 @@
+<div class="cfm-page">
+  <div class= "text-center pt-3 pb-3">
+    <h3 class="secondary-title fs-3 mt-4">VALIDADOR DE ATESTADO DIGITAL</h3>
+  </div>
+  <div class="container form-cfm text-center">
+    <%= simple_form_for @cfm do |f| %>
+        <%= f.input :photos, as: :file, label_html: {class: "atestado-title"}, label: "Enviar foto da validação", input_html: { multiple: true } %>
+        <p>(colocar checkbox aqui escrito "O atestado possui certificado digital")</p>
+      <div id="buttons">
+        <%= f.submit "Enviar", class: "btn btn-primary edit-btn"%>
+      </div>
+    <% end %>
+  </div>
+</div>

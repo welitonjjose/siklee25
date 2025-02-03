@@ -1,0 +1,32 @@
+<div class="sign-page">
+  <div class="row">
+    <div class="col-xs-12 col-sm-offset-4">
+      <div class="form-login">
+        <h2>Altere sua Senha!</h2>
+        <%= form_for @funcionario, :url => password_reset_path(params[:id]) do |f| %>
+          <% if @funcionario.errors.any? %>
+          <div class='error_messages'>
+            <h2>Form is invalid</h2>
+            <ul>
+              <% for message in @funcionario.errors.full_messages %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+          <% end %>
+        <div class='form-inputs'>
+          <%= f.label :password, "Senha" %>
+          <%= f.password_field :password %>
+        </div>
+        <div class='form-inputs'>
+          <%= f.label :password_confirmation, "Repita" %>
+          <%= f.password_field :password_confirmation %>
+        </div>
+        <div class='form-actions'>
+          <%= f.submit 'Confirmar' %>
+        </div>
+        <% end %>
+      </div> 
+    </div>
+  </div>       
+</div>

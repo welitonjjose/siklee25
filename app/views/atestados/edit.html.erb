@@ -1,0 +1,201 @@
+<p id="notice"><%= notice %></p>
+
+<%= simple_form_for(@atestado, html: {
+  autocomplete: 'off',
+  class: 'gray-form'
+}, defaults: {
+  wrapper_html: { class: 'default-wrapper-form' },
+  input_html: { class: 'custom-input' }
+}) do |f| %>
+  <%= f.input :tipo_de_atestado, label: 'Tipo de Atestado', collection: ['Declaração de Comparecimento','Atestado Medico','Atestado de Acompanhante','Atestado de Saude Ocupacional (ASO)'],
+    hint: '*Declaração de Comparecimento => Exames, Consultas e Procedimentos',
+    input_html: { class: 'js-select mb-3' },
+    include_blank: false %>
+
+  <%= f.input :tipo_de_registro, label: 'Tipo de Registro',
+    collection: ['CRM-medico','CRO-dentista','Outros'], 
+    input_html: { class: 'js-select mb-3' },
+    include_blank: false %>
+
+  <%= f.input :numero_de_registro, label: 'Número do Registro',
+    placeholder: '0000000-UF',
+    hint: '*Informe a sigla do estado em UF', input_html: { pattern: "\d+\-[A-Za-z]{2}", class: "register-doctor" } %>
+
+  <div id="examinador-row" class="hidden outline-dashed outline-2 outline-gray-200 p-3 my-2">
+    <%= f.input :examinador_registro, label: 'Examinador', collection: ['CRM-medico'], include_blank: true %>
+    <%= f.input :examinador_numero_registro, label: 'Registro', placeholder: '000000-UF', input_html: { autocomplete: 'off', pattern: "\d+\-[A-Za-z]{2}", class: "register-doctor" },
+      hint: '*Informe a sigla do estado em UF' %>
+  </div>
+
+  <%= f.input :cnpj, label: 'CNPJ', placeholder: 'XXXXXXXX0001XX',
+    hint: '*Informe o CNPJ somente se estiver no atestado' %>
+
+  <%= f.input :instituicao_de_saude, label: 'Instituição de Saúde',
+    placeholder: 'Hospital Santa Casa', hint: '*Informe o nome do Hospital, Clínica, Consultório, etc igual ao atestado' %>
+
+  <%= f.input :data_de_emissao, label: 'Data de Emissão', input_html: { autocomplete: 'off' },
+    hint: '*Data do Atestado'%>
+
+  <%= f.input :tempo_de_dispensa, label: 'Ausência', input_html: { autocomplete: 'off' },
+    hint: '*Informe os días, horas e minutos'%>
+
+  <%= f.input :cid, label: 'CID e ou Descrição', placeholder: "CID ou Funcionário(a)-Apto(ASO's)",
+    hint: '*Caso não esteja informado, digite não informado', include_blank: true %>
+
+  <div id="complamentos-row" class="hidden outline-dashed outline-2 outline-gray-200 p-3 my-2">
+    <%= f.input :descricao_do_afastamento, label: 'Complementos',
+      collection: ['Doença', 'Acidente de Trabalho', 'Acidente de Trânsito', 'Licença Maternidade'],
+      input_html: { class: 'js-select mb-3' },
+      include_blank: true %>
+  </div>
+
+  <div id="exames-row" class="hidden outline-dashed outline-2 outline-gray-200 p-3 my-2">
+    <%= f.input :exames, label: 'Exames',
+      collection: ['Admissional', 'Demissional', 'Periódico', 'Retorno ao Trabalho', 'Mudança de Função'],
+      input_html: { class: 'js-select mb-3' },
+      include_blank: true %>
+
+    <%= f.input :exames_complementares, label: 'Tipo de Exame',
+      collection: ['Clínico', 'Laboratorial', 'Clínico e Laboratorial'],
+      input_html: { class: 'js-select mb-3' },
+      include_blank: true %>
+  </div>
+
+  <% @atestado.photos.each do |photo| %>
+    <%= preview_for(attachment: photo) %>
+  <% end %>
+
+  <% if current_funcionario %>
+    <%= f.input :funcionario_corrigir, as: :boolean,:input_html => { :checked => true }, boolean_style: :inline, label: 'Certifico que o atestado foi corrigido?' %>
+  <% elsif current_empresa %>
+    <%= f.input :empresa_okay, as: :boolean,:input_html => { :checked => true }, boolean_style: :inline, label: 'Certifico que o atestado foi corrigido?' %>
+  <% end %>
+
+  <div class="mt-5">
+    <%= f.check_box :cfm %>
+    <label for="cfms">Possui QR Code - CFM?</label>
+  </div>
+
+  <%= f.button :submit, 'Atualizar', class: 'button' %>
+<% end %>
+
+<% content_for :custom_js do %>
+  <script>
+    $(document).ready(function () {
+      $.timeDurationPicker.langs.pt = {
+        years: "Ano",
+        months: "Mês",
+        days: "Dias",
+        hours: "Horas",
+        minutes: "Minutos",
+        seconds: "Segundos",
+        and: "e",
+        button_ok: "OK",
+        units: {
+          year: {
+            one: "ano",
+            few: "anos",
+            many: "anos"
+          },
+          month: {
+            one: "mês",
+            few: "meses",
+            many: "meses"
+          },
+          day: {
+            one: "dia",
+            few: "dias",
+            many: "dias"
+          },
+          hour: {
+            one: "hora",
+            few: "horas",
+            many: "horas"
+          },
+          minute: {
+            one: "minuto",
+            few: "minutos",
+            many: "minutos"
+          },
+          second: {
+            one: "segundo",
+            few: "segundos",
+            many: "segundos"
+          }
+        }
+      };
+
+      $.timeDurationPicker.i18n.pluralRules.pt = function( count ) {
+        count = parseInt( count, 10 );
+        var m10 = count % 10;
+        var m100 = count % 100;
+
+        if ( m10 === 1 && m100 !== 11 ) {
+          return "one";
+        } else if ( ( m10 >= 2 && m10 <= 4 ) && ( m100 < 12 || m100 > 14 ) ) {
+          return "few";
+        } else if ( m10 === 0 || ( m10 >= 5 && m10 <= 9 ) || ( m100 >= 11 && m100 <= 14 ) ) {
+          return "many";
+        } else {
+          return "other";
+        }
+      };
+
+      $('#atestado_tempo_de_dispensa').timeDurationPicker({
+        lang: "pt",
+        years: false,
+        months: false,
+        seconds: false,
+        onSelect: function(element, seconds, custom_duration, text) {
+          $('#atestado_tempo_de_dispensa').val(text);
+        }
+      });
+    });
+
+    $('#atestado_tipo_de_atestado').ready(function(){
+      if ($(atestado_tipo_de_atestado).val() == "Atestado de Saude Ocupacional (ASO)"){
+        $('#atestado_tempo_de_dispensa').hide();
+        $('#examinador-row').show();
+        $('#exames-row').show();
+      } else {
+        $('#atestado_tempo_de_dispensa').show();
+        $('#examinador-row').hide();
+        $('#exames-row').hide();
+      }
+    })
+
+    $('#atestado_tipo_de_atestado').ready(function(){
+      if ($(atestado_tipo_de_atestado).val() == "Atestado de Saude Ocupacional (ASO)"){
+        $('#atestado_examinador_registro').val() != "";
+        $('#atestado_examinador_numero_registro').val() != "";
+        $('#atestado_exames').val() != "";
+        $('#atestado_exames_complementares').val() != "";
+        $('#examinador-row').show();
+        $('#exames-row').show();
+        $('#atestado_tempo_de_dispensa').hide();
+      }
+    })
+
+    $('#atestado_tipo_de_atestado').ready(function(){
+      if ($(atestado_tipo_de_atestado).val() == "Atestado Medico"){
+        $('#complamentos-row').show();
+      } else {
+        $('#complamentos-row').hide();
+      }
+    })
+
+    $('#atestado_tipo_de_atestado').ready(function(){
+      if ($(atestado_tipo_de_atestado).val() == "Atestado Medico"){
+        $('#atestado_descricao_do_afastamento').val() != "";
+        $('#complamentos-row').show();
+      }
+    })
+
+    $('#atestado_cid').ready(function () {
+      $('#atestado_cid').autocomplete({
+        minLength: 2,
+        source: "<%= cid_search_path %>"
+      });
+    });
+  </script>
+<% end %>

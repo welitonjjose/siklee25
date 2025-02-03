@@ -1,0 +1,7 @@
+<% if @link_updated %>
+    var enableLink = document.getElementById("habilitar-<%= @consultant_id %>-<%= @company_id %>");
+
+    enableLink.innerHTML = "Habilitado";
+<% else %>
+    window.alert("Falha ao habilitar consultor para essa empresa, por favor tente novamente.");
+<% end %>

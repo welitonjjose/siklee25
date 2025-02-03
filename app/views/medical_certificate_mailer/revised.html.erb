@@ -1,0 +1,35 @@
+<h2><%= t('.title') %></h2>
+
+<ul>
+  <li>
+    <strong>Funcionário:</strong>
+    <%= @medical_certificate.nome_funcionario %>
+  </li>
+
+  <li>
+    <strong>Celular funcionário:</strong>
+    <%= format_phone(@employee.celular) %>
+  </li>
+
+  <li>
+    <strong>CPF funcionário:</strong>
+    <%= format_cpf(@employee.cpf) %>
+  </li>
+
+  <li>
+    <strong>Criado em:</strong>
+    <%= l(@medical_certificate.created_at, format: :long) %>
+  </li>
+
+  <li>
+    <strong>Tipo de atestado:</strong>
+    <%= @medical_certificate.tipo_de_atestado %>
+  </li>
+
+  <li>
+    <strong>CID:</strong>
+    <%= @medical_certificate.cid %>
+  </li>
+</ul>
+
+<%= render 'see_more_details', recipient_role: @recipient_role %>

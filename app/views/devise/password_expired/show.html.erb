@@ -1,0 +1,94 @@
+<h1 class="text-xl"> <%= t('.renew_your_password') %> </h1>
+
+<%= simple_form_for(resource, as: resource_name, url: [resource_name, :password_expired], html: {
+  class: 'default-form'
+}, defaults: {
+  wrapper_html: { class: 'default-wrapper-form' },
+  input_html: { class: 'custom-input' }
+}) do |f| %>
+
+  <div class="flex flex-col space-y-2">
+    <div class="flex flex-col space-y-2">
+      <%= f.label :current_password, class: 'text-sm' %>
+      <div class="flex flex-row bg-gray-100 p-4 space-x-2">
+        <%= image_tag 'icons/feather_lock.svg', alt: 'Ícone senha' %>
+        <%= f.input :current_password, required: true, placeholder: 'Digite sua senha atual', label: false, input_html: {id: "inputcurrentpasswordlock"} %>
+        <%= image_tag 'icons/feather_eye_off.svg', alt: 'Ícone bloqueio de senha', class: "lock_current_password hidden", id: "lock_current_password_off" %>
+        <%= image_tag 'icons/feather_eye.svg', alt: 'Ícone bloqueio de senha', class: "lock_current_password", id: "lock_current_password_on" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-col space-y-2">
+    <div class="flex flex-col space-y-2">
+      <%= f.label :password, class: 'text-sm' %>
+      <div class="flex flex-row bg-gray-100 p-4 space-x-2">
+        <%= image_tag 'icons/feather_lock.svg', alt: 'Ícone senha' %>
+        <%= f.input :password, required: true, placeholder: 'Digite sua senha', label: false, input_html: {id: "inputpasswordlock"} %>
+        <%= image_tag 'icons/feather_eye_off.svg', alt: 'Ícone bloqueio de senha', class: "lock_password hidden", id: "lock_password_off" %>
+        <%= image_tag 'icons/feather_eye.svg', alt: 'Ícone bloqueio de senha', class: "lock_password", id: "lock_password_on" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-col space-y-2">
+    <div class="flex flex-col space-y-2">
+      <%= f.label :password_confirmation, class: 'text-sm' %>
+      <div class="flex flex-row bg-gray-100 p-4 space-x-2">
+        <%= image_tag 'icons/feather_lock.svg', alt: 'Ícone senha' %>
+        <%= f.input :password_confirmation, required: true, placeholder: 'Confirme sua senha', label: false, input_html: {id: "inputpasswordconfirmationlock"} %>
+        <%= image_tag 'icons/feather_eye_off.svg', alt: 'Ícone bloqueio de senha', class: "lock_password_confirmation hidden", id: "lock_password_confirmation_off" %>
+        <%= image_tag 'icons/feather_eye.svg', alt: 'Ícone bloqueio de senha', class: "lock_password_confirmation", id: "lock_password_confirmation_on" %>
+      </div>
+    </div>
+  </div>
+
+  <%= f.button :submit, t('.change_my_password'), class: 'button' %>
+
+<% end %>
+
+<script>
+    $(document).ready(()=>{
+        $(".lock_current_password").click((e) => {
+            var _type = $("#inputcurrentpasswordlock").attr("type")
+
+            if(_type == 'password'){
+                $("#inputcurrentpasswordlock").attr("type", "text")
+                $("#lock_current_password_off").removeClass("hidden")
+                $("#lock_current_password_on").addClass("hidden")
+            }else{
+                $("#inputcurrentpasswordlock").attr("type", "password")
+                $("#lock_current_password_on").removeClass("hidden")
+                $("#lock_current_password_off").addClass("hidden")
+            }
+        })
+
+        $(".lock_password").click((e) => {
+            var _type = $("#inputpasswordlock").attr("type")
+
+            if(_type == 'password'){
+                $("#inputpasswordlock").attr("type", "text")
+                $("#lock_password_off").removeClass("hidden")
+                $("#lock_password_on").addClass("hidden")
+            }else{
+                $("#inputpasswordlock").attr("type", "password")
+                $("#lock_password_on").removeClass("hidden")
+                $("#lock_password_off").addClass("hidden")
+            }
+        })
+
+        $(".lock_password_confirmation").click((e) => {
+            var _type = $("#inputpasswordconfirmationlock").attr("type")
+
+            if(_type == 'password'){
+                $("#inputpasswordconfirmationlock").attr("type", "text")
+                $("#lock_password_confirmation_off").removeClass("hidden")
+                $("#lock_password_confirmation_on").addClass("hidden")
+            }else{
+                $("#inputpasswordconfirmationlock").attr("type", "password")
+                $("#lock_password_confirmation_on").removeClass("hidden")
+                $("#lock_password_confirmation_off").addClass("hidden")
+            }
+        })
+    })
+</script>

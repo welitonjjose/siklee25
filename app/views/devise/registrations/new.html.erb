@@ -1,0 +1,72 @@
+<h2>Criar nova conta</h2>
+
+<p class="description">
+  Aqui você pode cadastrar novos usuários.
+</p>
+
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {
+  class: 'gray-form',
+  role: 'form'
+}, defaults: {
+  wrapper_html: { class: 'default-wrapper-form' },
+  input_html: { class: 'custom-input' }
+}) do |f| %>
+  <%= f.error_notification %>
+
+  <%= render partial: 'devise/registrations/forms/company', locals: { f: f } if resource.instance_of? Empresa %>
+  <%= render partial: 'devise/registrations/forms/consultant', locals: { f: f } if resource.instance_of? Consultant %>
+  <%= render partial: 'devise/registrations/forms/collaborator', locals: { f: f } if resource.instance_of? ConsultantTeam %>
+
+  <%= f.button :submit, 'Criar Conta', class: 'button' %>
+<% end %>
+
+<% content_for :custom_js do %>
+  <style>
+#new_funcionario > div > div.form-inputs > div:nth-child(3) > div:nth-child(2) > div > div > button {
+  color: #000;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 5px 9px;
+  border-radius: 15px;
+  border: 1px solid #ced4da;
+}
+
+    #new_consultant_team > div > div.form-inputs > div:nth-child(3) > div:nth-child(2) > div > div > button {
+      color: #000;
+      height: calc(1.5em + 0.75rem + 2px);
+      padding: 5px 9px;
+      border-radius: 15px;
+      border: 1px solid #ced4da;
+    }
+  </style>
+
+  <script>
+    $(document).ready(function () {
+      var availableTags = ['Adm', 'Serviço', 'Produção', 'Vendas', 'Liderança', 'Recursos Humamos', 'Profissional da Saúde']
+      $('#funcionario_vinculos_attributes_cargo').autocomplete({
+        source: availableTags,
+        required: true
+      });
+
+      var availableTags = ['Adm', 'Serviço', 'Produção', 'Vendas', 'Liderança', 'Recursos Humamos', 'Profissional da Saúde']
+      $('#consultant_team_function').autocomplete({
+        source: availableTags,
+        required: true
+      });
+
+      <% if resource.errors.messages[:'vinculos.empresa'].present? %>
+          $('.btn[data-id="funcionario_vinculos_attributes_empresa_id"]').attr('style', 'border-color: red;')
+      $('#vinculos_empresa').show()
+      <% end %>
+
+        <% if resource.errors.messages[:'vinculos.cargo'].present? %>
+          $('#funcionario_vinculos_attributes_cargo').attr('style', 'border-color: red;')
+      $('#vinculos_cargo').show()
+      <% end %>
+
+        <% if resource.errors.messages[:'collaborations.consultant'].present? %>
+          $('.btn[data-id="consultant_team_links_attributes_consultant_id"]').attr('style', 'border-color: red;')
+      $('#collaborations_consultant').show()
+      <% end %>
+    });
+  </script>
+<% end %>

@@ -1,0 +1,25 @@
+<div class="page">
+  <div class="container d-flex justify-content-center">
+    <div class="col-sm justify-content-center">
+      <div class="row justify-content-center row-cols-1">
+        <div class="col">
+          <h1 class="title">Acesse a conta:</h1>
+        </div>
+
+      <div class="row">
+        <div class="col-sm text text-center">
+          <%= link_to new_consultant_session_path do %>
+            <button type="button" class="btn btn-primary btn-empresa-consultant "><i class="fa fa-building" aria-hidden="true"></i> Consultores(as)</button>
+          <% end %>
+        </div>
+        <div class="col-sm text text-center">
+          <%= link_to new_consultant_team_session_path do %>
+            <button type="button" class="btn btn-primary btn-funcionario-consultant "><i class="fa fa-user" aria-hidden="true"></i> Colaboradores(as)</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

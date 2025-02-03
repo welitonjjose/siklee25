@@ -1,0 +1,191 @@
+<h2>Novo Atestado</h2>
+
+<p class="description">
+  Aqui você pode fazer o envio dos seus atestados
+</p>
+
+<%= simple_form_for(@atestado, html: {
+  autocomplete: 'off',
+  class: 'gray-form'
+}, defaults: {
+  input_html: { class: 'custom-input' }
+}) do |f| %>
+  <%= f.error_notification message: t('.error') %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+
+  <% if company? %>
+    <%= render 'atestados/forms/company', f: f %>
+  <% elsif admin? %>
+    <%= render 'atestados/forms/admin', f: f %>
+  <% elsif employee? %>
+    <% case %>
+    <% when current_user.employer? %>
+      <%= render 'atestados/forms/employee_employer', f: f, vinculo: @vinculo %>
+    <% when current_user.manager? %>
+      <%= render 'atestados/forms/employee_manager', f: f, vinculo: @vinculo %>
+    <% else %>
+      <%= render 'atestados/forms/employee', f: f %>
+    <% end %>
+  <% end%>
+
+  <div id="area-errors"></div>
+
+  <%= f.button :submit, 'Enviar Atestado', class: 'button',  disabled: true , id: "btn-submit" %>
+<% end %>
+
+<% content_for :custom_js do %>
+  <script>
+
+
+    $(document).ready(function () {
+      $.timeDurationPicker.langs.pt = {
+        years: "Ano",
+        months: "Mês",
+        days: "Dias",
+        hours: "Horas",
+        minutes: "Minutos",
+        seconds: "Segundos",
+        and: "e",
+        button_ok: "OK",
+        units: {
+          year: {
+            one: "ano",
+            few: "anos",
+            many: "anos"
+          },
+          month: {
+            one: "mês",
+            few: "meses",
+            many: "meses"
+          },
+          day: {
+            one: "dia",
+            few: "dias",
+            many: "dias"
+          },
+          hour: {
+            one: "hora",
+            few: "horas",
+            many: "horas"
+          },
+          minute: {
+            one: "minuto",
+            few: "minutos",
+            many: "minutos"
+          },
+          second: {
+            one: "segundo",
+            few: "segundos",
+            many: "segundos"
+          }
+        }
+      };
+
+      $.timeDurationPicker.i18n.pluralRules.pt = function( count ) {
+        count = parseInt( count, 10 );
+        var m10 = count % 10;
+        var m100 = count % 100;
+
+        if ( m10 === 1 && m100 !== 11 ) {
+          return "one";
+        } else if ( ( m10 >= 2 && m10 <= 4 ) && ( m100 < 12 || m100 > 14 ) ) {
+          return "few";
+        } else if ( m10 === 0 || ( m10 >= 5 && m10 <= 9 ) || ( m100 >= 11 && m100 <= 14 ) ) {
+          return "many";
+        } else {
+          return "other";
+        }
+      };
+
+      $('#atestado_tempo_de_dispensa').timeDurationPicker({
+        lang: "pt",
+        years: false,
+        months: false,
+        seconds: false,
+        onSelect: function(element, seconds, custom_duration, text) {
+          $('#atestado_tempo_de_dispensa').val(text);
+            vc.sendMessage("photos", vc.get_values('tempo_de_dispensa'));
+        }
+      });
+
+      $(document).ready(function () {
+        const availableTags = ['Não Informado','Ilegível']
+
+        $('#atestado_numero_de_registro').autocomplete({
+          source: availableTags
+        });
+      });
+
+      $(document).ready(function () {
+        const availableTags = ['Não Informado','Ilegível']
+
+        $('#atestado_examinador_numero_registro').autocomplete({
+          source: availableTags
+        });
+      });
+
+      $('#atestado_tipo_de_atestado').change(function() {
+        if ($("#atestado_tipo_de_atestado").val() == "Atestado Medico") {
+          $('#complamentos-row').show();
+        } else {
+          $('#complamentos-row').hide();
+        }
+      })
+
+      $('#atestado_tipo_de_atestado').ready(function() {
+        if ($("#atestado_tipo_de_atestado").val() == "Atestado Medico") {
+          $('#atestado_descricao_do_afastamento').val() != "";
+          $('#complamentos-row').show();
+        }
+      })
+
+      $('#atestado_tipo_de_atestado').change(function() {
+        if ($("#atestado_tipo_de_atestado").val() == "Atestado de Saude Ocupacional (ASO)") {
+          $('#atestado_tempo_de_dispensa').hide();
+          $('#examinador-row').show();
+
+          $('#exames-row').show();
+        } else {
+          $('#atestado_tempo_de_dispensa').show();
+          $('#examinador-row').hide();
+          $('#exames-row').hide();
+        }
+      })
+
+      $('#atestado_tipo_de_atestado').ready(function() {
+        if ($("#atestado_tipo_de_atestado").val() == "Atestado de Saude Ocupacional (ASO)") {
+          $('#atestado_examinador_registro').val() != "";
+          $('#atestado_examinador_numero_registro').val() != "";
+          $('#atestado_exames').val() != "";
+          $('#atestado_exames_complementares').val() != "";
+          $('#examinador-row').show();
+          $('#exames-row').show();
+          $('#atestado_tempo_de_dispensa').hide();
+        }
+      })
+
+      $('#nao-sei-cnpj').click(function() {
+        if ($('#nao-sei-cnpj:checked').val()) {
+          $('#instituicao-row').show();
+        } else {
+          $('#instituicao-row').hide();
+        }
+      })
+
+      if($('#atestado_instituicao_de_saude').val() != "") {
+        $('#nao-sei-cnpj').prop('checked', true);
+
+        $('#instituicao-row').show();
+      }
+
+      $('#document').ready(function () {
+        $('#atestado_cid').autocomplete({
+          minLength: 2,
+          source: "<%= cid_search_path %>"
+        });
+      });
+    });
+
+  </script>
+<% end %>

@@ -1,0 +1,17 @@
+<nav class="main-nav">
+  <input type="checkbox" id="sidebarToggle" class="sidebar-toggle hidden">
+
+  <label class="sidebar-toggle" for="sidebarToggle">
+    <%= image_tag 'icons/hamburgermenu.svg', alt: 'Menu' %>
+
+    <span class="sr-only">Exibição da barra lateral</span>
+  </label>
+
+  <%= logo(classes: { image: 'max-w-28 h-16' }) %>
+
+  <ul class="section-nav">
+    <%= yield :section_navbar %>
+  </ul>
+
+  <%= render 'redesign/shared/account' if user_signed_in? %>
+</nav>

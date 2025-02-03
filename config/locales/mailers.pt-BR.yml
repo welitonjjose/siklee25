@@ -1,0 +1,34 @@
+pt-BR:
+  mailers:
+    subjects:
+      account:
+        welcome: Usuário cadastrado
+      devise:
+        reset_password_instructions: Redefinição de senha
+      medical_certificate:
+        annulled: Atestado subscrito
+        approved: Atestado aprovado
+        created: Novo atestado atribuído
+        reverted: Atestado revertido
+        revised: Atestado corrigido
+        waiting_approval: Novo Atestado aguardando aprovação
+  account_mailer:
+    welcome:
+      roles:
+        company: Empregador
+        employee: Colaborador
+        consultant: Consultor
+        collaborator: Colaborador
+  medical_certificate_mailer:
+    annulled:
+      title: Atestado subscrito
+    approved:
+      title: Atestado aprovado
+    created:
+      title: Atestado atribuído
+    reverted:
+      title: Atestado revertido
+    revised:
+      title: Atestado corrigido
+    waiting_approval:
+      title: Atestado aguardando aprovação

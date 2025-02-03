@@ -1,0 +1,48 @@
+<div class="hiddeninmodile">
+  <div class="flex flex-row flex-wrap items-start justify-end gap-2">
+  <%= form_tag(atestados_path(format: 'xlsx'), class: 'gray-form pb-8 md:pb-0',
+    target: '_blank', method: :get) do %>
+    <% if admin? || consultant? || collaborator? %>
+      <%= hidden_field_tag :company_id, params[:company_id] %>
+    <% end %>
+
+    <% if admin? || company? || consultant? || collaborator? || (employee? && (current_user.employer? || current_user.manager?)) %>
+      <%= hidden_field_tag :employee_id, params[:employee_id] %>
+    <% end %>
+
+    <%= hidden_field_tag :medical_certificate_type, params[:medical_certificate_type] %>
+    <%= hidden_field_tag :physician_name, params[:physician_name] %>
+    <%= hidden_field_tag :medical_specialty, params[:medical_specialty] %>
+    <%= hidden_field_tag :icd, params[:icd] %>
+    <%= hidden_field_tag :medical_institution, params[:medical_institution] %>
+
+    <% if admin? || company? || consultant? || collaborator? || (employee? && (current_user.employer? || current_user.manager?)) %>
+      <%= hidden_field_tag :origin, params[:origin] %>
+      <%= hidden_field_tag :employee_status, params[:employee_status] %>
+    <% end %>
+
+    <%= hidden_field_tag :department, params[:department] %>
+    <%= hidden_field_tag :job_function, params[:job_function] %>
+    <%= hidden_field_tag :range_start, params[:range_start] %>
+    <%= hidden_field_tag :range_end, params[:range_end] %>
+    <%= button_tag class: 'button negative-icon flex flex-row justify-center gap-x-3 items-center m-0' do %>
+      <%= inline_svg 'icons/export_csv', alt: 'Exportar EXCEL' %>
+
+      Exportar para Excel
+    <% end %>
+  <% end %>
+
+  <%= form_tag(atestados_path(format: 'xml'), target: '_blank',
+               class: 'export-form gray-form flex flex-col flex-wrap
+                 gap-y-5 md:gap-y-0 space-y-4 md:gap-x-5 items-center justify-end',
+               method: :get) do %>
+    <%= button_tag class: 'button negative-icon flex flex-row justify-center gap-x-3 items-center m-0' do %>
+      <%= inline_svg 'icons/export_xml', alt: 'Exportar XML' %>
+
+      Exportar para XML
+    <% end %>
+
+    <%= hidden_field_tag :report_type, 'esocial' %>
+  <% end %>
+</div>
+</div>

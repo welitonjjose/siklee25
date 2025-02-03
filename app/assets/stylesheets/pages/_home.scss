@@ -1,0 +1,429 @@
+.home-page {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 480px) {
+  .home-page {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.home-page div {
+  height: 100px;
+  width: 100%;
+}
+
+@media screen and (max-width: 480px) {
+  .home-page div {
+    height: 100px;
+    width: 100%;
+  }
+}
+
+.banner {
+  background-size: cover;
+  background-position: center;
+  padding: 150px 0;
+  height: 100vh;
+}
+
+@media screen and (max-width: 480px) {
+  .banner {
+    background-size: cover;
+    background-position: -90px 37px;
+    padding: 177px 0;
+    height: 42vh;
+  }
+}
+
+.main-title {
+  display: flex;
+  float: left;
+  font-family: "Poppins", sans-serif;
+  color: $siklee_branding;
+  font-weight: 400;
+  text-align: left;
+  font-size: 40px;
+  line-height: 125%;
+  position: relative;
+  top: 95px;
+}
+
+@media screen and (max-width: 480px) {
+  .main-title {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 95%;
+    top: 0;
+  }
+}
+
+.banner-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 4rem 0;
+}
+
+@media screen and (max-width: 480px) {
+  .banner-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.subtitle {
+  font-family: "Poppins", sans-serif;
+  color: #ebebeb;
+  font-weight: 100;
+  text-align: left;
+}
+
+@media screen and (max-width: 480px) {
+  .subtitle {
+    font-family: "Poppins", sans-serif;
+    color: #ebebeb;
+    font-weight: 60;
+    font-size: 80%;
+  }
+}
+
+.small-subtitle {
+  font-family: "Poppins", sans-serif;
+  color: #ebebeb;
+  font-weight: 100;
+  text-align: left;
+  margin-left: 30px;
+}
+
+@media screen and (max-width: 480px) {
+  .small-subtitle {
+    font-weight: 50;
+    text-align: left;
+    margin-left: 20px;
+    justify-content: center;
+    font-size: 80%;
+  }
+}
+
+.btn-empresa,
+.btn-empresa-consultant {
+  background-color: #02b393;
+  border: none;
+  margin-right: 25px !important;
+  margin-left: 25px !important;
+  -webkit-box-shadow: 0 8px 6px -6px #252525;
+  -moz-box-shadow: 0 8px 6px -6px #252525;
+  box-shadow: 0 8px 6px -6px #252525;
+  &:hover {
+    background-color: #01987d;
+  }
+  &:active {
+    background-color: #01987d !important;
+  }
+  &:focus {
+    background-color: #01987d !important;
+  }
+}
+
+.btn-empresa-consultant,
+.btn-funcionario-consultant {
+  width: 80%;
+}
+
+.btn-funcionario,
+.btn-funcionario-consultant {
+  background-color: #4a6987;
+  border: none;
+  -webkit-box-shadow: 0 8px 6px -6px #252525;
+  -moz-box-shadow: 0 8px 6px -6px #252525;
+  box-shadow: 0 8px 6px -6px #252525;
+  &:hover {
+    background-color: #3f5973;
+    color: #ffffff;
+  }
+  &:active {
+    background-color: #3f5973 !important;
+  }
+  &:focus {
+    background-color: #3f5973 !important;
+  }
+}
+
+.home-page .banner h1 {
+  font-family: lobster, cursive;
+  font-size: 75px;
+  width: 60vw;
+  margin-left: 45px;
+  line-height: 75px;
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+
+@media screen and (max-width: 480px) {
+  .home-page .banner h1 {
+    font-family: lobster, cursive;
+    font-size: 50px;
+    width: fit-content;
+    margin-left: 45px;
+    line-height: 75px;
+    margin-top: 20px;
+    margin-bottom: 35px;
+  }
+}
+
+.home-background {
+  background-size: cover;
+  background-position: center;
+  padding-bottom: 100px;
+  width: 100%;
+}
+
+
+@media screen and (max-width: 480px) {
+  .home-background {
+    padding-bottom: 20px;
+  }
+}
+
+.benefits-title {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+  font-weight: 400;
+  padding: 50px 0 0 40px;
+  font-size: 40px;
+  justify-content: center;
+}
+
+@media screen and (max-width: 480px) {
+  .benefits-title {
+    font-weight: 300;
+    padding: 8% 0 5%;
+    font-size: 20px;
+    justify-content: space-between;
+  }
+}
+
+.green-text {
+  color: #02b393;
+  margin: 0 10px;
+}
+
+@media screen and (max-width: 480px) {
+  .green-text {
+    color: #02b393;
+    margin: 0 10px;
+  }
+}
+
+.card {
+  width: 300px;
+  border-radius: 3px;
+  text-align: center;
+  padding: 15px 0 40px 0;
+  height: 350px;
+  box-shadow: 2px 4px #4a6987;
+
+  p {
+    opacity: 0.6;
+    font-weight: 500;
+    font-family: "Poppins", sans-serif;
+    margin-top: 0px;
+  }
+  img {
+    height: 100px;
+    padding-top: 15px;
+  }
+}
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+  align-items: center;
+  margin-top: 80px;
+  color: $siklee_branding;
+}
+
+@media screen and (max-width: 480px) {
+  .cards {
+    margin: 0;
+    height: auto;
+    flex-direction: column;
+  }
+  .card{
+    height: fit-content;
+    margin: 5px;
+    font-size: 1.4em;
+
+    p {
+      padding: 10px;
+    }
+  }
+}
+
+.card-title {
+  font-weight: 700;
+  margin-top: 35px;
+  font-family: "Poppins", sans-serif;
+  padding: 0 5px;
+  color: $siklee_branding;
+}
+
+@media screen and (max-width: 480px) {
+  .card-title {
+    font-weight: 700;
+    margin-top: 10px;
+    font-family: "Poppins", sans-serif;
+    padding: 0 5px;
+    color: #2c3e50;
+    justify-content: space-around;
+    font-size: 70%;
+  }
+}
+
+.card-subtitle {
+  margin-top: 20px;
+  font-family: "Poppins", sans-serif;
+  display: inline-block;
+  color: $siklee_branding;
+}
+
+@media screen and (max-width: 480px) {
+  .card-subtitle {
+    margin-top: 20px;
+    font-family: "Poppins", sans-serif;
+    display: inline-block;
+    font-size: 73%;
+  }
+}
+
+$offset: 5px;
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+  font-family: "Open Sans", "sans-serif";
+}
+
+.link {
+  text-decoration: none;
+  color: #55acee;
+  border-bottom: 2px dotted #55acee;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  cursor: url(http://cur.cursors-4u.net/symbols/sym-1/sym46.cur), auto;
+}
+
+.link:hover {
+  color: #2ecc71;
+  border-bottom: 2px dotted #2ecc71;
+}
+
+.login-page-link {
+  color: $siklee_branding;
+  font-size: 1.8em;
+
+  &:hover {
+    color: lighten($siklee_branding, 30%);
+  }
+}
+
+.buttons {
+  padding-top: 50px;
+  text-align: center;
+}
+
+.btn {
+  border-radius: 5px;
+  padding: 15px 25px;
+  font-size: 22px;
+  text-decoration: none;
+  margin: 20px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+}
+
+.small-btn {
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+@media screen and (max-width: 480px) {
+  .btn {
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 12px;
+    text-decoration: none;
+    margin: 10px;
+    color: #fff;
+    position: relative;
+    display: inline-block;
+  }
+}
+
+.btn:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+@media screen and (min-width: 400px) {
+  .btn:active {
+    transform: translate(0px, 5px);
+    -webkit-transform: translate(0px, 5px);
+    box-shadow: 0px 1px 0px 0px;
+  }
+}
+
+.blue {
+  background-color: #2c3e50;
+  box-shadow: 0px 5px 0px 0px #3c93d5;
+}
+
+.blue:hover {
+  background-color: #6fc6ff;
+}
+
+.main-title-dark {
+  display: flex;
+  float: left;
+  font-family: "Poppins", sans-serif;
+  color: $main-blue;
+  font-weight: 600;
+  position: absolute;
+  left: 5%;
+  text-align: left;
+  margin-bottom: 40px;
+  font-size: 45px;
+  line-height: 125%;
+}
+
+@media screen and (max-width: 480px) {
+  .main-title-dark {
+    color: $main-blue;
+    font-weight: 400;
+    margin-bottom: 20px;
+    font-size: 80%;
+    line-height: 90%;
+  }
+}
+
+.navbar-lewagon .navbar-brand .landing-page-logo {
+  width: 160px;
+}
+
+@media screen and (max-width: 480px) {
+  .navbar-lewagon .navbar-brand .landing-page-logo {
+    width: 100px;
+  }
+}

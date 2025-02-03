@@ -1,0 +1,37 @@
+<div class="cards-wrapper">
+  <%= render 'redesign/shared/metric',
+    title: :medical_certificates,
+    icon: 'file_red',
+    card_size: 'small',
+    value: @atestados.count %>
+
+  <%= render 'redesign/shared/metric',
+    title: :pending_medical_certificates_count,
+    icon: 'file_lime',
+    card_size: 'small',
+    value: @pending_medical_certificates_count %>
+
+  <%= render 'redesign/shared/metric',
+    title: :company_pending_medical_certificates_count,
+    icon: 'file_green',
+    card_size: 'small',
+    value: @company_pending_medical_certificates_count %>
+
+  <%= render 'redesign/shared/metric',
+    title: :employee_pending_medical_certificates_count,
+    icon: 'file_cyan',
+    card_size: 'small',
+    value: @employee_pending_medical_certificates_count %>
+
+  <%= render 'redesign/shared/metric',
+    title: :receiving_average_in_days,
+    icon: 'file_yellow',
+    card_size: 'small',
+    value: "#{@receiving_average_in_days}d" %>
+
+  <%= render 'redesign/shared/metric',
+    title: :absence_duration_in_days,
+    icon: 'file_blue',
+    card_size: 'small',
+    value: "#{@absence_duration_in_days}d" %>
+</div>

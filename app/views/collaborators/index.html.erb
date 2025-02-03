@@ -1,0 +1,107 @@
+<h2>Colaboradores</h2>
+
+<p class="description">
+  Aqui você encontra todos os colaboradores associados autorizados pelo seu usuário.
+</p>
+
+<% if current_consultant %>
+  <%= form_tag collaborators_path, method: :get, class: 'default-search' do %>
+    <%= text_field_tag :query,
+      params[:query], placeholder: 'nome, sobrenome e função' %>
+
+    <%= button_tag class: 'icon' do %>
+      <%= inline_svg 'icons/magnifier', alt: 'Buscar' %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th scope="col">
+        Nome
+      </th>
+
+      <th scope="col">
+        E-mail
+      </th>
+
+      <th scope="col">
+        Celular
+      </th>
+
+      <th scope="col">
+        Função
+      </th>
+
+      <th scope="col">
+        Ações
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @collaborators.each do |collaborator| %>
+      <tr>
+        <td>
+          <%= collaborator.nome %></p>
+        </td>
+
+        <td>
+          <%= collaborator.email %></p>
+        </td>
+
+        <td>
+          <%= collaborator.celular %></p>
+        </td>
+
+        <td>
+          <%= collaborator.function %></p>
+        </td>
+
+        <td class="relative">
+          <button aria-haspopup="true" aria-expanded="false" class="action dropdown-button">
+            <%= inline_svg 'icons/ellipsis', alt: 'Ações', class: 'mx-auto' %>
+          </button>
+
+          <ul class="custom-dropdown-menu hidden" aria-labelledby="dropdown-button" role="menu">
+            <li role="menuitem">
+              <%- if @authorized_collaborator_ids.include? collaborator.id %>
+                <%= link_to t('.revoke'), revoke_collaborator_path(collaborator.id),
+                  data: { method: :patch, confirm: t('defaults.confirmation') } %>
+              <% else %>
+                <%= link_to t('.authorize'), authorize_collaborator_path(collaborator.id), data: { method: :patch } %>
+              <% end %>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td colspan="7">
+        Colaboradores autorizados: <%= current_consultant.collaborations.approved.count %>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<script>
+  $(document).ready(function() {
+    const $button = $('.dropdown-button');
+    const $menu = $('.custom-dropdown-menu');
+
+    $button.on('click', function (event) {
+      const targetElement = $(event.currentTarget);
+
+      const menu = targetElement.next();
+      const expanded = targetElement.attr('aria-expanded') === 'true';
+
+      targetElement.attr('aria-expanded', !expanded);
+
+      menu.toggleClass('hidden');
+    });
+  });
+</script>

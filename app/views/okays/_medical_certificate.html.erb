@@ -1,0 +1,48 @@
+<tr>
+  <td><%= link_to medical_certificate.funcionario.nome, atestado_path(medical_certificate.id) %></td>
+  <td class="text-center"><%= medical_certificate.data_de_emissao.strftime("%d/%m/%Y") %></td>
+
+  <td class="hidden md:table-cell">
+    <%= medical_certificate.tipo_de_atestado %>
+  </td>
+
+  <td class="text-center">
+    <%= medical_certificate.tempo_de_dispensa %>
+  </td>
+
+  <td class="text-center">
+    <%= medical_certificate.cid %>
+  </td>
+
+  <td class="hidden md:table-cell">
+    <%- if medical_certificate.funcionario_corrigir? %>
+      <span class="tag active">Corrigido</span>
+    <% elsif medical_certificate.funcionario_okay? %>
+      <span class="tag active">Aprovado</span>
+    <% else %>
+      <span class="tag pending">Pendente</span>
+    <% end %>
+  </td>
+
+  <td class="hidden md:table-cell">
+    <% if medical_certificate.empresa_subscrever? %>
+      <span class="tag deactivated">Subscrito</span>
+    <% elsif medical_certificate.empresa_okay? %>
+      <span class="tag active">Aprovado</span>
+    <% elsif medical_certificate.empresa_reverter? %>
+      <span class="tag reverted">Revertido</span>
+    <% else %>
+      <span class="tag pending">Pendente</span>
+    <% end %>
+  </td>
+
+  <td class="text-center">
+    <% if medical_certificate.empresa_subscrever? %>
+      <span class="tag deactivated">Subscrito</span>
+    <% elsif medical_certificate.funcionario_okay? && medical_certificate.empresa_okay? %>
+      <span class="tag active">Aprovado</span>
+    <% else %>
+      <span class="tag pending">Pendente</span>
+    <% end %>
+  </td>
+</tr>

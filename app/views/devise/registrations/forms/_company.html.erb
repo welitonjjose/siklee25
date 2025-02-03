@@ -1,0 +1,27 @@
+<%= f.input :razao_social, autofocus: true, label: 'Nome da Empresa', input_html: { autocomplete: 'off' } %>
+<%= f.input :cnpj, autofocus: true, label: 'CNPJ', input_html: { autocomplete: 'off' } %>
+<%= f.input :telefone, label: 'Telefone', input_html: { autocomplete: 'off' } %>
+<%= f.input :celular, label: 'Celular', input_html: { autocomplete: 'off' } %>
+
+<%= f.input :endereco, label: 'Endereço', input_html: { autocomplete: 'off' } %>
+<%= f.input :estado, label: 'Estado', collection: ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'], include_blank: false %>
+<%= f.input :cidade, label: 'Cidade', input_html: { autocomplete: 'off' } %>
+<%= f.input :cep, label: 'CEP', input_html: { autocomplete: 'off' } %>
+
+<%= f.input :email,
+  required: true,
+  autofocus: true,
+  input_html: { autocomplete: 'off' }%>
+
+<%= f.input :password,
+  label: 'Senha',
+  required: true,
+  hint: ("Mínimo de #{@minimum_password_length} caracteres" if @minimum_password_length),
+  input_html: { autocomplete: 'new-password' } %>
+
+<%= f.input :password_confirmation,
+  label: 'Confirmar Senha',
+  required: true,
+  input_html: { autocomplete: 'new-password' } %>
+
+<%= f.input :photo, as: :file, label: 'Adicionar uma foto de perfil' %>

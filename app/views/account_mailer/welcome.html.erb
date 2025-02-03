@@ -1,0 +1,29 @@
+<p>
+  Olá <%= @user.nome %>,
+</p>
+
+<p>
+  Seu usuário perfil <%= @role %> foi cadastrado na Siklee.
+</p>
+
+<p>
+  Para acessar, visite a <%= link_to 'página de login ', root_url %> com as seguintes credenciais:
+</p>
+
+<ul>
+  <li>
+    <strong>E-mail:</strong>
+    <em class="copy-box"><%= @user.email %></em>
+  </li>
+
+  <% unless @generated_password.nil? %>
+    <li>
+      <strong>Senha gerada automaticamente:</strong>
+      <span class="code"><%= @generated_password %></span>
+    </li>
+  <% end %>
+</ul>
+
+<p class="warning-box">
+  Caso queira alterar a senha, utilize a opção 'Recuperar senha' na página de login.
+</p>

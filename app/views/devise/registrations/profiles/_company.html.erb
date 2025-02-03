@@ -1,0 +1,40 @@
+<div class="form-block">
+  <%= f.input :razao_social, autofocus: true, label: "Nome da Empresa", input_html: { autocomplete: 'off' } %>
+  <%= f.input :cnpj, autofocus: true, label: "CNPJ", input_html: { autocomplete: 'off' } %>
+  <%= f.input :telefone, label: "Telefone", input_html: { autocomplete: 'off' } %>
+  <%= f.input :celular, label: "Celular", input_html: { autocomplete: 'off' } %>
+</div>
+
+<div class="form-block">
+  <%= f.input :endereco, label: "Endereço", input_html: { autocomplete: 'off' } %>
+  <%= f.input :estado, label: "Estado", input_html: { autocomplete: 'off' } %>
+  <%= f.input :cidade, label: "Cidade", input_html: { autocomplete: 'off' } %>
+  <%= f.input :cep, label: "Cep", input_html: { autocomplete: 'off' } %>
+</div>
+
+<div class="form-block">
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+  <% end %>
+</div>
+
+<div class="form-block">
+  <%= f.input :email, required: true, autofocus: true %>
+
+  <%= f.input :password,
+            label: "Senha",
+            hint: "Deixe em branco se não quiser alterar",
+            required: false,
+            input_html: { autocomplete: "new-password" } %>
+
+  <%= f.input :password_confirmation,
+            label: "Confirmar Senha",
+            required: false,
+            input_html: { autocomplete: "new-password" } %>
+
+  <%= f.input :current_password,
+            label: "Senha Atual",
+            hint: "Precisamos confirmar as alterações",
+            required: true,
+            input_html: { autocomplete: "current-password" } %>
+</div>

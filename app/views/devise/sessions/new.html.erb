@@ -1,0 +1,7 @@
+<p class="text-lg lg:text-xl">
+  <%= t('pages.login.header.welcome',
+        resource: t(resource_name, scope: 'pages.login.header.resources')) %>
+</p>
+
+<%= render 'sessions/tabs', active: resource_name %>
+<%= render 'sessions/form' %>

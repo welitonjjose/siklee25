@@ -1,0 +1,46 @@
+<!-- Tabs -->
+<div class="flex flex-col space-y-8 text-sm">
+  <p class="font-medium lg:text-lg">
+  Selecione a opção que você deseja?
+  </p>
+
+  <div class="flex flex-row space-x-4 font-bold">
+    <%- if %i[empresa funcionario].include? active %>
+      <%- if active == :empresa %>
+        <p class="text-green-600 underline underline-offset-4 decoration-green-600">
+          Empregador
+        </p>
+      <% else %>
+        <%= link_to 'Empregador', new_empresa_session_path, class: 'hover:text-green-600' %>
+      <% end %>
+
+      <%- if active == :funcionario %>
+        <p class="text-green-600 underline underline-offset-4 decoration-green-600">
+          Colaborador
+        </p>
+      <% else %>
+        <%= link_to 'Colaborador', new_funcionario_session_path, class: 'hover:text-green-600' %>
+      <% end %>
+
+      <%= link_to 'Consultor', new_consultant_session_path, class: 'hover:text-green-600' %>
+    <% else %>
+      <%- if active == :consultant %>
+        <p class="text-green-600 underline underline-offset-4 decoration-green-600">
+          Consultor
+        </p>
+      <% else %>
+        <%= link_to 'Consultor', new_consultant_session_path, class: 'hover:text-green-600' %>
+      <% end %>
+
+      <%- if active == :consultant_team %>
+        <p class="text-green-600 underline underline-offset-4 decoration-green-600">
+          Colaborador
+        </p>
+      <% else %>
+        <%= link_to 'Colaborador', new_consultant_team_session_path, class: 'hover:text-green-600' %>
+      <% end %>
+
+      <%= link_to 'Empregador', new_empresa_session_path, class: 'hover:text-green-600' %>
+    <% end %>
+  </div>
+</div>

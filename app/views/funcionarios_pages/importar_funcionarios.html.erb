@@ -1,0 +1,38 @@
+<h2>Importar Funcionários</h2>
+
+<p class="description">
+  Aqui você pode cadastrar funcionários por planilha em Excel. Ideal para até 500 cadastros!
+</p>
+
+<% content_for :section_navbar do %>
+  <li>
+    <%= link_to 'Importar Funcionários(as)', importar_funcionarios_funcionarios_pages_path %>
+  </li>
+<% end %>
+
+<%= simple_form_for :employee, url: importar_funcionarios_create_funcionarios_pages_path, method: :post, html: {
+  class: 'gray-form'
+}, defaults: {
+  wrapper_html: { class: 'default-wrapper-form' },
+  input_html: { class: 'custom-input' }
+} do |f| %>
+  <% if consultant? || collaborator? %>
+    <%= f.input :empresa_id,
+        collection: @empresas,
+        label: 'Empresa',
+        label_method: :razao_social,
+        value_method: :id,
+        include_blank: true,
+        input_html: {
+          class: 'js-select simple-select',
+          id: 'filterFormCompanyId',
+          onchange: 'triggerForm()'
+        },
+        selected: params[:empresa_id],
+        prompt: 'Selecione uma empresa',
+        required: false 
+      %>
+    <% end %>
+  <%= f.input :file, as: :file, label: 'Selecione um arquivo', input_html: { class: 'form-control' } %>
+  <%= f.button :submit, "Importar", class: 'button' %>
+<% end %>

@@ -1,0 +1,13 @@
+<%= simple_form_for(@bi_url, html: {
+  class: 'gray-form lg:w-1/3'
+}, defaults: {
+  wrapper_html: { class: 'default-wrapper-form' },
+  input_html: { class: 'custom-input' }
+}) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= f.input :bi_url, label: 'BI Google Data Studio' %>
+
+  <%= f.submit 'Enviar', class: 'button'%>
+<% end %>

@@ -1,0 +1,82 @@
+<h2>
+  Minha conta
+</h2>
+
+<p class="description">
+Aqui você pode editar detalhes do seu perfil.
+</p>
+
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {
+  class: 'gray-form',
+  method: :put
+}, defaults: {
+  wrapper_html: { class: 'default-wrapper-form' },
+  input_html: { class: 'custom-input' }
+}) do |f| %>
+<%= f.error_notification %>
+
+<%= render partial: 'devise/registrations/profiles/employee', locals: { f: f } if resource.instance_of? Funcionario %>
+<%= render partial: 'devise/registrations/profiles/company', locals: { f: f } if resource.instance_of? Empresa %>
+<%= render partial: 'devise/registrations/profiles/consultant', locals: { f: f } if resource.instance_of? Consultant %>
+<%= render partial: 'devise/registrations/profiles/collaborator', locals: { f: f } if resource.instance_of? ConsultantTeam %>
+
+<%= f.input :photo, as: :file, label: 'Alterar foto de perfil' %>
+
+  <div class="py-4">
+    <%# if current_user.otp_required_for_login %>
+      <%# Deseja desabilitar Autenticação em 2 fatores? %>
+      <%# link_to('Sim', two_factor_settings_path, class: 'btn btn-danger w-25 text-white', method: :delete, data: {confirm: 'Tem certeza de que deseja desativar a autenticação de dois fatores?'}) %>
+    <%# else %>
+      <%# A autenticação de dois fatores NÃO está habilitada. %>
+      <%# link_to('Deseja Habilitar?', new_two_factor_settings_path, class: 'btn w-25 btn-success text-white') %>
+    <%# end %>
+  </div>
+
+<div class="flex flex-row items-center gap-4 mt-4">
+  <%= f.button :submit, 'Salvar preferências', class: 'button', style: 'margin: 0;' %>
+
+  <%= link_to 'Cancelar minha conta', desativar_vinculo_path(resource_name),
+    class: 'block danger',
+    data: {
+      confirm: 'Você tem certeza que deseja cancelar sua conta?'
+    }, method: :patch %>
+</div>
+<% end %>
+
+<% content_for :custom_js do %>
+  <script>
+    $(document).ready(function () {
+      var availableTags = ['Adm', 'Serviço', 'Produção', 'Vendas', 'Liderança', 'Recursos Humamos', 'Profissional da Saúde']
+      $('#funcionario_vinculos_attributes_cargo').autocomplete({
+        source: availableTags,
+        required: true
+      });
+
+      var availableTags = ['CPO', 'CTO', 'Comercial', 'Consultor', 'Assistente', 'Analista', 'Coordenador', 'Médico']
+      $('#consultant_team_function').autocomplete({
+        source: availableTags,
+        required: true
+      });
+
+      <% if resource.errors.messages[:'vinculos.empresa'].present? %>
+          $('.btn[data-id="funcionario_vinculos_attributes_empresa_id"]').attr('style', 'border-color: red;')
+      $('#vinculos_empresa').show()
+      <% end %>
+
+        <% if resource.errors.messages[:'vinculos.cargo'].present? %>
+          $('#funcionario_vinculos_attributes_cargo').attr('style', 'border-color: red;')
+      $('#vinculos_cargo').show()
+      <% end %>
+
+        <% if resource.errors.messages[:'links.consultant'].present? %>
+          $('.btn[data-id="consultant_team_links_attributes_consultant_id"]').attr('style', 'border-color: red;')
+      $('#vinculos_empresa').show()
+      <% end %>
+
+        <% if resource.errors.messages[:'links.function'].present? %>
+          $('#consultant_team_links_attributes_function').attr('style', 'border-color: red;')
+      $('#links_function').show()
+      <% end %>
+    });
+  </script>
+<% end %>

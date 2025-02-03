@@ -1,0 +1,53 @@
+<h2><%= t('.title') %></h2>
+
+<p>
+  Olá <%= @medical_certificate.nome_funcionario %>,
+</p>
+
+<p>
+  O atestado submetido em <%= l(@medical_certificate.created_at, format: :long) %> foi revertido.
+</p>
+
+<p class="warning-box">
+  <strong>Atenção:</strong> Favor revisar seu atestado e reenviar.
+</p>
+
+<h3>Informações gerais:</h3>
+
+<ul>
+  <li>
+    <strong>Tipo de atestado:</strong>
+    <%= @medical_certificate.tipo_de_atestado %>
+  </li>
+
+  <li>
+    <strong>CID:</strong>
+    <%= @medical_certificate.cid %>
+  </li>
+
+  <li>
+    <strong>Número de Registro Médico:</strong>
+    <%= @medical_certificate.tipo_de_registro %> <%= @medical_certificate.numero_de_registro %>
+  </li>
+
+  <% if @medical_certificate.instituicao_de_saude.present? %>
+    <li>
+      <strong>Local de atendimento:</strong>
+      <%= @medical_certificate.instituicao_de_saude %>
+
+      <% full_address = full_address_for(@medical_certificate) %>
+      <%- if full_address.present? %>
+        <em>
+          (<%= full_address_for(@medical_certificate) %>)
+        </em>
+      <% end %>
+    </li>
+  <% end %>
+
+  <li>
+    <strong>Tempo de afastamento:</strong>
+    <%= @medical_certificate.tempo_de_dispensa %>
+  </li>
+</ul>
+
+<%= render 'see_more_details', recipient_role: @recipient_role %>

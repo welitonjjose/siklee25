@@ -1,0 +1,26 @@
+<div class="importar-container">
+  <div class= "container d-flex justify-content-center">
+    <h1 class="title">Importação de funcionários</h1>
+  </div>
+  <div class="row importar-form">
+    <div class="col-md-12">
+      <%= form_with url: "/importar_funcionarios", method: :post, multipart: true do |form| %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Selecione a empresa</label>
+              <%# select_tag :empresa_id, options_from_collection_for_select(Empresa.all.order(:id), "id", "razao_social"), class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Selecione um arquivo</label>
+              <%= file_field_tag :file, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <%= submit_tag %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

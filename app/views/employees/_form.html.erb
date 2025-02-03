@@ -1,0 +1,38 @@
+<div class="flex-grow">
+  <%= f.input :nome, placeholder: 'Informe o nome completo', autofocus: true, label: 'Nome', input_html: { autocomplete: 'off' } %>
+  <%= f.input :rg, placeholder: '00.000.000-0', label: 'RG', input_html: { autocomplete: 'off' } %>
+  <%= f.input :sexo, label: 'Gênero', collection: ['Feminino', 'Masculino', 'Prefiro Não Informar'], include_blank: true %>
+
+  <%= f.input :email,
+    required: true,
+    autofocus: true,
+    placeholder: 'Ex: xxxxx@gmail.com.br',
+    input_html: { autocomplete: 'off' } %>
+
+  <%= f.simple_fields_for :vinculos_attributes do |v| %>
+    <%= v.input :squad_id, collection: squads_by_empresa ,label: 'Departamento', placeholder: 'Informe o departamento', required: true, input_html: { value: employee.vinculos.first&.squad } %>
+
+    <div class="invalid-feedback" id="vinculos_squad">
+      Departamento não pode ficar em branco
+    </div>
+
+    <%= v.input :cargo, placeholder: 'Informe a função na empresa', required: true, input_html: { value: employee.vinculos.first&.cargo } %>
+
+    <div class="invalid-feedback" id="vinculos_cargo">
+      Cargo não pode ficar em branco
+    </div>
+  <% end %>
+</div>
+
+<div class="flex-grow">
+  <%= f.input :cpf, placeholder: '000.000.000-00', autofocus: true, label: 'CPF', input_html: { autocomplete: 'off' } %>
+  <%= f.input :data_nascimento, placeholder: '00/00/0000', label: 'Data de Nascimento', input_html: { autocomplete: 'off' } %>
+  <%= f.input :celular, placeholder: '(00) 00000-0000', label: 'Celular', input_html: { autocomplete: 'off' } %>
+  <%= f.input :registro_empresa, placeholder: 'código da empresa 00001 + número do funcionário 000015', autofocus: true, label: 'Registro na Empresa', input_html: { autocomplete: 'off' } %>
+  <%= f.input :pis, placeholder: '000.00000.00-0', autofocus: true, label: 'PIS', input_html: { autocomplete: 'off' } %>
+  <%= f.input :photo, as: :file, required: true, label: 'Adicionar uma foto de perfil' %>
+
+  <%= link_to lgpd_text_path, target: '_blank' do %>
+    Termos de Uso e LGPD
+  <% end %>
+</div>

@@ -1,0 +1,37 @@
+<%= f.input :nome, autofocus: true, label: 'Nome do Funcionário', input_html: { autocomplete: 'off' } %>
+<%= f.input :cpf, autofocus: true, label: 'CPF', readonly: true %>
+<%= f.input :rg, label: 'RG', readonly: true %>
+
+<%= f.input :data_nascimento, label: 'Data de Nascimento' %>
+<%= f.input :sexo, label: 'Gênero', collection: ['Feminino', 'Masculino', 'Prefiro Não Informar'], include_blank: true %>
+<%= f.input :celular, label: 'Celular', input_html: { autocomplete: 'off' } %>
+
+<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+  <p>Aguardando confirmação do e-mail cadastrado: <%= resource.unconfirmed_email %></p>
+<% end %>
+
+<%= f.input :email, required: true, autofocus: true %>
+
+<% bond = resource.most_recent_bond %>
+<% if bond %>
+  <%= f.simple_fields_for bond do |v| %>
+    <%= v.input :squad_id, label: 'Departamento', collection: squads_by_empresa, hint: 'Informe seu departamento', include_blank: true, disabled: true, readonly: true %>
+    <%= v.input :cargo, hint: 'Informe sua função na empresa', include_blank: true, readonly: true %>
+  <% end %>
+<% end %>
+
+<%= f.input :registro_empresa, autofocus: true, label: 'Registro na Empresa', input_html: { autocomplete: 'off' } %>
+<%= f.input :pis, autofocus: true, label: 'PIS', input_html: { autocomplete: 'off' }, readonly: true %>
+
+<%= f.input :risco_ocupacional, autofocus: true, label: 'Risco Ocupacional', readonly: true %>
+
+<%= f.input :password,
+  label: 'Senha',
+  hint: 'Deixe em branco se não quiser alterar',
+  required: false,
+  input_html: { autocomplete: 'new-password' } %>
+
+<%= f.input :password_confirmation,
+  label: 'Confirmar Senha',
+  required: false,
+  input_html: { autocomplete: 'new-password' } %>

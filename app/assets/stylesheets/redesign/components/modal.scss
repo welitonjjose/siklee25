@@ -1,0 +1,61 @@
+/*
+* Modal component
+*/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  cursor: pointer;
+  display: none;
+}
+
+.modal-overlay.centered {
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.sidebar-right {
+  justify-content: flex-end;
+}
+
+.custom-modal {
+  background-color: #fff;
+  padding: 1rem 2rem;
+  cursor: default;
+  overflow-y: auto;
+}
+
+.modal-overlay.sidebar-right .custom-modal {
+  width: 100%;
+  @media (min-width: 768px) {
+    width: 33.333%;
+  }
+}
+
+.custom-modal .close-modal.icon {
+  width: 2.5rem;
+  padding: 0.5rem;
+  fill: #6B7280;
+  cursor: pointer;
+  &:hover {
+    fill: #3B82F6;
+  }
+  float: right;
+}
+
+.custom-modal-content {
+}
+
+.custom-modal-content h3 {
+  font-size: 1.5rem;
+  padding: 0.5rem 0;
+  margin-right: 2.5rem;
+}
+
+.custom-modal-content .clear-filters {
+}

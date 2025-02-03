@@ -1,0 +1,88 @@
+<div class="flex flex-row justify-end flex-wrap items-center ml-4">
+  <%= link_to 'javascript:void(0);', class:
+    "open-modal filter-button #{filtering_dashboard? ? 'filtered' : ''}" do %>
+    Filtrar
+
+    <%= inline_svg 'icons/filter', alt: 'Filtrar', class: 'icon' %>
+  <% end %>
+</div>
+
+<%= render 'redesign/shared/modal' do %>
+  <h3>Filtros</h3>
+
+  <%= simple_form_for(
+    '', url: dashboard_path, method: :get,
+    html: {
+      class: 'gray-form'
+    },
+    defaults: {
+      wrapper_html: { class: 'default-wrapper-form' },
+      input_html: { class: 'custom-input' }
+    }) do |f| %>
+    <%= f.input :query, as: :hidden, input_html: { value: params[:query] } %>
+
+    <div class="flex flex-col gap-4">
+      <% if admin? || consultant? || collaborator? %>
+        <%= f.input :company_id,
+          collection: @companies,
+          label: 'Empresa',
+          label_method: :razao_social,
+          value_method: :id,
+          input_html: {
+            class: 'js-select simple-select',
+            onchange: '$("._employee_id").remove();$(this).closest("form").submit();'
+          },
+          selected: params[:company_id],
+          prompt: 'Selecione uma empresa',
+          required: false %>
+      <% end %>
+
+      <%= f.input :medical_certificate_type,
+        collection: Atestado::MEDICAL_CERTIFICATE_TYPES.invert,
+        selected: params[:medical_certificate_type],
+        prompt: 'Selecione o Tipo de Atestado',
+        input_html: { class: 'js-select' },
+        required: false
+      %>
+
+      <% if admin? || company? || consultant? || collaborator? || (employee? && (current_user.employer? || current_user.manager?)) %>
+        <%= f.input :origin,
+          collection: [
+            ['Empresa', 'company'],
+            ['Funcionário', 'employee'],
+            ['Gestor', 'gestor']
+          ],
+          selected: params[:origin],
+          prompt: 'Selecione perfil Solicitante',
+          input_html: { class: 'js-select' },
+          include_blank: true,
+          required: false
+        %>
+
+        <%= f.input :by_absence_reason,
+            collection: Atestado::ABSENCE_REASONS_FOR_DEFAULT.invert,
+            selected: params[:by_absence_reason],
+            prompt: 'Selecione o Motivo',
+            input_html: { class: 'js-select', id: "kind-atestado" },
+            required: false
+        %>
+
+        <%= f.input :departament,
+              collection: squads_by_user(params[:company_id]),
+              selected: params[:departament],
+              prompt: 'Selecione o Departamento',
+              input_html: { class: 'js-select' },
+              required: false
+        %>
+      <% end %>
+
+      <div class="filters-form">
+        <div class="flex flex-row flex-wrap gap-4 mt-4">
+          <%= link_to 'Limpar Filtros', dashboard_path, class: 'clear-filters-button' %>
+
+          <%= f.button :submit, 'Filtrar', class: 'button' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,107 @@
+<%= simple_form_for(
+  '', url: dashboard_path, method: :get,
+  html: { class: 'gray-form hiddeninmodile' },
+  defaults: {
+    wrapper_html: { class: 'default-wrapper-form' }
+  }) do |f| %>
+  <% if admin? || consultant? || collaborator? %>
+    <%= hidden_field_tag :company_id, params[:company_id] %>
+  <% end %>
+
+  <%= hidden_field_tag :medical_certificate_type, params[:medical_certificate_type] %>
+
+  <div class="flex flex-row justify-end flex-wrap items-center gap-2">
+    <div class="flex flex-row">
+      <%= inline_svg 'icons/calendar', id: 'calendarIcon', class: 'icon cursor-pointer' %>
+
+      <div class="flex flex-row items-center
+                    text-gray-800 bg-white border-solid-1 text-sm
+                    border-gray-800 border
+                    rounded-tr-md rounded-br-md relative -left-1">
+        <%= f.input :period_from,
+          label: false,
+          placeholder: 'dd/mm/aa',
+          input_html: {
+            id: 'periodFrom',
+            class: 'custom-input bg-transparent text-sm w-[115px] text-center px-0',
+            autocomplete: 'off',
+            value: params[:period_from]
+          }
+        %>
+
+        até
+
+        <%= f.input :period_to,
+          label: false,
+          placeholder: 'dd/mm/aa',
+          input_html: {
+            id: 'periodTo',
+            class: 'custom-input bg-transparent text-sm w-[115px] text-center px-0',
+            autocomplete: 'off',
+            value: params[:period_to]
+          }
+        %>
+      </div>
+    </div>
+
+    <%= f.button :submit, 'Buscar', class: 'big-search-button' %>
+  </div>
+<% end %>
+
+<script>
+  $(function() {
+    const options = {
+      defaultDate: "-1w",
+      showOtherMonths: true,
+      selectOtherMonths: true,
+      numberOfMonths: 2,
+      showButtonPanel: true,
+      changeMonth: false,
+      changeYear: false,
+      minDate: -380,
+      maxDate: "+1D",
+      dateFormat: 'dd/mm/yy',
+      closeText:"Fechar",
+      prevText:"&#x3C;Anterior",
+      nextText:"Próximo&#x3E;",
+      currentText:"Hoje",
+      monthNames: [
+        "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"
+      ],
+      monthNamesShort:[
+        "Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"
+      ],
+      dayNames:[
+        "Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"
+      ],
+      dayNamesShort:["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"],
+      dayNamesMin:["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"],
+      weekHeader:"Sm",
+      firstDay:1
+    }
+
+    var dateFormat = "dd/mm/yy",
+      from = $("#periodFrom").datepicker(options).on("change", function() {
+        to.datepicker("option", "minDate", getDate(this));
+      }),
+      to = $("#periodTo").datepicker(options).on("change", function() {
+        from.datepicker("option", "maxDate", getDate(this));
+      });
+
+    function getDate(element) {
+      var date;
+
+      try {
+        date = $.datepicker.parseDate(dateFormat, element.value);
+      } catch(error) {
+        date = null;
+      }
+
+      return date;
+    }
+
+    $("#calendarIcon").on("click", function(event) {
+      $("#periodFrom").focus();
+    });
+  });
+</script>

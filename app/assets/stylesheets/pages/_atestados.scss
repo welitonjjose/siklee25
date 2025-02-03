@@ -1,0 +1,354 @@
+.atestados-page-show {
+  background: linear-gradient(284.96deg, #4a6987 -15.33%, #2c3e50 107.73%),
+    #2c3e50;
+  display: flex;
+  a {
+    color: $main-blue;
+  }
+}
+
+.atestados-page {
+  background: linear-gradient(284.96deg, #4a6987 -15.33%, #2c3e50 107.73%),
+    #2c3e50;
+  height: 100vh;
+  display: flex;
+  padding-top: 45px;
+  a {
+    color: $main-blue !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .atestados-page {
+  background: linear-gradient(284.96deg, #4a6987 -15.33%, #2c3e50 107.73%),
+    #2c3e50;
+  max-height: fit-content;
+  min-width: fit-content;
+  }
+}
+
+.container-profile-atestados {
+  width: 30%;
+  min-width: fit-content;
+}
+
+@media screen and (max-width: 480px) {
+  .container-profile-atestados {
+  max-width: fit-content;
+  position: absolute;
+  justify-content: center;
+  display: none;
+  }
+}
+
+.container-atestados {
+  width: 70%;
+  border-radius: 15px;
+  padding: 5px;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: 480px) {
+  .container-atestados {
+  max-width: 80%;
+  padding: 2px;
+  }
+}
+
+.atestados-title {
+  display: flex;
+  padding: 10px;
+  font-family: "Poppins", sans-serif;
+  color: $main-blue;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: 40px;
+  line-height: 100%;
+}
+
+@media screen and (max-width: 480px) {
+  .atestados-title {
+  padding: 5px;
+  margin-bottom: 5px;
+  font-size: 90%;
+  line-height: 100%;
+  }
+}
+
+.profile-pic {
+  border-radius: 50%;
+  border: 3px solid $main-blue;
+  height: 100px !important;
+  width: 100px !important;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 480px) {
+  .profile-pic {
+  display: none;
+  }
+}
+
+.bg-white-profile {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+@media screen and (max-width: 480px) {
+  .bg-white-profile {
+  display: none;
+  }
+}
+
+.profile-name {
+  margin-top: 10px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: $main-blue;
+  text-align: center;
+}
+
+@media screen and (max-width: 480px) {
+  .profile-name {
+  display: none;
+  }
+}
+
+.profile-subtitle {
+  margin-top: 12px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: $main-blue;
+  text-align: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 480px) {
+  .profile-subtitle {
+  display: none;
+  }
+}
+
+.card-content {
+  border: none !important;
+  justify-content: center;
+}
+
+.edit-info {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 480px) {
+  .edit-info {
+  font-size: 70%;
+  }
+}
+
+.show-atestado {
+  border-radius: 15px;
+  margin: 5px 0;
+  padding: 20px;
+  margin-top: 75px;
+  margin-bottom: 5px;
+}
+
+@media screen and (max-width: 480px) {
+  .show-atestado {
+  padding: 15px;
+  font-size: 60%;
+  }
+}
+
+.edit-btn {
+  background-color: #4a6987;
+  border: none;
+  color: #FFFFFF !important;
+  &:hover {
+    background-color: #3f5973;
+    color: white !important;
+  }
+  &:active {
+    background-color: #3f5973 !important;
+    color: #FFFFFF !important;
+  }
+  &:focus {
+    background-color: #3f5973 !important;
+    color: #FFFFFF !important;
+  }
+}
+
+.delete-btn {
+  margin-right: 20px;
+  margin-left: 0 !important;
+  color: #dc3545;
+}
+
+.buttons-show {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 2px;
+}
+
+.small-card {
+  border-radius: 15px;
+  background-color: $main-blue;
+  padding: 5px;
+  border: 5px solid $light-gray;
+  max-width: 100%;
+  max-height: 100%;
+  line-height: 100%;
+  &:hover {
+    background-color: #34485e;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .small-card {
+  max-width: fit-content;
+  max-height: fit-content;
+  font-size: 50%;
+  }
+}
+
+.atestado-img {
+  border: 3px solid $main-blue;
+  max-width: 100%;
+  max-height: fit-content;
+}
+
+@media screen and (max-width: 480px) {
+  .atestado-img {
+  border-radius: 3px;
+  padding: 7px;
+  max-height: 70%;
+  max-width: 70%;
+  margin-top: 35px;
+  }
+}
+
+.card-text {
+  color: $white;
+  text-align: center;
+  justify-content: center;
+  &:hover {
+    color: $light-gray;
+    transition: 800ms;
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .card-text {
+  color: $white;
+  text-align: center;
+  font-size: 100%;
+  }
+}
+
+.card-outside {
+  padding: 0 20px !important;
+}
+
+@media screen and (max-width: 480px) {
+.card-outside {
+    padding: 0 50px !important;
+  }
+}
+
+
+.send-btn {
+  background-color: $secondary-blue;
+  height: 55px;
+
+  &:hover {
+    color: #FFFFFF;
+    background-color: $main-blue;
+  }
+}
+
+.see-cfm {
+  margin-bottom: 10px;
+}
+
+.atestado-content {
+  margin-top: 5px;
+  font-size: 12px;
+  position: relative;
+  width: 90%;
+  height: 90%;
+  line-height: 100%;
+}
+
+@media screen and (max-width: 480px) {
+  .atestado-content {
+  font-size: 100%;
+  width: 100%;
+  }
+}
+
+.line {
+  width: 60%;
+        height: 2px;
+        background-color: $main-blue;
+        border: 0 none;
+}
+
+.card-action {
+  border-top: 5px solid white;
+  padding: 2px;
+  font-size: 12px;
+  background-color: #01b494;
+  text-align: center;
+  border-radius: 10px;
+  justify-content: space-evenly;
+  border-bottom: 5px;
+}
+
+@media screen and (max-width: 480px) {
+.card-action {
+    font-size: 90%;
+  }
+}
+.delete-card-action {
+  border-top: 5px solid white;
+  padding: 2px;
+  font-size: 12px;
+  background-color: #FF8383;
+  text-align: center;
+  border-radius: 10px;
+  justify-content: space-evenly;
+  border-bottom: 5px;
+}
+
+.atestados-page .btn-submit {
+  background-color: #FFF;
+  border: 1px solid #DFDFDF;
+  padding: 0.2rem 1rem;
+  box-shadow: 0 8px 6px -6px #d7d2d2;
+  color: $brand-primary-color;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: #EEE;
+  }
+}
+
+.atestados-page .simple-select {
+  background-color: #FFF;
+  border: 1px solid #DFDFDF;
+  padding: 0.2rem 1rem;
+  box-shadow: 0 8px 6px -6px #d7d2d2;
+  color: $brand-primary-color;
+  margin: 0.25em 0 0.75em;
+}
+

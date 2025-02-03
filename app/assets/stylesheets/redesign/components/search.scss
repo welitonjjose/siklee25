@@ -1,0 +1,47 @@
+/*
+* Search components
+*/
+.default-search {
+  width: 100%;
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid #6B7280;
+  border-radius: 8px;
+  gap: 12px;
+  padding: 16px;
+}
+
+.default-search select,
+.default-search input {
+  flex-grow: 1;
+  border: none;
+  font-size: 14px;
+  color: #3B82F6;
+  focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+  padding: 12px;
+}
+
+.default-search .icon {
+  fill: #6B7280;
+}
+
+.default-search .stroke-icon {
+  stroke: #6B7280;
+}
+
+.default-search button {
+  flex: none;
+  &:hover .stroke-icon {
+    stroke: #3B82F6;
+  }
+  &:hover .icon {
+    fill: #3B82F6;
+  }
+}

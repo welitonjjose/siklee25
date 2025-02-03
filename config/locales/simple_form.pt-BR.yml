@@ -1,0 +1,51 @@
+pt-BR:
+  simple_form:
+    "yes": Sim
+    "no": Não
+    required:
+      text: obrigatório
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: Um erro ocorreu, por favor verifique as informações utilizadas.
+    labels:
+      defaults:
+        email: E-mail
+        password: Senha
+        remember_me: Manter conectado
+        role: Perfil
+        user_status: Status Usuário
+        medical_certificate_type: Tipo de Atestado
+        by_absence_reason: Motivos do Afastamento
+        departament: Departamentos
+        employee_id: Funcionário
+        physician_name: Médico
+        medical_specialty: Especialidade Médica
+        icd: CID
+        medical_institution: Instituição de Saúde
+        origin: Perfil Solicitante
+        employee_status: Status do Funcionário
+        department: Departamento
+        job_function: Cargo
+        funcionario_lider_id: Lider direto
+      consultant_team:
+        function: Função
+      vinculo:
+        squad: Departamento
+    #   user:
+    #     new:
+    #       email: 'E-mail to sign in.'
+    #     edit:
+    #       email: 'E-mail.'
+    # hints:
+    #   defaults:
+    #     username: 'User name to sign in.'
+    #     password: 'No special characters, please.'
+    # include_blanks:
+    #   defaults:
+    #     age: 'Rather not say'
+    # prompts:
+    #   defaults:
+    #     age: 'Select your age'

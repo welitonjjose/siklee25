@@ -1,0 +1,159 @@
+pt-BR:
+  dashboards:
+    show:
+      title: Dashboard
+      description: Aqui você encontra a informações principais da nossa Plataforma
+    current_profile:
+      roles:
+        admin: Admin
+        company: Empresa
+        employee: Funcionário
+        employer: Empregador
+        manager: Gestor
+        consultant: Consultor
+        collaborator: Colaborador
+  defaults:
+    confirmation: Você tem certeza?
+  atestados:
+    form:
+      error: Revise clicando no Tipo de Atestado!
+      hints:
+        medical_certificate_type: "*Declaração de Comparecimento => Apenas HORAS e MINUTOS afastados"
+    new:
+      reminders:
+        medical_certificate_photo: Tire uma foto do atestado!
+    funcionario_okay:
+      success: Atestado aprovado com sucesso!
+      error: Não foi possível aprovar o atestado, por favor tente novamente.
+    empresa_reverter:
+      already_approved: Atestado já foi aprovado!
+      already_annulled: Atestado já foi subscrito!
+      success: Atestado revertido para o funcionário(a) com sucesso!
+      error: Não foi possível reverter o atestado, por favor tente novamente.
+    empresa_subscrever:
+      already_approved: Atestado já foi aprovado!
+      error: Não foi possível subscrever o atestado, por favor tente novamente.
+      success: Atestado subscrito com sucesso!
+  collaborators:
+    index:
+      authorize: Autorizar colaborador
+      revoke: Revogar acesso de colaborador
+    authorize:
+      success: Colaborador autorizado com sucesso.
+      error: Houve uma falha ao autorizar o acesso do colaborador, por favor tente novamente.
+    revoke:
+      success: Acesso do colaborador revogado com sucesso.
+      error: Houve uma falha ao revogar o acesso do colaborador, por favor tente novamente.
+  consultants:
+    index:
+      title: Consultores
+  consultants_pages:
+    consultants_outsourcing:
+      title: Controle de Consultores
+  devise:
+    passwords:
+      edit:
+        title: Redefinição de senha
+        password: Nova Senha
+        password_confirmation: Confirmação da Nova Senha
+        characters_minimum: "no mínimo %{minimum_password_length} caracteres"
+  empresas_pages:
+    index:
+      actions:
+        edit: Editar
+        destroy: Remover
+      roles:
+        employee: Funcionário
+        employer: Empregador
+        manager: Gestor
+    toggle_empregador:
+      success: Empregador(a) atualizado(a) com sucesso!
+      error: Não foi possível definir o(a) funcionário(a) como empregador(a), tente novamente.
+    toggle_gestor:
+      success: Gestor(a) atualizado(a) com sucesso!
+      error: Não foi possível definir o(a) funcionário(a) como gestor(a), tente novamente.
+    funcionarios_form_update:
+      success: Funcionário(a) atualizado(a) com sucesso!
+      error: Não foi possível atualizar o(a) funcionário(a), por favor tente novamente.
+  pages:
+    login:
+      header:
+        title: "Atestados"
+        welcome: Bem vindo %{resource}!
+        resources:
+          admin: Admin
+          empresa: Empregador
+          funcionario: Colaborador
+          consultant: Consultor
+          consultant_team: Colaborador
+  funcionarios:
+    registrations:
+      not_allowed: Não é possível se cadastrar
+  employees:
+    create:
+      success: Funcionário(a) cadastrado(a) com sucesso!
+  funcionarios_pages:
+    destroy_funcionario:
+      success: Funcionário deletado com sucesso!
+      error: Não foi possível excluir o funcionário, por favor tente novamente.
+    funcionarios_empresa:
+      actions:
+        edit: Editar
+        destroy: Remover
+      confirmations:
+        destroy: Você tem certeza que deseja remover esse funcionário? Essa ação é irreversível
+  okays:
+    medical_certificate:
+      company_approved: Aprovado pela empresa
+      company_annulled: Subscrito pela empresa
+      company_approved_and_annulled: Aprovado e subscrito pela empresa
+      company_reverted: Revertido pela empresa
+      employee_approval_pending: Aprovação do(a) funcionário(a) pendente
+      employee_approved: Aprovado pelo(a) funcionário(a)
+      ask_employee_to_revise: Corrigido pelo(a) funcionário(a)
+  redesign:
+    shared:
+      metric:
+        absence_duration_in_days: Tempo de Afastamento Total
+        receiving_average_in_days: Tempo de Recebimento Médio
+        active_patients: Pacientes Ativos
+        company_pending_medical_certificates_count: Pendentes Empresa
+        employee_pending_medical_certificates_count: Pendentes Funcionário
+        medical_certificates: Atestados
+        medical_certificates_issued: Atestados por Atestadistas
+        medical_certificates_receiving_average: Tempo Médio dos Recebimentos
+        medical_certificates_absence_duration_average: Tempo Médio dos Afastamentos
+        pending_medical_certificates_count: Pendentes Geral
+        total_employees: Total de Colaboradores
+        total_departaments: Total de Departamentos
+      metrics:
+        accompany_statement_of_hours: Acompanhante
+        annulled_medical_certificates: Total de Atestados Subscritos
+        approved_medical_certificates: Total de Atestados Aprovados
+        company_medical_certificates: Empresa
+        gestor_medical_certificates: Gestor
+        edited_medical_certificates: Total de Atestados Editados
+        employee_medical_certificates: Funcionário
+        maternity_leave_statement_of_days: Licença Maternidade
+        medical_certificates: Total de Atestados
+        medical_certificates_receiving_average: Média Recebimentos
+        medical_certificates_absence_duration_average: Média Afastamentos
+        pending_medical_certificates: Pendentes para aprovação
+        presence_statement_of_hours: Declaração de Horas
+        reverted_medical_certificates: Total de Atestados Revertidos
+        sickness_statement_of_days: Doença
+        traffic_accident_statement_of_days: Acidente de Trânsito
+        work_accident_statement_of_days: Acidente de Trabalho
+  squads:
+    index:
+      confirmations:
+        destroy: Confirma a exclusão do departamento
+      actions:
+        edit: Editar
+        destroy: Remover
+    create:
+      success: Departamento criado com sucesso
+    update:
+      success: Departamento atualizado com sucesso
+    destroy:
+      success: Departamento removido com sucesso

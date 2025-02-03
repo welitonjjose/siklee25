@@ -1,0 +1,17 @@
+<% icon_file = local_assigns.has_key?(:icon) ? icon : "metrics_#{title}" %>
+<% card_size_class = local_assigns.has_key?(:card_size) ? card_size : '' %>
+
+<div class="metric-card <%= card_size_class %>">
+  <%= inline_svg "icons/#{icon_file}.svg",
+    alt: t(".#{title}") %>
+
+  <div class="card-details">
+    <h4 class="metric">
+      <%= value ? value : '-' %>
+    </h4>
+
+    <h3 class="title">
+      <%= t(".#{title}") %>
+    </h3>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+<% if @vinculos.length > 0 %>
+  <h3 class="text-lg mt-5 mb-3">
+    Total de Funcionários: <%= @vinculos.length %>
+  </h3>
+<% end %>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th role="col" class="text-center">Nome</th>
+      <th role="col" class="hidden md:table-cell text-center">E-mail</th>
+      <th role="col" class="hidden md:table-cell text-center">Departamento</th>
+      <th role="col" class="text-center">Cargo</th>
+      <th role="col" class="hidden md:table-cell text-center">Líder Direto</th>
+      <th role="col" class="hidden md:table-cell text-center">Status Usuário</th>
+      <th role="col" class="hidden md:table-cell text-center">Perfil</th>
+      <th role="col" class="text-center">Qtd. Atestados</th>
+      <th role="col" class="text-center">Ações</th>
+    </tr>
+
+    <tbody>
+      <%- if @vinculos.length > 0 %>
+        <% @vinculos&.each do |vinculo| %>
+          <tr>
+            <td>
+              <%= vinculo.funcionario.nome %>
+            </td>
+
+            <td class="hidden md:table-cell">
+              <%= vinculo.funcionario.email %>
+            </td>
+
+            <td class="hidden md:table-cell">
+              <%= vinculo.squad %>
+            </td>
+
+            <td class="text-center">
+              <%= vinculo.cargo %>
+            </td>
+
+            <td class="hidden md:table-cell">
+              <%= vinculo.nome_lider %>
+            </td>
+
+            <td class="hidden md:table-cell">
+              <% if vinculo.ativo %>
+                <span class="tag active">Ativo</span>
+              <% else %>
+                <span class="tag deactivated">Inativo</span>
+              <% end %>
+            </td>
+
+            <td class="text-center hidden md:table-cell">
+              <%= t(role_by_bound(vinculo), scope: 'empresas_pages.index.roles') %>
+            </td>
+
+            <td class="text-center">
+              <div class="flex items-center justify-center">
+                <%= vinculo.refatestados.where(empresa_id: current_user.authorized_company_ids).count %>
+                <%= inline_svg 'icons/alert', style: "width: 20px; height: 20px; margin-left: 10px" if vinculo.sum_tempo_de_dispensa_em_horas_per_funcionario? %>
+              </div>
+            </td>
+
+            <td class="relative">
+              <button aria-haspopup="true" aria-expanded="false" class="action dropdown-button">
+                <%= inline_svg 'icons/ellipsis', alt: 'Ações', class: 'mx-auto' %>
+              </button>
+
+              <ul class="custom-dropdown-menu hidden" aria-labelledby="dropdown-button" role="menu">
+                <li role="menuitem">
+                  <%= link_to t('.actions.edit'), vinculos_form_path(vinculo.funcionario_id), class: 'edit-info' %>
+                </li>
+
+                <% if company? || (employee? && current_user.employer?) %>
+                  <li role="menuitem">
+                    <%= link_to "#{vinculo.gestor ? 'Remover atribuição de gestor' : 'Atribuir como gestor'}", toggle_gestor_path(vinculo), method: :patch %>
+                  </li>
+                <% end %>
+
+                <% if consultant? || collaborator? %>
+                  <li role="menuitem">
+                    <%= link_to "#{vinculo.empregador ? 'Remover empregador' : 'Adicionar empregador'}", toggle_empregador_path(vinculo), method: :patch %>
+                  </li>
+
+                  <li role="menuitem">
+                    <%= link_to "#{vinculo.gestor ? 'Remover gestor' : 'Adicionar gestor'}", toggle_gestor_path(vinculo), method: :patch %>
+                  </li>
+                <% end %>
+
+                <%- if admin? %>
+                  <li role="menuitem">
+                    <%= link_to t('.actions.destroy'), destroy_funcionario_path(vinculo.funcionario_id), class: 'edit-info',
+                      data: { confirm: t('.confirmations.destroy') } %>
+                  </li>
+                <% end %>
+              </ul>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="7">
+            Nenhum(a) funcionário(a) encontrado(a)
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>
+
+<script>
+  $(document).ready(function() {
+    const $button = $('.dropdown-button');
+    const $menu = $('.custom-dropdown-menu');
+
+    $menu.on('mouseleave', ()=> {
+      $menu.addClass('hidden')
+    })
+
+    $button.on('click', function (event) {
+      const targetElement = $(event.currentTarget);
+
+      const menu = targetElement.next();
+      const expanded = targetElement.attr('aria-expanded') === 'true';
+
+      targetElement.attr('aria-expanded', !expanded);
+
+      menu.toggleClass('hidden');
+    });
+  });
+</script>

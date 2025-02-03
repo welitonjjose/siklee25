@@ -1,0 +1,12 @@
+<header>
+  <%= link_to root_path do %>
+    <% if current_app&.consultants&.first&.logo&.attached? %>
+    <%= image_tag current_app.consultants.first.logo, class: 'w-28' %>
+    <% elsif current_app&.logo %>
+    <%= image_tag current_app.logo, class: 'w-28' %>
+    <% else %>
+      <%= image_tag 'logos/siklee_medium.png', class: 'w-28' %>
+    <% end %>
+  <% end %>
+</header>
+

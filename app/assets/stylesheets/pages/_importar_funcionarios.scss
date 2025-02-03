@@ -1,0 +1,23 @@
+.importar-container {
+  background: linear-gradient(284.96deg, #4a6987 -15.33%, #2c3e50 107.73%),
+    #2c3e50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.importar-form {
+  color: $main-blue;
+  width: 90%;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 85vh;
+  margin-bottom: 2em;
+  align-items: center;
+}

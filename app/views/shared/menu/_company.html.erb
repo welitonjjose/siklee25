@@ -1,0 +1,36 @@
+<div class="nav-elements">
+  <li class="nav-item active">
+    <%= link_to 'Tutoriais', tutorials_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item active">
+    <%= link_to 'Funcionário(as)', empresas_pages_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item active">
+    <%= link_to 'Novo Atestado', new_atestado_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item active">
+    <%= link_to 'Atestados Medicos', atestados_path, class: 'nav-link' %>
+  </li>
+  <li class="nav-item active">
+    <%= link_to 'Aprovações', okays_path, class: 'nav-link' %>
+  </li>
+  <% unless current_empresa.bi_url.nil? %>
+    <li class="nav-item active">
+      <%= link_to 'BI', current_empresa.bi_url, class: 'nav-link', target: '_blank' %>
+    </li>
+  <% end %>
+</div>
+<li class="nav-item dropdown">
+ <%= profile_photo_for(current_empresa,
+                        class: "avatar dropdown-toggle", id: "navbarDropdown",
+                        data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+    <%= link_to 'Novo Funcionário(a)', new_employee_path, class: 'dropdown-item' %>
+    <%- if current_empresa.any_approved_consultant? %>
+      <%= link_to 'Consultores', consultants_path, class: 'dropdown-item' %>
+    <% end %>
+    <%= link_to 'Controle de Funções', funcionarios_function_path, class: 'dropdown-item' %>
+    <%= link_to 'Atualizar Cadastro?', edit_empresa_registration_path, class: 'dropdown-item' %>
+    <%= link_to 'Sair', destroy_empresa_session_path, method: :delete, class: 'dropdown-item' %>
+  </div>
+</li>

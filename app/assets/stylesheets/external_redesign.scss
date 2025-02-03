@@ -1,0 +1,100 @@
+// External libraries
+@import "bootstrap/scss/bootstrap";
+
+/* Hacks `bootstrap-select` component when text
+* is too long
+*/
+.bootstrap-select .dropdown-item {
+  font-family: "Poppins", Arial, sans-serif;
+  white-space: normal;
+  padding: 10px 15px;
+  font-size: 15px;
+}
+
+@media screen and (min-width: 567px) {
+  .blockinmodile{
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 567px) {
+  .hiddeninmodile {
+    display: none !important;
+  }
+
+  .btn-filter{
+    width: 100% !important;
+  }
+  .mobile-center{
+    justify-items: center !important;
+  }
+  .mobile-space{
+    margin-top: -50px;
+  }
+
+  .table-with-scroll{
+    overflow-y: scroll;
+    max-width: 550px !important;
+  }
+  table tr td{
+    padding: 3px;
+  }
+  table tr th{
+    padding: 3px !important;
+  }
+}
+
+.gcontainer{
+  height: 110px;
+  text-align: center;
+  justify-items: center;
+  margin: 0 auto;
+}
+.grow{
+  position: relative;
+
+  justify-items: center;
+  margin: 0 auto;
+}
+.gcol{
+  float: left;
+  border: solid 1px transparent;
+  width: 50%;
+}
+.gimage-right{
+  position: absolute;
+  right: 10px;
+}
+
+.gimage-left{
+  position: absolute;
+  left: 10px;
+}
+
+@media (max-width: 587px) {
+  .gcontainer{
+    height: 200px;
+    text-align: center;
+    justify-items: center;
+    margin: 0 auto;
+  }
+  .grow{
+    justify-items: center;
+    margin: 0 auto;
+  }
+  .gcol{
+    border: solid 1px 01b494;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .gimage-right{
+    position: relative;
+    right: 0px;
+  }
+
+  .gimage-left{
+    position: relative;
+    left: 0px;
+  }
+
+}

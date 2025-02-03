@@ -1,0 +1,37 @@
+<h2>
+  Editar Informações
+</h2>
+
+
+<%= simple_form_for(@funcionario, url: vinculos_form_update_path(@funcionario.id), html: {
+  class: 'gray-form'
+}, defaults: {
+  wrapper_html: { class: 'default-wrapper-form' },
+  input_html: { class: 'custom-input' }
+}) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :nome, autofocus: true, label: 'Nome do Funcionário', readonly: !has_role_permission? %>
+  <%= f.input :cpf, autofocus: true, label: 'CPF', hint: '*somente leitura', readonly: true %>
+  <%= f.input :rg, label: 'RG', hint: '*somente leitura', readonly: true %>
+
+  <%= f.input :sexo, autofocus: true, label: 'Genero', hint: '*somente leitura', readonly: true %>
+  <%= f.input :data_nascimento, label: 'Data de Nascimento', hint: '*somente leitura', readonly: true %>
+  <%= f.input :pis, autofocus: true, label: 'PIS', hint: '*Número do PIS' %>
+
+  <%= f.input :celular, autofocus: true, label: 'Celular', hint: '*somente leitura', readonly: true %>
+  <%= f.input :email, label: 'Email', hint: '*somente leitura', readonly: true %>
+  <%= f.input :registro_empresa, autofocus: true, label: 'Registro na Empresa', hint: '*Número de matrícula' %>
+
+  <%= f.simple_fields_for :vinculos do |v| %>
+    <%= v.input :ativo, collection: [['Sim', true], ['Não', false]], hint: 'Situação do usuário', label: 'Status: Ativo/Inativo', include_blank: true, readonly: !has_role_permission_consultant?, hint: !has_role_permission_consultant? ? "*Somente Leitura": "" %>
+    <%= v.input :squad_id, collection: squads_by_empresa_form(@funcionario.vinculos.first.empresa_id) , hint: 'Informe um novo departamento', label: 'Departamento', include_blank: true, readonly: !has_role_permission? && current_user.class.to_s.downcase == 'admin' %>
+    <%= v.input :cargo, hint: 'Informe a nova função', include_blank: true, readonly: !has_role_permission? %>
+    <%= v.input :funcionario_lider_id, collection: lideres_by_empresa(@funcionario.id), hint: 'Informe o líder direto', label: 'Líder direto', include_blank: 'Admin-empresa', readonly: !has_role_permission_consultant?, hint: !has_role_permission_consultant? ? "*Somente Leitura": ""  %>
+    <%= v.input :cnpj_employee, autofocus: true, label: 'CNPJ do Funcionário', hint: 'CNPJ alocado na Empresa', include_blank: true, readonly: !has_role_permission? %>
+  <% end %>
+
+  <%= f.input :risco_ocupacional, autofocus: true, label: 'Risco Ocupacional' %>
+
+  <%= f.button :submit, 'Atualizar', class: 'button' %>
+<% end %>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Siklee</title>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <%= stylesheet_link_tag 'external_redesign', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'tailwind', 'data-turbo-track': 'reload' %>
+
+    <%= javascript_pack_tag 'redesign', 'data-turbolinks-track': 'reload' %>
+
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.5/js/bootstrap-select.min.js"></script>
+    <script src="https://rawgit.com/digaev/jquery-time-duration-picker/master/dist/jquery-time-duration-picker.min.js"></script>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.5/css/bootstrap-select.min.css" rel="stylesheet">
+  </head>
+
+  <body class="flex h-screen <%= user_signed_in? ? 'signed-in' : 'guest' %>">
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <%= render 'redesign/shared/navbar'  %>
+
+      <div class="flex flex-1 overflow-y-auto">
+        <%= render 'redesign/shared/sidebar' if user_signed_in? && current_user.opt? %>
+
+        <div class="content-wrapper">
+          <div class="content">
+            <main>
+              <%= render 'shared/flashes' %>
+
+              <%= yield %>
+
+            </main>
+          </div>
+
+          <% if current_app.nil? %>
+            <%# render 'redesign/shared/footer' %>
+          <% end %>
+        </div>
+      </div>
+    <div>
+  </body>
+
+  <%= yield :custom_js %>
+
+  <script>
+    $(document).ready(function() {
+      $('label.sidebar-toggle').on('click', function(_event) {
+        const sidebarWrapper = $(".sidebar-wrapper");
+
+        if (sidebarWrapper.hasClass("showing")) {
+          sidebarWrapper.removeClass("showing");
+
+          setTimeout(function() {
+            sidebarWrapper.addClass("hiding");
+          }, 200);
+        } else {
+          sidebarWrapper.removeClass("hiding");
+
+          setTimeout(function() {
+            sidebarWrapper.addClass("showing");
+          }, 1);
+        }
+      });
+    });
+  </script>
+</html>

@@ -1,0 +1,44 @@
+<%= f.input :nome, autofocus: true, label: 'Nome', input_html: { autocomplete: 'off' } %>
+
+<%= f.input :celular, label: 'Celular', input_html: { autocomplete: 'off' }, class: 'form-input' %>
+
+<%= f.input :email,
+  required: true,
+  autofocus: true,
+  input_html: { autocomplete: 'off' }%>
+
+<% resource.collaborations.build if resource.collaborations.empty? %>
+<%= f.simple_fields_for :collaborations do |v| %>
+  <%= v.input :consultant_id, label: 'Consultor', 
+    collection: Consultant.order(:razao_social),
+    label_method: :razao_social,
+    selected: lambda { |consultant| consultant.id == resource.collaborations.first&.consultant_id },
+    value_method: :id,
+    required: true,
+    input_html: {
+      class: 'js-select',
+      title: 'Selecione sua empresa',
+      data: { 'live-search': 'true', header: '' }
+    } %>
+
+  <div class="invalid-feedback" id="collaborations_consultant">Consultor não pode ficar em branco</div>
+<% end %>
+
+<%= f.input :function, label: 'Função', placeholder: 'Informe sua função na empresa', required: true, input_html: { value: resource.function } %>
+
+<div class="invalid-feedback" style="margin-top: -12px">Cargo não pode ficar em branco</div>
+
+<%= f.input :password,
+  label: 'Senha',
+  required: true,
+  hint: ("Mínimo de #{@minimum_password_length} caracteres" if @minimum_password_length),
+  input_html: { autocomplete: 'new-password' } %>
+
+<%= f.input :password_confirmation,
+  label: 'Confirmar Senha',
+  required: true,
+  input_html: { autocomplete: 'new-password' } %>
+
+<%= f.input :photo, as: :file, label: 'Adicionar uma foto de perfil' %>
+
+<%= link_to 'Termos de Uso e LGPD', lgpd_text_path, target: '_blank' %>

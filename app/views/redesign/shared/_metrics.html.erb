@@ -1,0 +1,40 @@
+<% icon_file = local_assigns.has_key?(:icon) ? icon : "metrics_#{main_title}" %>
+
+<div class="metric-card multiple">
+  <div class="flex flex-row relative">
+    <%= inline_svg "icons/#{icon_file}.svg",
+      alt: t(".#{main_title}"), class: 'absolute' %>
+
+    <div class="card-details">
+      <h3 class="title">
+        <%= t(".#{main_title}") %>
+      </h3>
+
+      <h4 class="metric">
+        <%= main_value ? main_value : '-' %>
+      </h4>
+    </div>
+  </div>
+
+  <div class="side-by-side-metrics">
+    <div class="card-details">
+      <h3 class="title">
+        <%= t(".#{left_title}") %>
+      </h3>
+
+      <h4 class="metric">
+        <%= left_value ? left_value : '-' %>
+      </h4>
+    </div>
+
+    <div class="card-details">
+      <h3 class="title">
+        <%= t(".#{right_title}") %>
+      </h3>
+
+      <h4 class="metric">
+        <%= right_value ? right_value : '-' %>
+      </h4>
+    </div>
+  </div>
+</div>

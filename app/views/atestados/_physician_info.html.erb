@@ -1,0 +1,48 @@
+<% if include_physician_info?(medical_certificate) %>
+  <div>
+    <h4 class="text-base lg:text-xl md:text-lg font-bold mb-3">
+      Dados do Médico
+    </h4>
+
+    <p>
+      <strong class="cursor-help underline decoration-dashed decoration-gray-400
+                    underline-offset-4 decoration-1"
+              title="Veja se o profissional está vinculado ao local em que fez o atendimento no 'CNES'">
+        Nome:
+      </strong>
+      <%= link_to "https://cnes.datasus.gov.br/pages/profissionais/consulta.jsp", :target => "_blank" do %>
+        <%= medical_certificate.nome_do_medico %>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Tipo de Registro:</strong>
+      <%= medical_certificate.tipo_de_registro %>
+    </p>
+
+    <p>
+      <strong>Número do Registro:</strong>
+      <%= medical_certificate.numero_de_registro %>
+    </p>
+
+    <p>
+      <strong>UF:</strong>
+      <%= medical_certificate.uf_medico %>
+    </p>
+
+    <p>
+      <strong>Especialidade Médica:</strong>
+      <%= medical_certificate.especialidade_medica %>
+    </p>
+
+    <p>
+      <strong class="cursor-help underline decoration-dashed decoration-gray-400
+                    underline-offset-4 decoration-1"
+              title="Situação cadastral no momento da submissão do atestado">
+        Situação cadastral no CFM:
+      </strong>
+
+      <%= CfmPhysicianStatuses.t(medical_certificate.physician_status_on_cfm) %>
+    </p>
+  </div>
+<% end %>

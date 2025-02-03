@@ -1,0 +1,17 @@
+<% if current_user.employer? %>
+  <%= render 'redesign/shared/sidebar/employee_employer' %>
+<% elsif current_user.manager? %>
+  <%= render 'redesign/shared/sidebar/employee_manager' %>
+<% else %>
+  <%= render 'redesign/shared/sidebar/common_employee' %>
+<% end %>
+
+<ul class="logout">
+  <li>
+    <%= link_to destroy_funcionario_session_path, method: :delete do %>
+      <%= inline_svg 'icons/logout.svg', alt: 'Sair da plataforma' %>
+
+      Sair
+    <% end %>
+  </li>
+</ul>

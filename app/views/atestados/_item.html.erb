@@ -1,0 +1,62 @@
+<tr>
+  <td>
+    <%= link_to item.nome_funcionario, item %>
+  </td>
+
+  <td class="hidden md:table-cell text-center">
+    <%- if item.data_de_emissao && item.data_de_apresentacao %>
+      <% receiving_duration = (item.data_de_apresentacao - item.data_de_emissao).to_i %>
+      <%= receiving_duration.zero? ? 'menos de um dia' : "#{receiving_duration}d" %>
+    <% else %>
+      -
+    <% end %>
+  </td>
+
+  <td class="text-center">
+    <%= l(item.data_de_emissao) if item.data_de_emissao %>
+  </td>
+
+  <td class="hidden md:table-cell text-center">
+    <%= item.tipo_de_atestado %>
+  </td>
+
+  <td class="text-center">
+    <%= item.tempo_de_dispensa %>
+  </td>
+
+  <td class="text-center">
+    <%= item.cid %>
+  </td>
+
+  <td class="hidden md:table-cell text-center">
+    <%- if item.funcionario_corrigir? %>
+      <span class="tag active">Corrigido</span>
+    <% elsif item.funcionario_okay? %>
+      <span class="tag active">Aprovado</span>
+    <% else %>
+      <span class="tag pending">Pendente</span>
+    <% end %>
+  </td>
+
+  <td class="hidden md:table-cell text-center">
+    <% if item.empresa_subscrever? %>
+      <span class="tag deactivated">Subscrito</span>
+    <% elsif item.empresa_okay? %>
+      <span class="tag active">Aprovado</span>
+    <% elsif item.empresa_reverter? %>
+      <span class="tag reverted">Revertido</span>
+    <% else %>
+      <span class="tag pending">Pendente</span>
+    <% end %>
+  </td>
+
+  <td class="text-center">
+    <% if item.empresa_subscrever? %>
+      <span class="tag deactivated">Subscrito</span>
+    <% elsif item.funcionario_okay? && item.empresa_okay? %>
+      <span class="tag active">Aprovado</span>
+    <% else %>
+      <span class="tag pending">Pendente</span>
+    <% end %>
+  </td>
+</tr>

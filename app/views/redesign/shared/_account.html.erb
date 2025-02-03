@@ -1,0 +1,13 @@
+<%
+  if employee? && !current_user&.funcionario_lgpd?
+    profile_target_path = aceitar_lgpd_path
+  elsif admin?
+    profile_target_path = rails_admin_path
+  else
+    profile_target_path = edit_registration_path(current_user)
+  end
+%>
+
+<%= link_to profile_target_path, class: 'profile-action' do %>
+  <%= profile_photo_for(current_user, class: 'w-14 h-14 rounded-full outline outline-green-200 hover:outline-green-300') %>
+<% end %>

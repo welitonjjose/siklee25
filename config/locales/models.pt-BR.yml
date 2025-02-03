@@ -1,0 +1,45 @@
+pt-BR:
+  activerecord:
+    models:
+      atestado: Atestado
+      funcionario: Funcionário
+      empresa: Empresa
+      consultant_team: Colaborador
+      consultant: Consultor
+      bi_url: Endereço de BI
+      squad: Departamento
+    attributes:
+      atestado:
+        funcionario_id: Funcionário
+      admin:
+        password: Senha
+        password_confirmation: Confirmação de Senha
+        current_password: Senha atual
+        reset_password_token: Código de redefinição de senha
+      empresa:
+        razao_social: Razão Social
+        cnpj: CNPJ
+        cep: CEP
+        password: Senha
+        password_confirmation: Confirmação de Senha
+        current_password: Senha atual
+        reset_password_token: Código de redefinição de senha
+      funcionario:
+        password: Senha
+        password_confirmation: Confirmação de Senha
+        current_password: Senha atual
+        reset_password_token: Código de redefinição de senha
+      consultant:
+        razao_social: Razão Social
+        cnpj: CNPJ
+        cep: CEP
+        password: Senha
+        password_confirmation: Confirmação de Senha
+        current_password: Senha atual
+        reset_password_token: Código de redefinição de senha
+      consultant_team:
+        function: Função
+        password: Senha
+        password_confirmation: Confirmação de Senha
+        current_password: Senha atual
+        reset_password_token: Código de redefinição de senha

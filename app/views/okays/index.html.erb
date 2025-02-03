@@ -1,0 +1,33 @@
+<h2>Aprovações</h2>
+
+<p class="description">
+  Aqui você encontra todos os atestados pendentes para aprovação
+</p>
+
+<div class="flex flex-row gap-4 flex-wrap justify-end">
+  <%= render 'search' %>
+  <%= render 'filters' %>
+</div>
+
+<div id="medicalCertificatesTable" class="table-with-scroll">
+  <%= render 'table', medical_certificates: @medical_certificates, presenter: @presenter %>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('.search-form').on('submit', function(event) {
+      var form = $(this);
+      // event.preventDefault();
+
+      $.ajax({
+        url: form.attr('action'),
+        method: form.attr('method'),
+        data: form.serialize(),
+        dataType: 'html',
+        success: function(data) {
+          $('#medicalCertificatesTable').html(data);
+        }
+      });
+    });
+  });
+</script>

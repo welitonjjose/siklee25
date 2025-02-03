@@ -1,0 +1,181 @@
+<h2>Funcionários</h2>
+
+<p class="description">
+  Aqui você encontra todos os funcionários da sua empresa
+</p>
+
+<% content_for :section_navbar do %>
+  <li class="active">
+    <%= link_to 'Funcionários', empresas_pages_path %>
+  </li>
+
+  <li>
+    <%= link_to 'Cadastro de Funcionário', new_employee_path %>
+  </li>
+
+  <li>
+    <%= link_to 'Importar Funcionários(as)', importar_funcionarios_empresas_pages_path %>
+  </li>
+<% end %>
+
+<div class="flex flex-row gap-4 max-w-screen-lg flex-wrap hiddeninmodile">
+  <%= form_tag empresas_pages_path, method: :get, class: 'default-search ' do %>
+    <%= hidden_field_tag :role, params[:role] %>
+    <%= hidden_field_tag :user_status, params[:user_status] %>
+    <%= hidden_field_tag :department, params[:department] %>
+    <%= hidden_field_tag :job_function, params[:job_function] %>
+
+    <%= text_field_tag :query, params[:query],
+      placeholder: 'Pesquisar Funcionário(a)...' %>
+
+    <%= button_tag class: 'icon' do %>
+      <%= inline_svg 'icons/magnifier', alt: 'Buscar' %>
+    <% end %>
+  <% end %>
+
+  <%= link_to 'javascript:void(0);', class: "open-modal filter-button #{(params[:role].present? || params[:user_status].present?) ? 'filtered' : ''}" do %>
+    Filtrar
+
+    <%= inline_svg 'icons/filter', alt: 'Filtrar', class: 'icon' %>
+  <% end %>
+
+</div>
+
+<div class="row justify-center w-full blockinmodile">
+  <%= link_to 'javascript:void(0);', class: "open-modal filter-button #{(params[:role].present? || params[:user_status].present?) ? 'filtered' : ''}" do %>
+    Filtrar
+
+    <%= inline_svg 'icons/filter', alt: 'Filtrar', class: 'icon' %>
+  <% end %>
+</div>
+
+
+<%= render 'filters' %>
+<% if @vinculos.length > 0 %>
+  <h3 class="text-lg mt-5 mb-3">
+    Total de Funcionários: <%= @vinculos.length %>
+  </h3>
+<% end %>
+
+<div class="table-with-scroll">
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th role="col" class="text-center">Nome</th>
+        <th role="col" class="hidden md:table-cell text-center">E-mail</th>
+        <th role="col" class="hidden md:table-cell text-center">Departamento</th>
+        <th role="col" class="text-center">Cargo</th>
+        <th role="col" class="hidden md:table-cell text-center">Líder Direto</th>
+        <th role="col" class="hidden md:table-cell text-center">Status Usuário</th>
+        <th role="col" class="hidden md:table-cell text-center">Perfil</th>
+        <th role="col" class="text-center">Qtd. Atestados</th>
+        <th role="col" class="text-center">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% if @vinculos.length > 0 %>
+
+        <% @vinculos.each do |vinculo| %>
+          <tr>
+            <td>
+              <%= vinculo.funcionario.nome %>
+            </td>
+
+            <td class="hidden md:table-cell">
+              <%= vinculo.funcionario.email %>
+            </td>
+
+            <td class="hidden md:table-cell">
+              <%= vinculo.squad %>
+            </td>
+
+            <td class="text-center">
+              <%= vinculo.cargo %>
+            </td>
+
+            <td class="hidden md:table-cell">
+              <%= vinculo.nome_lider %>
+            </td>
+
+            <td class="hidden md:table-cell">
+              <% if vinculo.ativo %>
+                <span class="tag active">Ativo</span>
+              <% else %>
+                <span class="tag deactivated">Inativo</span>
+              <% end %>
+            </td>
+
+            <td class="text-center hidden md:table-cell">
+              <%= t(role_by_bound(vinculo), scope: 'empresas_pages.index.roles') %>
+            </td>
+
+            <td class="text-center">
+              <div class="flex items-center justify-center">
+                <%= vinculo.refatestados.where(empresa_id: current_user.empresa.id).count  %>
+                <%= inline_svg 'icons/alert', style: "width: 20px; height: 20px; margin-left: 10px" if vinculo.sum_tempo_de_dispensa_em_horas_per_funcionario? %>
+              </div>
+            </td>
+
+            <td class="relative">
+              <button aria-haspopup="true" aria-expanded="false" class="action dropdown-button">
+                <%= inline_svg 'icons/ellipsis', alt: 'Ações', class: 'mx-auto' %>
+              </button>
+
+              <ul class="custom-dropdown-menu hidden" aria-labelledby="dropdown-button" role="menu">
+                <% if company? %>
+                  <li role="menuitem">
+                    <%= link_to "#{vinculo.empregador ? 'Remover empregador' : 'Adicionar empregador'}", toggle_empregador_path(vinculo), method: :patch %>
+                  </li>
+
+                  <li role="menuitem">
+                    <%= link_to "#{vinculo.gestor ? 'Remover gestor' : 'Adicionar gestor'}", toggle_gestor_path(vinculo), method: :patch %>
+                  </li>
+                <% end %>
+
+                <li role="menuitem">
+                  <%= link_to t('.actions.edit'), funcionarios_form_path(vinculo.id) %>
+                </li>
+
+                <li role="menuitem">
+                  <%= link_to 'Detalhes', atestados_funcionario_path(vinculo.funcionario) %>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="3" class="table-cell md:hidden text-center">
+            Nenhum(a) funcionário(a) encontrado(a).
+          </td>
+
+          <td colspan="7" class="hidden md:table-cell text-center">
+            Nenhum(a) funcionário(a) encontrado(a).
+          </td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(document).ready(function() {
+    const $button = $('.dropdown-button');
+    const $menu = $('.custom-dropdown-menu');
+
+    $menu.on('mouseleave', ()=> {
+        $menu.addClass('hidden')
+    })
+
+    $button.on('click', function (event) {
+      const targetElement = $(event.currentTarget);
+
+      const menu = targetElement.next();
+      const expanded = targetElement.attr('aria-expanded') === 'true';
+
+      targetElement.attr('aria-expanded', !expanded);
+
+      menu.toggleClass('hidden');
+    });
+  });
+</script>

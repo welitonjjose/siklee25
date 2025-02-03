@@ -1,0 +1,10 @@
+<%= simple_form_for(@squad, {html: { class: 'gray-form'}, defaults: {wrapper_html: { class: 'default-wrapper-form' }, input_html: { class: 'custom-input' }}}) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <%= f.input :name, label: 'Nome' %>
+  <% if consultant? || collaborator? %>
+    <%= f.input :empresa_id, collection: consultant_empresas, label: 'Empresa' %>
+  <% end %>
+  <%= f.button :submit, 'Atualizar', class: 'button' %>
+<% end %>
+

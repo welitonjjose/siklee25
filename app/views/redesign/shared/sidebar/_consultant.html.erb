@@ -1,0 +1,67 @@
+<ul class="sidebar">
+  <li class="<%= 'active' if current_page?(dashboard_path) %>">
+    <%= link_to dashboard_path do %>
+      <%= inline_svg 'icons/home.svg', alt: 'Dashboard' %>
+
+      Home
+    <% end %>
+  </li>
+
+  <li class="<%= 'active' if current_page?(tutorials_path) %>">
+    <%= link_to tutorials_path do %>
+      <%= inline_svg 'icons/tutorials.svg', alt: 'Tutoriais' %>
+
+      Tutoriais
+    <% end %>
+  </li>
+
+  <li class="<%= 'active' if current_page?(collaborators_path) %>">
+    <%= link_to collaborators_path do %>
+      <%= inline_svg 'icons/employees.svg', alt: 'Listar Colaboradores' %>
+
+      Colaboradores(as)
+    <% end %>
+  </li>
+
+  <li class="<%= 'active' if current_page?(funcionarios_pages_path) %>">
+    <%= link_to funcionarios_pages_path do %>
+      <%= inline_svg 'icons/company.svg', alt: 'Listar Empresas', class: 'w-12 -mr-2' %>
+
+      Empresas
+    <% end %>
+  </li>
+
+  <li class="<%= 'active' if current_page?(atestados_path) %>">
+    <%= link_to atestados_path do %>
+      <%= inline_svg 'icons/directory.svg', alt: 'Listar atestados' %>
+
+      Monitoramento de Atestados
+    <% end %>
+  </li>
+
+  <li class="<%= 'active' if current_page?(okays_path) %>">
+    <%= link_to okays_path do %>
+      <%= inline_svg 'icons/check.svg', alt: 'Aprovações' %>
+
+      Aprovações
+    <% end %>
+  </li>
+
+  <li class="<%= 'active' if current_page?(squads_path) %>">
+    <%= link_to squads_path do %>
+      <%= inline_svg 'icons/company.svg', alt: 'Departamentos', class: 'icon w-8 h-8' %>
+
+      Departamentos
+    <% end %>
+  </li>
+</ul>
+
+<ul class="logout">
+  <li>
+    <%= link_to destroy_consultant_session_path, method: :delete do %>
+      <%= inline_svg 'icons/logout.svg', alt: 'Sair da plataforma' %>
+
+      Sair
+    <% end %>
+  </li>
+</ul>

@@ -1,0 +1,246 @@
+<h2 class="text-xl">
+  <%= t('.title') %>
+</h2>
+<p><%= t('.description') %></p>
+
+<%= render partial: 'current_profile' %>
+
+<div class="row justify-end items-center hiddeninmodile">
+  <%= render 'period' %>
+  <%= render 'filters' %>
+</div>
+
+<div class="row justify-center items-center blockinmodile mb-4">
+  <%= render 'filters' %>
+</div>
+
+<div class="relative inline-flex items-center justify-center w-full">
+  <hr class="w-full h-px my-8 bg-gray-200 border-0">
+
+  <span class="absolute px-3 text-lg text-slate-700 bg-white left-20">
+    Visão Geral Atestados
+  </span>
+</div>
+
+<div class="cards-wrapper">
+  <%=link_to @total_employees_path, class: "no-link" do %>
+    <%= render 'redesign/shared/metric', title: :total_employees, value: @total_employees %>
+  <% end %>
+
+  <%=link_to squads_path, class: "no-link" do %>
+    <%= render 'redesign/shared/metric', title: :total_departaments, value: @active_departaments %>
+  <% end %>
+
+  <%=link_to @total_employees_path, class: "no-link" do %>
+    <%= render 'redesign/shared/metric', title: :active_patients, value: @active_patients %>
+  <% end %>
+
+  <%=link_to atestados_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      main_title: :medical_certificates, main_value: @total_medical_certificates,
+      left_title: :medical_certificates_absence_duration_average, left_value: @absence_duration_range_peaks ? "#{@absence_duration_range_peaks}d" : '-',
+      right_title: :medical_certificates_receiving_average, right_value: @receiving_range_peaks ? "#{@receiving_range_peaks}d" : '-'
+    %>
+  <% end %>
+
+  <%=link_to atestados_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metric',
+      title: :medical_certificates_issued,
+      value: @highest_issuer_in_percentage ? "#{@highest_issuer_in_percentage}%" : nil
+    %>
+  <% end %>
+
+  <%=link_to atestados_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metric',
+      icon: 'clock_purple',
+      title: :medical_certificates_receiving_average,
+      value: "#{@receiving_average_in_days}d"
+    %>
+  <% end %>
+
+  <%=link_to atestados_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metric',
+      icon: 'clock_green',
+      title: :medical_certificates_absence_duration_average,
+      value: "#{@absence_duration_average_in_days}d"
+    %>
+  <% end %>
+</div>
+
+<div class="relative inline-flex items-center justify-center w-full">
+  <hr class="w-full h-px my-8 bg-gray-200 border-0">
+
+  <span class="absolute px-3 text-lg text-slate-700 bg-white left-20">
+    Visão Geral Atestados - Performance
+  </span>
+</div>
+
+<div class="cards-wrapper">
+  <%=link_to okays_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'new_file_red',
+      main_title: :pending_medical_certificates, main_value: @total_pending_medical_certificates,
+      left_title: :medical_certificates_absence_duration_average, left_value: @pending_absence_duration_range_peaks ? "#{@pending_absence_duration_range_peaks}d" : '-',
+      right_title: :medical_certificates_receiving_average, right_value: @pending_receiving_range_peaks ? "#{@pending_receiving_range_peaks}d" : '-'
+    %>
+  <% end %>
+
+  <%=link_to okays_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'new_file_green',
+      main_title: :approved_medical_certificates, main_value: @total_approved_medical_certificates,
+      left_title: :medical_certificates_absence_duration_average, left_value: @approved_absence_duration_range_peaks ? "#{@approved_absence_duration_range_peaks}d" : '-',
+      right_title: :medical_certificates_receiving_average, right_value: @approved_receiving_range_peaks ? "#{@approved_receiving_range_peaks}d" : '-'
+    %>
+  <% end %>
+
+  <%=link_to okays_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'new_file_blue',
+      main_title: :annulled_medical_certificates, main_value: @total_annulled_medical_certificates,
+      left_title: :medical_certificates_absence_duration_average, left_value: @annulled_absence_duration_range_peaks ? "#{@annulled_absence_duration_range_peaks}d" : '-',
+      right_title: :medical_certificates_receiving_average, right_value: @annulled_receiving_range_peaks ? "#{@annulled_receiving_range_peaks}d" : '-'
+    %>
+  <% end %>
+
+  <%=link_to okays_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'new_file_pink',
+      main_title: :edited_medical_certificates, main_value: @total_edited_medical_certificates,
+      left_title: :medical_certificates_absence_duration_average, left_value: @edited_absence_duration_range_peaks ? "#{@edited_absence_duration_range_peaks}d" : '-',
+      right_title: :medical_certificates_receiving_average, right_value: @edited_receiving_range_peaks ? "#{@edited_receiving_range_peaks}d" : '-'
+    %>
+  <% end %>
+
+  <%=link_to okays_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'new_file_purple',
+      main_title: :reverted_medical_certificates, main_value: @total_reverted_medical_certificates,
+      left_title: :medical_certificates_absence_duration_average, left_value: @reverted_absence_duration_range_peaks ? "#{@reverted_absence_duration_range_peaks}d" : '-',
+      right_title: :medical_certificates_receiving_average, right_value: @reverted_receiving_range_peaks ? "#{@reverted_receiving_range_peaks}d" : '-'
+    %>
+  <% end %>
+</div>
+
+<div class="relative inline-flex items-center justify-center w-full">
+  <hr class="w-full h-px my-8 bg-gray-200 border-0">
+
+  <span class="absolute px-3 text-lg text-slate-700 bg-white left-20">
+    Lançamentos de Atestados - Origem
+  </span>
+</div>
+
+<div class="cards-wrapper">
+  <%=link_to @total_employees_path, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'new_file_cyan',
+      main_title: :employee_medical_certificates, main_value: @total_employee_medical_certificates,
+      left_title: :medical_certificates_absence_duration_average, left_value: @created_by_employee_absence_duration_range_peaks ? "#{@created_by_employee_absence_duration_range_peaks}d" : '-',
+      right_title: :medical_certificates_receiving_average, right_value: @created_by_employee_receiving_range_peaks ? "#{@created_by_employee_receiving_range_peaks}d" : '-'
+    %>
+  <% end %>
+
+  <%=link_to @total_employees_path, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'new_file_lime',
+      main_title: :company_medical_certificates, main_value: @total_company_medical_certificates,
+      left_title: :medical_certificates_absence_duration_average, left_value: @created_by_company_absence_duration_range_peaks ? "#{@created_by_company_absence_duration_range_peaks}d" : '-',
+      right_title: :medical_certificates_receiving_average, right_value: @created_by_company_receiving_range_peaks ? "#{@created_by_company_receiving_range_peaks}d" : '-'
+    %>
+  <% end %>
+
+  <%=link_to @total_employees_path, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+               icon: 'new_file_blue',
+               main_title: :gestor_medical_certificates,
+               main_value: @total_gestor_medical_certificates,
+               left_title: :medical_certificates_absence_duration_average,
+               left_value: @created_by_gestor_absence_duration_range_peaks ? "#{@created_by_gestor_absence_duration_range_peaks}d" : '-',
+               right_title: :medical_certificates_receiving_average,
+               right_value: @created_by_gestor_receiving_range_peaks ? "#{@created_by_gestor_receiving_range_peaks}d" : '-'
+    %>
+  <% end %>
+
+</div>
+
+<div class="relative inline-flex items-center justify-center w-full">
+  <hr class="w-full h-px my-8 bg-gray-200 border-0">
+
+  <span class="absolute px-3 text-lg text-slate-700 bg-white left-20">
+    Motivos de Afastamentos
+  </span>
+</div>
+
+<div class="cards-wrapper">
+  <%=link_to atestados_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'clock_yellow',
+      main_title: :presence_statement_of_hours,
+      main_value: @total_presence_statement_of_hours,
+      left_title: :medical_certificates_absence_duration_average,
+      left_value: @presence_statement_of_hours_range_peaks ? "#{@presence_statement_of_hours_range_peaks}h" : '-',
+      right_title: :medical_certificates_receiving_average,
+      right_value: @presence_statement_of_hours_receiving_range_peaks ? "#{@presence_statement_of_hours_receiving_range_peaks}d" : '-'
+    %>
+  <%end %>
+
+  <%=link_to atestados_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'clock_lime',
+      main_title: :accompany_statement_of_hours,
+      main_value: @total_accompany_statement_of_hours,
+      left_title: :medical_certificates_absence_duration_average,
+      left_value: @accompany_statement_of_hours_range_peaks ? "#{@accompany_statement_of_hours_range_peaks}h" : '-',
+      right_title: :medical_certificates_receiving_average,
+      right_value: @accompany_statement_of_hours_receiving_range_peaks ? "#{@accompany_statement_of_hours_receiving_range_peaks}d" : '-'
+    %>
+  <%end %>
+
+  <%=link_to atestados_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'clock_blue',
+      main_title: :sickness_statement_of_days,
+      main_value: @total_sickness_statement_of_days,
+      left_title: :medical_certificates_absence_duration_average,
+      left_value: @sickness_statement_of_days_range_peaks ? "#{@sickness_statement_of_days_range_peaks}d" : '-',
+      right_title: :medical_certificates_receiving_average,
+      right_value: @sickness_statement_of_days_receiving_range_peaks ? "#{@sickness_statement_of_days_receiving_range_peaks}d" : '-'
+    %>
+  <%end %>
+
+  <%=link_to atestados_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'clock_pink',
+      main_title: :work_accident_statement_of_days,
+      main_value: @total_work_accident_statement_of_days,
+      left_title: :medical_certificates_absence_duration_average,
+      left_value: @work_accident_statement_of_days_range_peaks ? "#{@work_accident_statement_of_days_range_peaks}d" : '-',
+      right_title: :medical_certificates_receiving_average,
+      right_value: @work_accident_statement_of_days_receiving_range_peaks ? "#{@work_accident_statement_of_days_receiving_range_peaks}d" : '-'
+    %>
+  <%end %>
+
+  <%=link_to atestados_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'clock_orange',
+      main_title: :traffic_accident_statement_of_days,
+      main_value: @total_traffic_accident_statement_of_days,
+      left_title: :medical_certificates_absence_duration_average,
+      left_value: @traffic_accident_statement_of_days_range_peaks ? "#{@traffic_accident_statement_of_days_range_peaks}d" : '-',
+      right_title: :medical_certificates_receiving_average,
+      right_value: @traffic_accident_statement_of_days_receiving_range_peaks ? "#{@traffic_accident_statement_of_days_receiving_range_peaks}d" : '-'
+    %>
+  <%end %>
+
+  <%=link_to atestados_path	, class: "no-link" do %>
+    <%= render 'redesign/shared/metrics',
+      icon: 'clock_purple',
+      main_title: :maternity_leave_statement_of_days,
+      main_value: @total_maternity_leave_statement_of_days,
+      left_title: :medical_certificates_absence_duration_average,
+      left_value: @maternity_leave_statement_of_days_range_peaks ? "#{@maternity_leave_statement_of_days_range_peaks}d" : '-',
+      right_title: :medical_certificates_receiving_average,
+      right_value: @maternity_leave_statement_of_days_receiving_range_peaks ? "#{@maternity_leave_statement_of_days_receiving_range_peaks}d" : '-'
+    %>
+  <%end %>
+</div>

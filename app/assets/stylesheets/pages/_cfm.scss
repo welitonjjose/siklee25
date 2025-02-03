@@ -1,0 +1,32 @@
+.cfm-page {
+  height: 100vh;
+  background: linear-gradient(284.96deg, #4A6987 -15.33%, #2C3E50 107.73%), #2C3E50;
+}
+
+.form-cfm {
+  background: white;
+  padding: 15px 20px;
+  margin-top: 50px;
+  border-radius: 15px;
+  box-shadow: 1px 1px 2px $secondary-blue;
+  width: 470px;
+  h2 {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    color: $main-blue;
+    padding: 10px;
+  }
+  input {
+    margin: auto;
+    width: auto;
+  }
+}
+
+.atestado-title {
+  color: $main-blue;
+  font-weight: 600;
+  margin-bottom: 30px !important;
+}

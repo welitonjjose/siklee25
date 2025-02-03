@@ -1,0 +1,47 @@
+<div class="navbar fixed-top navbar-expand-sm navbar-light navbar-lewagon">
+  <%= link_to "/", class: "navbar-brand" do %>
+    <% if current_empresa&.logo.presence %>
+      <%= image_tag current_empresa.logo, class: "nav-logo" %>
+    <% elsif current_funcionario&.vinculos&.joins(:empresa)&.first&.empresa&.logo.presence %>
+      <%= image_tag current_funcionario.vinculos.first.empresa.logo, class: "nav-logo" %>
+    <% elsif !current_funcionario.nil? && current_app&.logo %>
+      <%= image_tag current_app.logo, class: "nav-logo" %>
+    <% elsif current_funcionario.nil? && current_app&.consultants&.first&.logo&.attached? %>
+      <%= image_tag current_app.consultants.first.logo, class: "nav-logo" %>
+    <% elsif current_user %>
+      <%= image_tag 'logos/siklee_small.png', class: 'nav-logo' %>
+    <% else %>
+      <%= image_tag 'logos/siklee_medium.png', class: 'landing-page-logo' %>
+    <% end %>
+  <% end %>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <% if admin_signed_in? %>
+        <%= render 'shared/menu/admin' %>
+      <% elsif current_funcionario %>
+        <% if current_funcionario.vinculos.last.empregador? %>
+          <%= render 'shared/menu/employee_employer' %>
+        <% elsif current_funcionario.vinculos.last.gestor? %>
+          <%= render 'shared/menu/employee_manager' %>
+        <% else %>
+          <%= render 'shared/menu/employee' %>
+        <% end %>
+      <% elsif current_empresa %>
+        <%= render 'shared/menu/company' %>
+      <% elsif current_consultant %>
+        <%= render 'shared/menu/consultant' %>
+      <% elsif current_consultant_team %>
+        <%= render 'shared/menu/consultant_team' %>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Acessar a plataforma', new_empresa_session_path, class: 'link login-page-link' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

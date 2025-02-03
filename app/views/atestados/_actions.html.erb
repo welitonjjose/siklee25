@@ -1,0 +1,127 @@
+<div class="buttons-group">
+  <% if current_empresa %>
+    <% if medical_certificate.empresa_okay? %>
+      <%= link_to '← Atestado Aprovado', :back, class: 'button' %>
+    <% elsif %>
+    <% medical_certificate.empresa_subscrever? %>
+      <%= link_to '← Atestado Subscrito', :back, class: 'button danger' %>
+    <% elsif %>
+      <%= button_to empresa_okay_path(id: medical_certificate.id), class: 'button', method: 'post' do %>
+        Aprovar
+
+        <%= inline_svg 'icons/check.svg', class: 'icon w-5' %>
+      <% end %>
+      <%= link_to edit_atestado_path(medical_certificate), class: 'button edit' do %>
+        Editar
+
+        <%= inline_svg 'icons/edit.svg', class: 'icon w-5' %>
+      <% end %>
+      <%= button_to empresa_subscrever_path(id: medical_certificate.id), class: 'button danger', method: 'post' do %>
+        Subscrever
+
+        <%= inline_svg 'icons/square_edit.svg', class: 'icon w-5' %>
+      <% end %>
+      <%= link_to empresa_reverter_path(id: medical_certificate.id), class: 'button secondary', method: 'post' do %>
+        Reverter
+
+        <%= inline_svg 'icons/redo.svg', class: 'icon w-5 -my-3' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% if current_admin %>
+    <%= link_to edit_atestado_path(medical_certificate), class: 'button edit' do %>
+      Editar
+
+      <%= inline_svg 'icons/edit.svg', class: 'icon w-5' %>
+    <% end %>
+
+    <%= button_to medical_certificate, class: 'button danger', method: 'delete' do %>
+      Deletar
+
+      <%= inline_svg 'icons/x.svg', class: 'icon w-5' %>
+    <% end %>
+  <% end %>
+
+  <% if current_funcionario && current_funcionario.employer? %>
+    <% if medical_certificate.empresa_okay? %>
+      <%= link_to '← Atestado Aprovado', :back, class: 'button' %>
+    <% elsif %>
+    <% medical_certificate.empresa_subscrever? %>
+      <%= link_to '← Atestado Subscrito', :back, class: 'button danger' %>
+    <% elsif %>
+      <%= button_to empresa_okay_path(id: medical_certificate.id), class: 'button', method: 'post' do %>
+        Empresa/Aprovar
+
+        <%= inline_svg 'icons/check.svg', class: 'icon w-5' %>
+      <% end %>
+      <%= link_to edit_atestado_path(medical_certificate), class: 'button edit' do %>
+        Editar
+
+        <%= inline_svg 'icons/edit.svg', class: 'icon w-5' %>
+      <% end %>
+      <%= button_to empresa_subscrever_path(id: medical_certificate.id), class: 'button danger', method: 'post' do %>
+        Subscrever
+
+        <%= inline_svg 'icons/square_edit.svg', class: 'icon w-5' %>
+      <% end %>
+      <%= link_to empresa_reverter_path(id: medical_certificate.id), class: 'button secondary', method: 'post' do %>
+        Reverter
+
+        <%= inline_svg 'icons/redo.svg', class: 'icon w-5 -my-3' %>
+      <% end %>
+      <% unless medical_certificate.funcionario_okay? %>
+        <%= button_to funcionario_okay_path(id: medical_certificate.id), class: 'button', method: 'post' do %>
+        Aprovar
+
+        <%= inline_svg 'icons/check.svg', class: 'icon w-5' %>
+      <% end %>
+      <% end %>
+    <% end %>
+  <% elsif current_funcionario && current_funcionario.manager?%>
+    <% if medical_certificate.empresa_okay? %>
+      <%= link_to '← Atestado Aprovado Pela Empresa', :back, class: 'button' %>
+    <% elsif %>
+    <% medical_certificate.empresa_subscrever? %>
+      <%= link_to '← Atestado Subscrito Pela Empresa', :back, class: 'button danger' %>
+    <% end %>
+    <% if !medical_certificate.funcionario_okay? %>
+      <%= button_to funcionario_okay_path(id: medical_certificate.id), class: 'button', method: 'post' do %>
+        Aprovar
+
+        <%= inline_svg 'icons/check.svg', class: 'icon w-5' %>
+      <% end %>
+    <% elsif %>
+      <%= link_to '← Atestado Aprovado', :back, class: 'button' %>
+    <% end %>
+  <% elsif current_funcionario %>
+    <% if medical_certificate.empresa_okay? %>
+      <%= link_to '← Atestado Aprovado Pela Empresa', :back, class: 'button' %>
+    <% elsif %>
+    <% medical_certificate.empresa_subscrever? %>
+      <%= link_to '← Atestado Subscrito', :back, class: 'button danger' %>
+    <% end %>
+    <% if !medical_certificate.funcionario_okay? %>
+      <%= button_to funcionario_okay_path(id: medical_certificate.id), class: 'button', method: 'post' do %>
+        Aprovar
+
+        <%= inline_svg 'icons/check.svg', class: 'icon w-5' %>
+      <% end %>
+    <% elsif %>
+      <%= link_to '← Atestado Aprovado', :back, class: 'button' %>
+    <% end %>
+  <% end %>
+
+  <% if medical_certificate.empresa_reverter? && !medical_certificate.funcionario_corrigir? %>
+    <%= link_to edit_atestado_path(medical_certificate), class: 'button secondary' do %>
+      Corrigir
+
+      <%= inline_svg 'icons/square_edit.svg', class: 'icon w-5' %>
+    <% end %>
+  <% end %>
+
+  <% if current_consultant || current_consultant_team %>
+    <%= link_to '← Voltar', :back, class: 'button' %>
+  <% end %>
+
+</div>

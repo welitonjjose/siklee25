@@ -1,0 +1,70 @@
+<h2>Departamentos</h2>
+
+<p class="description">
+  Aqui você encontra todos os departamentos da empresa
+</p>
+
+<% content_for :section_navbar do %>
+  <li class="active">
+    <%= link_to 'Departamentos', squads_path %>
+  </li>
+
+  <li>
+    <%= link_to 'Cadastro Departamento', new_squad_path %>
+  </li>
+<% end %>
+
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th role="col" class="text-left">Departamento</th>
+      <% if consultant? || collaborator? %>
+        <th role="col" class="text-center">Empresa</th>
+      <% end %>
+      <th role="col" class="text-center">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @squads.each do |squad| %>
+      <tr>
+        <td><%= squad.name %></td>
+        <% if consultant? || collaborator? %>
+          <td role="col"><%= squad.empresa.razao_social %></td>
+        <% end %>
+        <td class="relative">
+          <button aria-haspopup="true" aria-expanded="false" class="action dropdown-button">
+            <%= inline_svg 'icons/ellipsis', alt: 'Ações', class: 'mx-auto' %>
+          </button>
+
+          <ul class="custom-dropdown-menu hidden" aria-labelledby="dropdown-button" role="menu">
+            <li role="menuitem">
+              <%= link_to t('.actions.edit'), edit_squad_path(squad.id), class: 'edit-info' %>
+            </li>
+            <li role="menuitem">
+              <%= link_to t('.actions.destroy'), squad_path(squad.id), method: :delete, class: 'edit-info', data: { confirm: t('.confirmations.destroy') } %>
+            </li>
+          </ul>
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  $(document).ready(function() {
+    const $button = $('.dropdown-button');
+    const $menu = $('.custom-dropdown-menu');
+
+    $button.on('click', function (event) {
+      const targetElement = $(event.currentTarget);
+
+      const menu = targetElement.next();
+      const expanded = targetElement.attr('aria-expanded') === 'true';
+
+      targetElement.attr('aria-expanded', !expanded);
+
+      menu.toggleClass('hidden');
+    });
+  });
+</script>
