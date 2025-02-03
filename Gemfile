@@ -118,7 +118,7 @@ gem 'active_storage_validations', '~> 0.9.7'
 # gem 'rswag-api', '2.8.0'
 # gem 'rswag-ui', '2.8.0'
 
-gem "escompress", "~> 0.3.0"
+gem "escompress", "~> 1.0.0"
 gem 'rails_12factor', group: :production
 # gem 'caxlsx'
 # gem 'caxlsx_rails'

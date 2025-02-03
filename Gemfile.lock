@@ -162,7 +162,7 @@ GEM
     enumerate_it (4.0.0)
       activesupport (>= 6.0.0)
     erubi (1.13.1)
-    escompress (0.3.0)
+    escompress (1.0.0)
     et-orbi (1.2.11)
       tzinfo
     execjs (2.10.0)
@@ -586,7 +586,7 @@ DEPENDENCIES
   devise-security
   devise-two-factor
   enumerate_it
-  escompress (~> 0.3.0)
+  escompress (~> 1.0.0)
   faker
   font-awesome-sass
   httparty
