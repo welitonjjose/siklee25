@@ -77,7 +77,7 @@ gem 'faker'
 gem 'blazer'
 gem 'devise-i18n'
 gem 'rails_admin'
-gem "omniauth", "~> 1.9.1"
+gem "omniauth", "~> 2.1.2"
 gem 'omniauth-facebook'
 #gem 'receitaws'
 gem 'httparty'
