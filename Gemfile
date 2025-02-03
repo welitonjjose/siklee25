@@ -110,7 +110,7 @@ gem 'bulk_insert', require: false
 
 gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.7'
 
-gem 'active_storage_validations', '~> 0.9.7'
+gem 'active_storage_validations', '~> 2.0.2'
 
 # API Siklee Authentication
 # gem 'simple_token_authentication'
