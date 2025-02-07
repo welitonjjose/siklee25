@@ -5,7 +5,7 @@ window.$ = jQuery
 $(document).ready(() => {
     $("#btnGetEmail").click((e) => {
         const resource = $("#resource").val();
-        alert(resource) 
+    
         e.preventDefault()
         var email = $("#getEmail").val()
 

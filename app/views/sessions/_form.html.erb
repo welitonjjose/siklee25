@@ -6,7 +6,7 @@
 }) do |f| %>
   <%= render 'sessions/flashes' %>
 
-  <input type="hidden" name="resource" value="<%=resource.class.to_s %>" >
+  <input type="hidden" id="resource" name="resource" value="<%=resource.class.to_s %>" >
   <div class="flex flex-col space-y-2" id="divemail">
     <div class="flex flex-col space-y-2">
       <%= f.label :email, class: 'text-sm' %>
