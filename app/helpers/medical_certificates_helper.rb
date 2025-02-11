@@ -79,7 +79,7 @@ module MedicalCertificatesHelper
   end
 
   def default_profile_photo(options)
-    image_tag 'default_avatar.jpg', AVATAR_OPTIONS[:default].merge(options)
+    # image_tag 'default_avatar.jpg', AVATAR_OPTIONS[:default].merge(options)
   end
 
   def image_preview_tag(url:)

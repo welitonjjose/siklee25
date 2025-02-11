@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
 
   resources :employees, only: %i[new create], path: 'funcionarios'
-  # resource :two_factor_settings, except: [:index, :show]
+  resource :two_factor_settings#, except: [:index, :show]
 
   # Auth
   devise_for :admin, controllers: {

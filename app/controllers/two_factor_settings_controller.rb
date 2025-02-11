@@ -1,5 +1,5 @@
 class TwoFactorSettingsController < ApplicationController
-  layout 'redesign'
+  # layout 'redesign'
   def new
     if current_user.otp_required_for_login
       flash[:alert] = 'A seguranca de 2 fatores está habilitada.'
